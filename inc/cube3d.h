@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:44:41 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/01/11 16:21:45 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/01/11 16:48:55 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@
 
 // keys
 
-# define ESC 53
+# define ESC 65307
 # define W 13
 # define A 0
 # define S 1
@@ -101,4 +101,5 @@ void						*tracked_malloc(t_garbage_collector *gc,
 								size_t size);
 void						my_mlx_pixel_put(t_data *data, int x, int y,
 								int color);
+int						close_window(int keycode, t_cube *cube);
 #endif
