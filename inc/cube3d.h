@@ -1,34 +1,32 @@
-# ifndef CUBE3D_H
-#define CUBE3D_H
+#ifndef CUBE3D_H
+# define CUBE3D_H
 
+# include <errno.h>
+# include <fcntl.h>
+# include <math.h>
+# include <mlx.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <string.h>
-# include <math.h>
-# include <unistd.h>
-# include <fcntl.h>
-# include <errno.h>
-# include <sys/types.h>
 # include <sys/stat.h>
-# include <mlx.h>
+# include <sys/types.h>
+# include <unistd.h>
 
 //----------------------------==----------//
 //-----------MACROS-------====------------//
 //--------------==------------------------//
 
+// colors
 
-//colors
+# define RED "\033[0;31m"
+# define GREEN "\033[0;32m"
+# define YELLOW "\033[0;33m"
+# define BLUE "\033[0;34m"
+# define MAGENTA "\033[0;35m"
+# define ORANGE "\033[0;36m"
+# define RESET "\033[0m"
 
-# define BLACK 0x000000
-# define WHITE 0xFFFFFF
-# define RED 0xFF0000
-# define GREEN 0x00FF00
-# define BLUE 0x0000FF
-# define YELLOW 0xFFFF00
-# define CYAN 0x00FFFF
-# define MAGENTA 0xFF00FF
-
-//keys
+// keys
 
 # define ESC 53
 # define W 13
@@ -40,10 +38,15 @@
 # define UP 126
 # define DOWN 125
 
+// Struct (raycaster)
 
+typedef struct s_cube
+{
+	void	*mlx;
+	void	*mlx_window;
+}			t_cube;
 
-
-//FUNCTIONS :
+// FUNCTIONS :
 
 //----INITIALIZATION-==---------------//
 //------------------=--==-------------//
@@ -63,8 +66,7 @@
 //--------------------------------------//
 //----DRAWING---------------------------//
 
-
-
-
+void		print_error(char *str);
+void		init_mlx(t_cube *cube);
 
 #endif
