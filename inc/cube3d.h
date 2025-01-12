@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:44:41 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/01/11 16:48:55 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/01/12 12:07:11 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,10 @@
 // keys
 
 # define ESC 65307
-# define W 13
-# define A 0
-# define S 1
-# define D 2
+# define W_KEY 119
+# define A_KEY 97
+# define S_KEY 115
+# define D_KEY 100
 # define LEFT 123
 # define RIGHT 124
 # define UP 126
@@ -77,7 +77,10 @@ typedef struct s_cube
 	void					*mlx;
 	void					*mlx_window;
 	t_garbage_collector		*gc;
-	char					**map;
+	t_data					*data;
+	int						map[10][10];
+	int						p_x;
+	int						p_y;
 }							t_cube;
 
 // FUNCTIONS :
@@ -93,7 +96,7 @@ typedef struct s_cube
 //----DRAWING---------------------------//
 
 void						print_error(char *str);
-void						init_mlx(t_cube *cube);
+void						init_mlx(t_cube *cube, t_data *data);
 t_garbage_collector			*init_garbage_collector(void);
 void						add_garbage(t_garbage_collector *gc, void *ptr);
 void						*free_all(t_garbage_collector *gc);
@@ -101,5 +104,5 @@ void						*tracked_malloc(t_garbage_collector *gc,
 								size_t size);
 void						my_mlx_pixel_put(t_data *data, int x, int y,
 								int color);
-int						close_window(int keycode, t_cube *cube);
+int							handle_keypress(int keycode, t_cube *cube);
 #endif

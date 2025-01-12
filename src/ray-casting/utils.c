@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:44:33 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/01/11 15:44:34 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/01/12 11:15:22 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,5 +92,6 @@ void	*free_all(t_garbage_collector *gc)
 		free(temp);
 	}
 	free(gc);
+	gc = NULL;
 	return (NULL);
 }
