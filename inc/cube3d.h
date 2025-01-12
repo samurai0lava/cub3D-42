@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:44:41 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/01/12 12:07:11 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/01/12 12:53:35 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,11 @@
 # define A_KEY 97
 # define S_KEY 115
 # define D_KEY 100
-# define LEFT 123
-# define RIGHT 124
 # define UP 126
 # define DOWN 125
+# define PI 3.14159265359
+# define LEFT_KEY 123 
+# define RIGHT_KEY 124
 
 // Struct (raycaster)
 typedef struct s_garbage_node
@@ -81,6 +82,7 @@ typedef struct s_cube
 	int						map[10][10];
 	int						p_x;
 	int						p_y;
+	double					angle;
 }							t_cube;
 
 // FUNCTIONS :

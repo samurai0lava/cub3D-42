@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:44:29 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/01/12 11:38:24 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/01/12 13:03:13 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ void	init_cube(t_cube *cube, t_data *data)
 	data->line_length = 0;
 	cube->p_x = 250;
 	cube->p_y= 250;
+	cube->angle = 0;
 }
-
 int	main(void)
 {
 	t_cube	*cube;
