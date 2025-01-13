@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:44:41 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/01/12 12:53:35 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/01/13 12:59:16 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,9 @@
 # define UP 126
 # define DOWN 125
 # define PI 3.14159265359
-# define LEFT_KEY 123 
-# define RIGHT_KEY 124
+#define M_PI_2 1.57079632679489661923
+# define LEFT_KEY 65361 
+# define RIGHT_KEY 65363
 
 // Struct (raycaster)
 typedef struct s_garbage_node
