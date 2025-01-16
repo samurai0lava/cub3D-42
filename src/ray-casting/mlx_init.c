@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:44:52 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/01/13 13:17:24 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/01/15 12:43:16 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -218,7 +218,6 @@ int	handle_keypress(int keycode, t_cube *cube)
 		cube->p_x = new_x;
 		cube->p_y = new_y;
 	}
-	// Redraw map and player
 	draw_map(cube->data, cube->map);
 	draw_filled_circle(cube, cube->p_x, cube->p_y, 60, 0x0000FFFF);
 	mlx_put_image_to_window(cube->mlx, cube->mlx_window, cube->data->img, 0, 0);
