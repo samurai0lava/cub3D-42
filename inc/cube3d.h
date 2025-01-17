@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:44:41 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/01/17 12:18:09 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/01/17 12:33:12 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@
 # define LEFT_KEY 65361
 # define RIGHT_KEY 65363
 # define S_RES 500
+# define FOV PI/3
+
 
 // Struct (raycaster)
 typedef struct s_garbage_node
