@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:44:41 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/01/13 12:59:16 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/01/17 12:18:09 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,10 @@
 # define UP 126
 # define DOWN 125
 # define PI 3.14159265359
-#define M_PI_2 1.57079632679489661923
-# define LEFT_KEY 65361 
+# define M_PI_2 1.57079632679489661923
+# define LEFT_KEY 65361
 # define RIGHT_KEY 65363
+# define S_RES 500
 
 // Struct (raycaster)
 typedef struct s_garbage_node
@@ -108,4 +109,7 @@ void						*tracked_malloc(t_garbage_collector *gc,
 void						my_mlx_pixel_put(t_data *data, int x, int y,
 								int color);
 int							handle_keypress(int keycode, t_cube *cube);
+void						cast_away(t_cube *cube);
+void						draw_line(t_cube *cube, int x1, int y1,
+								double angle, int length, int color);
 #endif

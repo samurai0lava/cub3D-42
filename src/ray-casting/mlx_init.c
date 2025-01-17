@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:44:52 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/01/15 12:43:16 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/01/17 12:16:14 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	draw_rectangle(t_data *data, int x, int y, int size, int color)
 	{
 		for (int j = y; j < y + size; j++)
 		{
-			if (i >= 0 && i < 500 && j >= 0 && j < 500)
+			if (i >= 0 && i < S_RES && j >= 0 && j < S_RES)
 			{
 				my_mlx_pixel_put(data, i, j, color);
 			}
@@ -40,10 +40,10 @@ void	draw_map(t_data *data, int map[10][10])
 	int	y;
 
 	x = 0;
-	while (x < 500)
+	while (x < S_RES)
 	{
 		y = 0;
-		while (y < 500)
+		while (y < S_RES)
 		{
 			my_mlx_pixel_put(data, x, y, 0x00000000);
 			y++;
@@ -65,38 +65,76 @@ void	draw_map(t_data *data, int map[10][10])
 		y++;
 	}
 }
+//DDA algorithm to draw a line
+// void	draw_line(t_data *data, int x1, int y1, double angle, int length,
+// 		int color)
+// {
+// 	int		x2;
+// 	int		y2;
+// 	double	dx;
+// 	double	dy;
+// 	double	steps;
+// 	double	x_inc;
+// 	double	y_inc;
+// 	double	x;
+// 	double	y;
+// 	int		i;
 
-void	draw_line(t_data *data, int x1, int y1, double angle, int length,
-		int color)
+// 	i = 0;
+// 	x2 = x1 + cos(angle) * length;
+// 	y2 = y1 + sin(angle) * length;
+// 	dx = x2 - x1;
+// 	dy = y2 - y1;
+// 	steps = fmax(fabs(dx), fabs(dy));
+// 	x_inc = dx / steps;
+// 	y_inc = dy / steps;
+// 	x = x1;
+// 	y = y1;
+// 	while (i <= steps)
+// 	{
+// 		if (x >= 0 && x < S_RES && y >= 0 && y < S_RES)
+// 			my_mlx_pixel_put(data, (int)x, (int)y, color);
+// 		x += x_inc;
+// 		y += y_inc;
+// 		i++;
+// 	}
+// }
+
+
+void draw_line(t_cube *cube, int x1, int y1, double angle, int length, int color)
 {
-	int		x2;
-	int		y2;
-	double	dx;
-	double	dy;
-	double	steps;
-	double	x_inc;
-	double	y_inc;
-	double	x;
-	double	y;
-
-	x2 = x1 + cos(angle) * length;
-	y2 = y1 + sin(angle) * length;
-	dx = x2 - x1;
-	dy = y2 - y1;
-	steps = fmax(fabs(dx), fabs(dy));
-	x_inc = dx / steps;
-	y_inc = dy / steps;
-	x = x1;
-	y = y1;
-	for (int i = 0; i <= steps; i++)
-	{
-		if (x >= 0 && x < 500 && y >= 0 && y < 500)
-			my_mlx_pixel_put(data, (int)x, (int)y, color);
-		x += x_inc;
-		y += y_inc;
-	}
+    double dx, dy;
+    double x, y;
+    double x_inc, y_inc;
+    double steps;
+    int i = 0;
+    int map_x, map_y;
+    
+    int x2 = x1 + cos(angle) * length;
+    int y2 = y1 + sin(angle) * length;
+    dx = x2 - x1;
+    dy = y2 - y1;
+    steps = fmax(fabs(dx), fabs(dy));
+    x_inc = dx / steps;
+    y_inc = dy / steps;
+    x = x1;
+    y = y1;
+    while (i <= steps)
+    {
+        map_x = (int)x / 50;
+        map_y = (int)y / 50;
+        if (map_x >= 0 && map_x < 10 && map_y >= 0 && map_y < 10)
+        {
+            if (cube->map[map_y][map_x] == 1)
+                break;
+            if (x >= 0 && x < S_RES && y >= 0 && y < S_RES)
+                my_mlx_pixel_put(cube->data, (int)x, (int)y, color);
+        }
+        x += x_inc;
+        y += y_inc;
+        i++;
+    }
 }
-
 void	draw_filled_circle(t_cube *cube, int center_x, int center_y, int radius,
 		int color)
 {
@@ -112,15 +150,15 @@ void	draw_filled_circle(t_cube *cube, int center_x, int center_y, int radius,
 			if (((x - center_x) * (x - center_x) + (y - center_y) * (y
 						- center_y)) <= radius_squared)
 			{
-				if (x >= 0 && x < 500 && y >= 0 && y < 500)
+				if (x >= 0 && x < S_RES && y >= 0 && y < S_RES)
 				{
 					my_mlx_pixel_put(cube->data, x, y, color);
 				}
 			}
 		}
 	}
-	draw_line(cube->data, center_x, center_y, cube->angle, radius * 2,
-		0x00FF0000);
+	cast_away(cube);
+
 }
 
 void	init_mlx(t_cube *cube, t_data *data)
@@ -139,13 +177,13 @@ void	init_mlx(t_cube *cube, t_data *data)
 		free_all(cube->gc);
 		return ;
 	}
-	cube->mlx_window = mlx_new_window(cube->mlx, 500, 500, "Cub3D");
+	cube->mlx_window = mlx_new_window(cube->mlx, S_RES, S_RES, "Cub3D");
 	if (cube->mlx_window == NULL)
 	{
 		print_error(RED "mlx_window failed\n" RESET);
 		return ;
 	}
-	data->img = mlx_new_image(cube->mlx, 500, 500);
+	data->img = mlx_new_image(cube->mlx, S_RES, S_RES);
 	data->addr = mlx_get_data_addr(data->img, &data->bits_per_pixel,
 			&data->line_length, &data->endian);
 	cube->data = data;
