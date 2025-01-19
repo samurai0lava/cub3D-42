@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:44:52 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/01/17 18:25:23 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/01/19 16:16:27 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,7 +137,7 @@ void	draw_filled_circle(t_cube *cube, int center_x, int center_y, int radius,
 		}
 		y++;
 	}
-	cast_away(cube);
+	cast_away_minirays(cube);
 }
 
 void	init_mlx(t_cube *cube, t_data *data)
@@ -171,7 +171,8 @@ void	init_mlx(t_cube *cube, t_data *data)
 	cube->angle = 0;
 	ft_memcpy(cube->map, example_map, sizeof(example_map));
 	draw_map(data, cube->map);
-	draw_filled_circle(cube, cube->p_x, cube->p_y, 60, 0x0000FFFF);
+	draw_filled_circle(cube, cube->p_x, cube->p_y, 60, 0x0000FFFF); //the minimap
+	cast_away(cube); //the raycster 3D effect
 	mlx_put_image_to_window(cube->mlx, cube->mlx_window, data->img, 0, 0);
 	mlx_hook(cube->mlx_window, 2, 1L << 0, handle_keypress, cube);
 	mlx_loop(cube->mlx);
@@ -196,6 +197,7 @@ int	handle_keypress(int keycode, t_cube *cube)
 			mlx_destroy_image(cube->mlx, cube->data->img);
 		mlx_destroy_window(cube->mlx, cube->mlx_window);
 		free_all(cube->gc);
+		free(cube);
 		exit(0);
 	}
 	else if (keycode == W_KEY)
@@ -208,12 +210,12 @@ int	handle_keypress(int keycode, t_cube *cube)
 		new_x -= cos(cube->angle) * movement_speed;
 		new_y -= sin(cube->angle) * movement_speed;
 	}
-	else if (keycode == A_KEY)
+	else if (keycode == D_KEY)
 	{
 		new_x += cos(cube->angle + M_PI_2) * movement_speed;
 		new_y += sin(cube->angle + M_PI_2) * movement_speed;
 	}
-	else if (keycode == D_KEY)
+	else if (keycode == A_KEY)
 	{
 		new_x += cos(cube->angle - M_PI_2) * movement_speed;
 		new_y += sin(cube->angle - M_PI_2) * movement_speed;
@@ -236,7 +238,8 @@ int	handle_keypress(int keycode, t_cube *cube)
 		cube->p_y = new_y;
 	}
 	draw_map(cube->data, cube->map);
-	draw_filled_circle(cube, cube->p_x, cube->p_y, 60, 0x0000FFFF);
+	draw_filled_circle(cube, cube->p_x, cube->p_y, 60, 0x0000FFFF); //the minimap
+	cast_away(cube); //the raycster 3D effect
 	mlx_put_image_to_window(cube->mlx, cube->mlx_window, cube->data->img, 0, 0);
 	return (1);
 }
