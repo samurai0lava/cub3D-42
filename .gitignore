@@ -3,8 +3,8 @@
 
 # Object files
 src/*.o
-parcing/*.o
-ray_caster/*.o
+src/parcing/*.o
+src/ray_caster/*.o
 # Linker output
 *.ilk
 *.map
