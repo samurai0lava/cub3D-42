@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 12:44:24 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/01/19 16:06:11 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/01/20 12:21:17 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,7 @@ void	cast_away(t_cube *cube)
 			map_y = (int)y / 50;
 			if (map_x >= 0 && map_x < 10 && map_y >= 0 && map_y < 10)
 			{
-				if (cube->map[map_y][map_x] == 1)
+				if (cube->map[map_y][map_x] != 0)
 				{
 					hit_wall = 1;
 					break ;
