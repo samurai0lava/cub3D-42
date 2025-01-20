@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycaster.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: samurai0lava <samurai0lava@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 12:44:24 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/01/20 15:09:00 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/01/20 15:48:44 by samurai0lav      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,136 +86,76 @@ void	clean_display(t_cube *cube)
 	}
 }
 
-void	cast_away(t_cube *cube)
+int color_shading(double distance)
 {
-	int num_rays;
-	double ray_angle;
-	double start_angle;
-	double angle_step;
-	int i;
-	double distance;
-	int wall_height;
-	double x, y;
-	double steps;
-	int hit_wall;
-	int map_x, map_y;
-
-	num_rays = S_RES;
-	angle_step = FOV / num_rays;
-	start_angle = cube->angle - (FOV / 2);
-	clean_display(cube);
-
-	i = 0;
-	while (i < num_rays)
-	{
-		ray_angle = start_angle + (i * angle_step);
-		ray_angle = fmod(ray_angle + 2 * PI, 2 * PI);
-		x = cube->p_x;
-		y = cube->p_y;
-		steps = 0;
-		hit_wall = 0;
-		while (steps < 1000 && !hit_wall)                         
-		{
-			x += cos(ray_angle);
-			y += sin(ray_angle);
-			map_x = (int)x / 50;
-			map_y = (int)y / 50;
-			if (map_x >= 0 && map_x < 10 && map_y >= 0 && map_y < 10)
-			{
-				if (cube->map[map_y][map_x] != 0)
-				{
-					hit_wall = 1;
-					break ;
-				}
-			}
-			steps++;
-		}
-
-		if (hit_wall)
-		{
-			distance = get_distance(cube->p_x, cube->p_y, x, y) * cos(ray_angle
-					- cube->angle);
-			wall_height = (int)((S_RES * 50) / distance);
-			draw_vertical_line(cube, i, wall_height, 0x00FFFFFF);
-		}
-		i++;
-	}
+	int color;
+	int shade;
+	 
+	shade = 0xFF - (int)(0xFF * (distance / 1000));
+    if (shade < 0) shade = 0;
+        color = (shade << 16) | (shade << 8) | shade;
+	return (color);
 }
 
-// void    cast_away(t_cube *cube)
-// {
-//     int num_rays;
-//     double ray_angle;
-//     double start_angle;
-//     double angle_step;
-//     int i;
-//     double distance;
-//     int wall_height;
-//     double x, y;
-//     double dx, dy;
-//     double ray_step;
-//     int hit_wall;
-//     int map_x, map_y;
 
-//     num_rays = S_RES;
-//     angle_step = FOV / num_rays;
-//     start_angle = cube->angle - (FOV / 2);
-//     clean_display(cube);
-//     ray_step = 0.1; // Smaller step size for smoother collision detection
 
-//     i = 0;
-//     while (i < num_rays)
-//     {
-//         ray_angle = start_angle + (i * angle_step);
-//         ray_angle = fmod(ray_angle + 2 * PI, 2 * PI);
-        
-//         // Precalculate ray direction
-//         dx = cos(ray_angle) * ray_step;
-//         dy = sin(ray_angle) * ray_step;
-        
-//         x = cube->p_x;
-//         y = cube->p_y;
-//         hit_wall = 0;
-//         distance = 0.0;
-        
-//         // Ray marching with smaller steps
-//         while (distance < 1000 && !hit_wall)
-//         {
-//             x += dx;
-//             y += dy;
-//             distance += ray_step;
-            
-//             map_x = (int)x / 50;
-//             map_y = (int)y / 50;
-            
-//             if (map_x >= 0 && map_x < 10 && map_y >= 0 && map_y < 10)
-//             {
-//                 if (cube->map[map_y][map_x] != 0)
-//                 {
-//                     hit_wall = 1;
-                    
-//                     // Calculate precise wall distance
-//                     double true_distance = get_distance(cube->p_x, cube->p_y, x, y);
-                    
-//                     // Apply fisheye correction
-//                     double angle_diff = ray_angle - cube->angle;
-//                     if (angle_diff < 0) angle_diff += 2 * PI;
-//                     if (angle_diff > 2 * PI) angle_diff -= 2 * PI;
-//                     true_distance *= cos(angle_diff);
-                    
-//                     // Calculate wall height with distance scaling
-//                     wall_height = (int)((S_RES * 50) / true_distance);
-                    
-                    // // Add shading based on distance
-                    // int shade = 0xFF - (int)(0xFF * (true_distance / 1000));
-                    // if (shade < 0) shade = 0;
-                    // int color = (shade << 16) | (shade << 8) | shade;
-                    
-//                     draw_vertical_line(cube, i, wall_height, color);
-//                     break;
-//                 }
-//             }
-//         }
-//         i++;
-//     }
-// }
+void    cast_away(t_cube *cube)
+{
+    int num_rays;
+    double ray_angle;
+    double start_angle;
+    double angle_step;
+    int i;
+    double distance;
+    int wall_height;
+    double x, y;
+    double dx, dy;
+    double ray_step;
+    int hit_wall;
+    int map_x, map_y;
+	double true_distance;
+	double angle_diff ;
+    num_rays = S_RES;
+    angle_step = FOV / num_rays;
+    start_angle = cube->angle - (FOV / 2);
+    clean_display(cube);
+    ray_step = 0.1;
+    i = 0;
+    while (i < num_rays)
+    {
+        ray_angle = start_angle + (i * angle_step);
+        ray_angle = fmod(ray_angle + 2 * PI, 2 * PI);
+        dx = cos(ray_angle) * ray_step;
+        dy = sin(ray_angle) * ray_step;
+        x = cube->p_x;
+        y = cube->p_y;
+        hit_wall = 0;
+        distance = 0.0;
+        while (distance < 1000 && !hit_wall)
+        {
+            x += dx;
+            y += dy;
+            distance += ray_step;
+            map_x = (int)x / 50;
+            map_y = (int)y / 50;
+            if (map_x >= 0 && map_x < 10 && map_y >= 0 && map_y < 10)
+            {
+                if (cube->map[map_y][map_x] != 0)
+                {
+                    hit_wall = 1;       
+                    true_distance = get_distance(cube->p_x, cube->p_y, x, y);
+					angle_diff = ray_angle - cube->angle;
+                    if (angle_diff < 0)
+						angle_diff += 2 * PI;
+                    if (angle_diff > 2 * PI)
+						angle_diff -= 2 * PI;
+                    true_distance *= cos(angle_diff);
+                    wall_height = (int)((S_RES * 50) / true_distance);
+                    draw_vertical_line(cube, i, wall_height, color_shading(true_distance));
+                    break;
+                }
+            }
+        }
+        i++;
+    }
+}
