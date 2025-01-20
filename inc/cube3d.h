@@ -6,7 +6,7 @@
 /*   By: samurai0lava <samurai0lava@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:44:41 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/01/20 14:01:52 by samurai0lav      ###   ########.fr       */
+/*   Updated: 2025/01/20 19:05:59 by samurai0lav      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,8 @@
 # define M_PI_2 1.57079632679489661923
 # define LEFT_KEY 65361
 # define RIGHT_KEY 65363
-# define S_RES 800
+# define S_RES 1000
+
 # define FOV PI / 3
 
 // Struct (raycaster)
