@@ -3,35 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   raycaster.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: samurai0lava <samurai0lava@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 12:44:24 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/01/20 19:32:02 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/01/20 20:01:17 by samurai0lav      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/cube3d.h"
-
-void	cast_away_minirays(t_cube *cube)
-{
-	int		num_rays;
-	double	ray_angle;
-	double	start_angle;
-	double	angle_step;
-	int		i;
-
-	num_rays = 100;
-	angle_step = FOV / num_rays;
-	start_angle = cube->angle - (FOV / 2);
-	i = 0;
-	while (i < num_rays)
-	{
-		ray_angle = start_angle + (i * angle_step);
-		ray_angle = fmod(ray_angle + 2 * PI, 2 * PI);
-		draw_line(cube, cube->p_x, cube->p_y, ray_angle, 500, 0x00FF0000);
-		i++;
-	}
-}
 
 void	draw_vertical_line(t_cube *cube, int x, int wall_height, int color)
 {
@@ -151,22 +130,13 @@ void	cast_away(t_cube *cube)
 					true_distance *= cos(angle_diff);
 					wall_height = (int)((S_RES * 50) / true_distance);
 					if (cube->map[map_y][map_x] == 2)
-					{
 						draw_vertical_line(cube, i, wall_height, 0x0000FFFF);
-					}
 					else if (cube->map[map_y][map_x] == 3)
-					{
 						draw_vertical_line(cube, i, wall_height, 0x00FFFF00);
-					}
 					else if (cube->map[map_y][map_x] == 4)
-					{
 						draw_vertical_line(cube, i, wall_height, 0x00FF00FF);
-					}
 					else
-					{
 						draw_vertical_line(cube, i, wall_height, 0x00FFFFFF);
-					}
-
 					break ;
 				}
 			}
