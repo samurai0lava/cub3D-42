@@ -3,17 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   mini_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: samurai0lava <samurai0lava@student.42.f    +#+  +:+       +#+        */
+/*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 15:02:54 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/01/20 19:59:18 by samurai0lav      ###   ########.fr       */
+/*   Updated: 2025/01/20 20:15:37 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/cube3d.h"
 
-void	draw_line(t_cube *cube, int x1, int y1, double angle, int length,
-		int color)
+void	draw_line(t_cube *cube, double angle, int length, int color)
 {
 	double	steps;
 	int		i;
@@ -25,15 +24,15 @@ void	draw_line(t_cube *cube, int x1, int y1, double angle, int length,
 	double x_inc, y_inc;
 	i = 0;
 	int map_x, map_y;
-	x2 = x1 + cos(angle) * length;
-	y2 = y1 + sin(angle) * length;
-	dx = x2 - x1;
-	dy = y2 - y1;
+	x2 = cube->p_x + cos(angle) * length;
+	y2 = cube->p_y + sin(angle) * length;
+	dx = x2 - cube->p_x;
+	dy = y2 - cube->p_y;
 	steps = fmax(fabs(dx), fabs(dy));
 	x_inc = dx / steps;
 	y_inc = dy / steps;
-	x = x1;
-	y = y1;
+	x = cube->p_x;
+	y = cube->p_y;
 	while (i <= steps)
 	{
 		map_x = (int)x / 50;
@@ -51,7 +50,6 @@ void	draw_line(t_cube *cube, int x1, int y1, double angle, int length,
 	}
 }
 
-
 void	cast_away_minirays(t_cube *cube)
 {
 	int		num_rays;
@@ -68,7 +66,7 @@ void	cast_away_minirays(t_cube *cube)
 	{
 		ray_angle = start_angle + (i * angle_step);
 		ray_angle = fmod(ray_angle + 2 * PI, 2 * PI);
-		draw_line(cube, cube->p_x, cube->p_y, ray_angle, 500, 0x00FF0000);
+		draw_line(cube, ray_angle, 500, 0x0000FFEE);
 		i++;
 	}
 }
@@ -77,8 +75,8 @@ void	draw_filled_circle(t_cube *cube, int center_x, int center_y, int radius,
 		int color)
 {
 	double	radius_squared;
-	int x, y;
 
+	int x, y;
 	radius_squared = 10;
 	draw_map(cube->data, cube->map);
 	y = center_y - radius;
