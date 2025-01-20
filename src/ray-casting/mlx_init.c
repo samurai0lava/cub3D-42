@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_init.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: samurai0lava <samurai0lava@student.42.f    +#+  +:+       +#+        */
+/*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:44:52 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/01/20 19:10:36 by samurai0lav      ###   ########.fr       */
+/*   Updated: 2025/01/20 19:38:39 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	draw_map(t_data *data, int map[10][10])
 		x = 0;
 		while (x < 10)
 		{
-			if (map[y][x] == 1)
+			if (map[y][x] != 0)
 				draw_rectangle(data, x * 50, y * 50, 50, 0x00FFFFFF);
 			else
 				draw_rectangle(data, x * 50, y * 50, 50, 0x00333333);
@@ -101,7 +101,7 @@ void	draw_line(t_cube *cube, int x1, int y1, double angle, int length,
 		map_y = (int)y / 50;
 		if (map_x >= 0 && map_x < 10 && map_y >= 0 && map_y < 10)
 		{
-			if (cube->map[map_y][map_x] == 1)
+			if (cube->map[map_y][map_x] != 0)
 				break ;
 			if (x >= 0 && x < S_RES && y >= 0 && y < S_RES)
 				my_mlx_pixel_put(cube->data, (int)x, (int)y, color);
@@ -142,12 +142,17 @@ void	draw_filled_circle(t_cube *cube, int center_x, int center_y, int radius,
 
 void	init_mlx(t_cube *cube, t_data *data)
 {
-	int	example_map[10][10] = {{1, 1, 1, 1, 1, 1, 1, 1, 1, 1}, {1, 0, 0, 0, 0,
-			0, 0, 0, 0, 1}, {1, 0, 1, 1, 0, 0, 0, 0, 0, 1}, {1, 0, 0, 0, 0, 0,
-			0, 0, 0, 1}, {1, 0, 0, 0, 0, 0, 0, 0, 0, 1}, {1, 0, 0, 0, 0, 0, 0,
-			0, 0, 1}, {1, 0, 0, 0, 1, 1, 1, 0, 0, 1}, {1, 0, 0, 0, 0, 0, 0, 0,
-			0, 1}, {1, 0, 0, 0, 0, 0, 0, 0, 0, 1}, {1, 1, 1, 1, 1, 1, 1, 1, 1,
-			1}};
+	int	example_map[10][10] = 
+							{{1, 1, 1, 1, 1, 1, 1, 1, 1, 1}, 
+							 {1, 0, 0, 0, 0, 0, 0, 0, 1, 1},
+							 {1, 0, 3, 3, 1, 1, 1, 0, 1, 1},
+							 {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+							 {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+							 {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+							 {1, 1, 4, 0, 2, 2, 1, 1, 4, 1},
+							 {1, 1, 1, 0, 0, 0, 0, 0, 0, 1},
+							 {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+							 {1, 1, 1, 1, 1, 1, 1, 1, 1, 1}};
 
 	cube->mlx = mlx_init();
 	if (cube->mlx == NULL)
@@ -232,7 +237,7 @@ int	handle_keypress(int keycode, t_cube *cube)
 	map_x = new_x / 50;
 	map_y = new_y / 50;
 	if (map_x >= 0 && map_x < 10 && map_y >= 0 && map_y < 10
-		&& cube->map[map_y][map_x] != 1)
+		&& cube->map[map_y][map_x] == 0)
 	{
 		cube->p_x = new_x;
 		cube->p_y = new_y;
