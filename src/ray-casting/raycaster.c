@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 12:44:24 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/01/21 14:32:51 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/01/21 15:37:38 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,8 +126,8 @@ void	cast_away(t_cube *cube)
 			x += dx;
 			y += dy;
 			distance += ray_step;
-			map_x = (int)x / 50;
-			map_y = (int)y / 50;
+			map_x = (int)x / S_TEX;
+			map_y = (int)y / S_TEX;
 			if (map_x >= 0 && map_x < 10 && map_y >= 0 && map_y < 10)
 			{
 				if (cube->map[map_y][map_x] != 0)
@@ -140,7 +140,7 @@ void	cast_away(t_cube *cube)
 					if (angle_diff > 2 * PI)
 						angle_diff -= 2 * PI;
 					true_distance *= cos(angle_diff);
-					wall_height = (int)((S_RES * 50) / true_distance);
+					wall_height = (int)((S_RES * S_TEX) / true_distance);
 					if (cube->map[map_y][map_x] == 2)
 						draw_vertical_line(cube, i, wall_height, color_shading(0x0000FFFF, true_distance));
 					else if (cube->map[map_y][map_x] == 3)

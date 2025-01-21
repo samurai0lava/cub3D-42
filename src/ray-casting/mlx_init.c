@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:44:52 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/01/21 14:19:47 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/01/21 15:47:05 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 
 void	draw_rectangle(t_data *data, int x, int y, int size, int color)
 {
-	int i;
-	int j;
-	
+	int	i;
+	int	j;
+
 	i = x;
 	while (i < x + size)
 	{
@@ -45,7 +45,9 @@ void	draw_map(t_data *data, int map[10][10])
 {
 	int	x;
 	int	y;
+	int	scaled_tex;
 
+	scaled_tex = S_TEX * MAP_SCALE;
 	x = 0;
 	while (x < 10)
 	{
@@ -64,9 +66,11 @@ void	draw_map(t_data *data, int map[10][10])
 		while (x < 10)
 		{
 			if (map[y][x] != 0)
-				draw_rectangle(data, x * 50, y * 50, 50, 0x00FFFFFF);
+				draw_rectangle(data, x * scaled_tex, y * scaled_tex, scaled_tex,
+					0x00FFEEFF);
 			else
-				draw_rectangle(data, x * 50, y * 50, 50, 0x00333333);
+				draw_rectangle(data, x * scaled_tex, y * scaled_tex, scaled_tex,
+					0x00000000);
 			x++;
 		}
 		y++;
@@ -75,17 +79,12 @@ void	draw_map(t_data *data, int map[10][10])
 
 void	init_mlx(t_cube *cube, t_data *data)
 {
-	int	example_map[10][10] = 
-							{{1, 1, 1, 1, 1, 1, 1, 1, 1, 1}, 
-							 {1, 0, 0, 0, 0, 0, 0, 0, 1, 1},
-							 {1, 0, 3, 3, 1, 1, 1, 0, 1, 1},
-							 {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-							 {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-							 {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-							 {1, 1, 4, 0, 2, 2, 1, 1, 4, 1},
-							 {1, 1, 1, 0, 0, 0, 0, 0, 0, 1},
-							 {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-							 {1, 1, 1, 1, 1, 1, 1, 1, 1, 1}};
+	int	example_map[10][10] = {{1, 1, 1, 1, 1, 1, 1, 1, 1, 1}, {1, 0, 0, 0, 0,
+			0, 0, 0, 1, 1}, {1, 0, 3, 3, 1, 1, 1, 0, 1, 1}, {1, 0, 0, 0, 0, 0,
+			0, 0, 0, 1}, {1, 0, 0, 0, 0, 0, 0, 0, 0, 1}, {1, 0, 0, 0, 0, 0, 0,
+			0, 0, 1}, {1, 1, 4, 0, 2, 2, 1, 1, 4, 1}, {1, 1, 1, 0, 0, 0, 0, 0,
+			0, 1}, {1, 0, 0, 0, 0, 0, 0, 0, 0, 1}, {1, 1, 1, 1, 1, 1, 1, 1, 1,
+			1}};
 
 	cube->mlx = mlx_init();
 	if (cube->mlx == NULL)
@@ -109,8 +108,10 @@ void	init_mlx(t_cube *cube, t_data *data)
 	cube->angle = 0;
 	ft_memcpy(cube->map, example_map, sizeof(example_map));
 	draw_map(data, cube->map);
-	cast_away(cube); //the raycster 3D effect
-	draw_filled_circle(cube, cube->p_x, cube->p_y, 10, 0x0000FFFF); //the minimap
+	cast_away(cube);                                              
+		// the raycster 3D effect
+	draw_filled_circle(cube, cube->p_x, cube->p_y, 1, 0x0000FFFF);
+		// the minimap
 	mlx_put_image_to_window(cube->mlx, cube->mlx_window, data->img, 0, 0);
 	mlx_hook(cube->mlx_window, 2, 1L << 0, handle_keypress, cube);
 	mlx_loop(cube->mlx);
@@ -167,8 +168,8 @@ int	handle_keypress(int keycode, t_cube *cube)
 		cube->angle += rotation_speed;
 	}
 	cube->angle = fmod(cube->angle + 2 * PI, 2 * PI);
-	map_x = new_x / 50;
-	map_y = new_y / 50;
+	map_x = new_x / S_TEX;
+	map_y = new_y / S_TEX;
 	if (map_x >= 0 && map_x < 10 && map_y >= 0 && map_y < 10
 		&& cube->map[map_y][map_x] == 0)
 	{
@@ -176,8 +177,10 @@ int	handle_keypress(int keycode, t_cube *cube)
 		cube->p_y = new_y;
 	}
 	draw_map(cube->data, cube->map);
-	cast_away(cube); //the raycster 3D effect
-	draw_filled_circle(cube, cube->p_x, cube->p_y, 10, 0x0000FFFF); //the minimap
+	cast_away(cube);                                              
+		// the raycster 3D effect
+	draw_filled_circle(cube, cube->p_x, cube->p_y, 1, 0x0000FFFF);
+		// the minimap
 	mlx_put_image_to_window(cube->mlx, cube->mlx_window, cube->data->img, 0, 0);
 	return (1);
 }

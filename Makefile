@@ -24,15 +24,6 @@ $(NAME): $(OBJ) $(LIB)
 clean :
 	$(MAKE) clean -C libft/
 	@rm -f $(OBJ)
-	@echo "$(RED)Cleaning"
-	@sleep 0.5
-	@echo -n .
-	@sleep 0.5
-	@echo -n .
-	@sleep 0.5
-	@echo -n .
-	@sleep 0.5
-	@echo ".$(NC)"
 
 fclean : clean
 	$(MAKE) fclean -C libft/

@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 15:02:54 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/01/21 14:19:01 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/01/21 15:50:18 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,14 @@ void	draw_line(t_cube *cube, double angle, int length, int color)
 {
 	double	steps;
 	int		i;
-	int		x2;
-	int		y2;
+	double	x2;
+	double	y2;
 
 	double dx, dy;
 	double x, y;
 	double x_inc, y_inc;
-	i = 0;
 	int map_x, map_y;
+	i = 0;
 	x2 = cube->p_x + cos(angle) * length;
 	y2 = cube->p_y + sin(angle) * length;
 	dx = x2 - cube->p_x;
@@ -31,21 +31,22 @@ void	draw_line(t_cube *cube, double angle, int length, int color)
 	steps = fmax(fabs(dx), fabs(dy));
 	x_inc = dx / steps;
 	y_inc = dy / steps;
-	x = cube->p_x;
-	y = cube->p_y;
+	x = cube->p_x * MAP_SCALE;
+	y = cube->p_y * MAP_SCALE;
 	while (i <= steps)
 	{
-		map_x = (int)x / 50;
-		map_y = (int)y / 50;
+		map_x = (int)(x / TILE_SIZE);
+		map_y = (int)(y / TILE_SIZE);
 		if (map_x >= 0 && map_x < 10 && map_y >= 0 && map_y < 10)
 		{
 			if (cube->map[map_y][map_x] != 0)
 				break ;
-			if (x >= 0 && x < S_RES && y >= 0 && y < S_RES)
+			if (x >= 0 && x < (S_RES * MAP_SCALE) && y >= 0 && y < (S_RES
+					* MAP_SCALE))
 				my_mlx_pixel_put(cube->data, (int)x, (int)y, color);
 		}
-		x += x_inc;
-		y += y_inc;
+		x += x_inc * MAP_SCALE;
+		y += y_inc * MAP_SCALE;
 		i++;
 	}
 }
@@ -58,7 +59,7 @@ void	cast_away_minirays(t_cube *cube)
 	double	angle_step;
 	int		i;
 
-	num_rays = 100;
+	num_rays = 60;
 	angle_step = FOV / num_rays;
 	start_angle = cube->angle - (FOV / 2);
 	i = 0;
@@ -66,7 +67,7 @@ void	cast_away_minirays(t_cube *cube)
 	{
 		ray_angle = start_angle + (i * angle_step);
 		ray_angle = fmod(ray_angle + 2 * PI, 2 * PI);
-		draw_line(cube, ray_angle, 500, 0x0000FFEE);
+		draw_line(cube, ray_angle, 1000 * MAP_SCALE, 0x0000FFEE);
 		i++;
 	}
 }
@@ -74,22 +75,23 @@ void	cast_away_minirays(t_cube *cube)
 void	draw_filled_circle(t_cube *cube, int center_x, int center_y, int radius,
 		int color)
 {
-	double	radius_squared;
-	int		x;
-	int		y;
+	double radius_squared;
+	int x;
+	int y;
 
-	radius_squared = 5;
+	radius_squared = radius * radius * MAP_SCALE;
 	draw_map(cube->data, cube->map);
-	y = center_y - radius;
-	while (y <= center_y + radius)
+	y = center_y - (radius * MAP_SCALE);
+	while (y <= center_y + (radius * MAP_SCALE))
 	{
-		x = center_x - radius;
-		while (x <= center_x + radius)
+		x = center_x - (radius * MAP_SCALE);
+		while (x <= center_x + (radius * MAP_SCALE))
 		{
 			if (((x - center_x) * (x - center_x) + (y - center_y) * (y
 						- center_y)) <= radius_squared)
 			{
-				if (x >= 0 && x < 10 && y >= 0 && y < 10)
+				if (x >= 0 && x < (10 * MAP_SCALE) && y >= 0 && y < (10
+						* MAP_SCALE))
 					my_mlx_pixel_put(cube->data, x, y, color);
 			}
 			x++;
