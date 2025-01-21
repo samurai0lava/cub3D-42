@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 15:02:54 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/01/21 15:50:18 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/01/21 16:05:05 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,11 @@ void	draw_line(t_cube *cube, double angle, int length, int color)
 	int		i;
 	double	x2;
 	double	y2;
-
 	double dx, dy;
 	double x, y;
 	double x_inc, y_inc;
 	int map_x, map_y;
+
 	i = 0;
 	x2 = cube->p_x + cos(angle) * length;
 	y2 = cube->p_y + sin(angle) * length;
@@ -72,23 +72,22 @@ void	cast_away_minirays(t_cube *cube)
 	}
 }
 
-void	draw_filled_circle(t_cube *cube, int center_x, int center_y, int radius,
-		int color)
+void	draw_filled_circle(t_cube *cube, int radius, int color)
 {
-	double radius_squared;
-	int x;
-	int y;
+	double	radius_squared;
+	int		x;
+	int		y;
 
 	radius_squared = radius * radius * MAP_SCALE;
 	draw_map(cube->data, cube->map);
-	y = center_y - (radius * MAP_SCALE);
-	while (y <= center_y + (radius * MAP_SCALE))
+	y = cube->p_y - (radius * MAP_SCALE);
+	while (y <= cube->p_y + (radius * MAP_SCALE))
 	{
-		x = center_x - (radius * MAP_SCALE);
-		while (x <= center_x + (radius * MAP_SCALE))
+		x = cube->p_x - (radius * MAP_SCALE);
+		while (x <= cube->p_x + (radius * MAP_SCALE))
 		{
-			if (((x - center_x) * (x - center_x) + (y - center_y) * (y
-						- center_y)) <= radius_squared)
+			if (((x - cube->p_x) * (x - cube->p_x) + (y - cube->p_y) * (y
+						- cube->p_y)) <= radius_squared)
 			{
 				if (x >= 0 && x < (10 * MAP_SCALE) && y >= 0 && y < (10
 						* MAP_SCALE))

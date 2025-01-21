@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:44:52 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/01/21 15:47:05 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/01/21 16:03:54 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,14 +40,11 @@ void	draw_rectangle(t_data *data, int x, int y, int size, int color)
 		i++;
 	}
 }
-
-void	draw_map(t_data *data, int map[10][10])
+void	clean_screen(t_data *data)
 {
 	int	x;
 	int	y;
-	int	scaled_tex;
 
-	scaled_tex = S_TEX * MAP_SCALE;
 	x = 0;
 	while (x < 10)
 	{
@@ -59,6 +56,16 @@ void	draw_map(t_data *data, int map[10][10])
 		}
 		x++;
 	}
+}
+
+void	draw_map(t_data *data, int map[10][10])
+{
+	int	x;
+	int	y;
+	int	scaled_tex;
+
+	scaled_tex = S_TEX * MAP_SCALE;
+	clean_screen(data);
 	y = 0;
 	while (y < 10)
 	{
@@ -108,10 +115,10 @@ void	init_mlx(t_cube *cube, t_data *data)
 	cube->angle = 0;
 	ft_memcpy(cube->map, example_map, sizeof(example_map));
 	draw_map(data, cube->map);
-	cast_away(cube);                                              
-		// the raycster 3D effect
-	draw_filled_circle(cube, cube->p_x, cube->p_y, 1, 0x0000FFFF);
-		// the minimap
+	// the raycster 3D effect
+	cast_away(cube);
+	// the minimap
+	draw_filled_circle(cube, 1, 0x0000FFFF);
 	mlx_put_image_to_window(cube->mlx, cube->mlx_window, data->img, 0, 0);
 	mlx_hook(cube->mlx_window, 2, 1L << 0, handle_keypress, cube);
 	mlx_loop(cube->mlx);
@@ -177,10 +184,10 @@ int	handle_keypress(int keycode, t_cube *cube)
 		cube->p_y = new_y;
 	}
 	draw_map(cube->data, cube->map);
-	cast_away(cube);                                              
-		// the raycster 3D effect
-	draw_filled_circle(cube, cube->p_x, cube->p_y, 1, 0x0000FFFF);
-		// the minimap
+	// the raycster 3D effect
+	cast_away(cube);
+	// the minimap
+	draw_filled_circle(cube, 1, 0x0000FFFF);
 	mlx_put_image_to_window(cube->mlx, cube->mlx_window, cube->data->img, 0, 0);
 	return (1);
 }

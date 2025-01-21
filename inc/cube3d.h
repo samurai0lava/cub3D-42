@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:44:41 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/01/21 15:49:01 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/01/21 16:04:06 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,8 @@
 # define RIGHT_KEY 65363
 # define S_RES 800
 # define S_TEX 64
-#define MAP_SCALE 0.5
-#define TILE_SIZE (S_TEX * MAP_SCALE)
+# define MAP_SCALE 0.5
+# define TILE_SIZE (S_TEX * MAP_SCALE)
 
 # define FOV PI / 3
 
@@ -118,7 +118,9 @@ void						cast_away(t_cube *cube);
 void						draw_line(t_cube *cube, double angle, int length,
 								int color);
 void						cast_away_minirays(t_cube *cube);
-void						draw_filled_circle(t_cube *cube, int center_x,
-								int center_y, int radius, int color);
+void						draw_filled_circle(t_cube *cube, int radius,
+								int color);
 void						draw_map(t_data *data, int map[10][10]);
+void						clean_screen(t_data *data);
+
 #endif
