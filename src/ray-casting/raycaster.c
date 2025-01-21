@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycaster.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: samurai0lava <samurai0lava@student.42.f    +#+  +:+       +#+        */
+/*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 12:44:24 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/01/20 20:01:17 by samurai0lav      ###   ########.fr       */
+/*   Updated: 2025/01/21 14:32:51 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,18 +64,30 @@ void	clean_display(t_cube *cube)
 		i++;
 	}
 }
-
-int	color_shading(double distance)
+//shading by colors
+int	color_shading(int color, double distance)
 {
-	int	color;
+	int	r, g, b;
 	int	shade;
 
 	shade = 0xFF - (int)(0xFF * (distance / 1000));
 	if (shade < 0)
 		shade = 0;
-	color = (shade << 16) | (shade << 8) | shade;
-	return (color);
+
+	// Extract RGB components from the original color
+	r = (color >> 16) & 0xFF;
+	g = (color >> 8) & 0xFF;
+	b = color & 0xFF;
+
+	// Apply shading to each component
+	r = (r * shade) / 0xFF;
+	g = (g * shade) / 0xFF;
+	b = (b * shade) / 0xFF;
+
+	// Combine components back into a single color
+	return ((r << 16) | (g << 8) | b);
 }
+
 
 void	cast_away(t_cube *cube)
 {
@@ -130,13 +142,13 @@ void	cast_away(t_cube *cube)
 					true_distance *= cos(angle_diff);
 					wall_height = (int)((S_RES * 50) / true_distance);
 					if (cube->map[map_y][map_x] == 2)
-						draw_vertical_line(cube, i, wall_height, 0x0000FFFF);
+						draw_vertical_line(cube, i, wall_height, color_shading(0x0000FFFF, true_distance));
 					else if (cube->map[map_y][map_x] == 3)
-						draw_vertical_line(cube, i, wall_height, 0x00FFFF00);
+						draw_vertical_line(cube, i, wall_height, color_shading(0x00FFFF00, true_distance));
 					else if (cube->map[map_y][map_x] == 4)
-						draw_vertical_line(cube, i, wall_height, 0x00FF00FF);
+						draw_vertical_line(cube, i, wall_height, color_shading(0x00FF00FF, true_distance));
 					else
-						draw_vertical_line(cube, i, wall_height, 0x00FFFFFF);
+						draw_vertical_line(cube, i, wall_height, color_shading(0x00E4E6A8, true_distance));
 					break ;
 				}
 			}

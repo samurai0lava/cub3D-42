@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:44:41 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/01/20 20:13:04 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/01/21 09:09:52 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,6 @@ int							handle_keypress(int keycode, t_cube *cube);
 void						cast_away(t_cube *cube);
 void						draw_line(t_cube *cube, double angle, int length,
 								int color);
-
 void						cast_away_minirays(t_cube *cube);
 void						draw_filled_circle(t_cube *cube, int center_x,
 								int center_y, int radius, int color);

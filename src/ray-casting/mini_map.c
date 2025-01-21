@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 15:02:54 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/01/20 20:15:37 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/01/21 14:19:01 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,9 +75,10 @@ void	draw_filled_circle(t_cube *cube, int center_x, int center_y, int radius,
 		int color)
 {
 	double	radius_squared;
+	int		x;
+	int		y;
 
-	int x, y;
-	radius_squared = 10;
+	radius_squared = 5;
 	draw_map(cube->data, cube->map);
 	y = center_y - radius;
 	while (y <= center_y + radius)
@@ -89,9 +90,7 @@ void	draw_filled_circle(t_cube *cube, int center_x, int center_y, int radius,
 						- center_y)) <= radius_squared)
 			{
 				if (x >= 0 && x < 10 && y >= 0 && y < 10)
-				{
 					my_mlx_pixel_put(cube->data, x, y, color);
-				}
 			}
 			x++;
 		}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_init.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: samurai0lava <samurai0lava@student.42.f    +#+  +:+       +#+        */
+/*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:44:52 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/01/20 19:59:33 by samurai0lav      ###   ########.fr       */
+/*   Updated: 2025/01/21 14:19:47 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ void	init_mlx(t_cube *cube, t_data *data)
 	ft_memcpy(cube->map, example_map, sizeof(example_map));
 	draw_map(data, cube->map);
 	cast_away(cube); //the raycster 3D effect
-	draw_filled_circle(cube, cube->p_x, cube->p_y, 60, 0x0000FFFF); //the minimap
+	draw_filled_circle(cube, cube->p_x, cube->p_y, 10, 0x0000FFFF); //the minimap
 	mlx_put_image_to_window(cube->mlx, cube->mlx_window, data->img, 0, 0);
 	mlx_hook(cube->mlx_window, 2, 1L << 0, handle_keypress, cube);
 	mlx_loop(cube->mlx);
@@ -177,7 +177,7 @@ int	handle_keypress(int keycode, t_cube *cube)
 	}
 	draw_map(cube->data, cube->map);
 	cast_away(cube); //the raycster 3D effect
-	draw_filled_circle(cube, cube->p_x, cube->p_y, 60, 0x0000FFFF); //the minimap
+	draw_filled_circle(cube, cube->p_x, cube->p_y, 10, 0x0000FFFF); //the minimap
 	mlx_put_image_to_window(cube->mlx, cube->mlx_window, cube->data->img, 0, 0);
 	return (1);
 }
