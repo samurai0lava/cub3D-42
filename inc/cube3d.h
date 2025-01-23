@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:44:41 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/01/21 16:04:06 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/01/23 11:05:40 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,8 @@ typedef struct s_data
 	int						bits_per_pixel;
 	int						line_length;
 	int						endian;
+	int						width;
+	int						height;
 }							t_data;
 
 typedef struct s_cube
@@ -86,6 +88,7 @@ typedef struct s_cube
 	void					*mlx_window;
 	t_garbage_collector		*gc;
 	t_data					*data;
+	t_data					texture[4];
 	int						map[10][10];
 	int						p_x;
 	int						p_y;
@@ -122,5 +125,8 @@ void						draw_filled_circle(t_cube *cube, int radius,
 								int color);
 void						draw_map(t_data *data, int map[10][10]);
 void						clean_screen(t_data *data);
+int							get_texture_pixel(t_data *texture, int x, int y);
+void						init_textures(t_cube *cube);
+int	color_shading(int color, double distance);
 
 #endif

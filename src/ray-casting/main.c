@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:44:29 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/01/13 10:34:55 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/01/23 10:02:55 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	main(void)
 	cube = (t_cube *)malloc(sizeof(t_cube));
 	if (!cube)
 	{
-		print_error(RED "Failed malloc\n" RESET);
+		perror("malloc");
 		return (-1);
 	}
 	cube->gc = init_garbage_collector();

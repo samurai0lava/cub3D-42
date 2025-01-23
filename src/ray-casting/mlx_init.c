@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:44:52 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/01/21 16:03:54 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/01/23 11:06:32 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,43 @@ void	draw_map(t_data *data, int map[10][10])
 	}
 }
 
+int get_texture_pixel(t_data *texture, int x, int y)
+{
+    char *pixel;
+
+    if (x < 0 || x >= texture->width || y < 0 || y >= texture->height)
+        return (0); // Avoid out-of-bounds access
+    pixel = texture->addr + (y * texture->line_length + x * (texture->bits_per_pixel / 8));
+    return (*(unsigned int *)pixel);
+}
+
+
+void	init_textures(t_cube *cube)
+{
+	char	*path[4];
+	int		i;
+
+	i = 0;
+	path[0] = "../../textures/text1.xpm";
+	path[1] = "../../textures/text2.xpm";
+	path[2] = "../../textures/text3.xpm";
+	path[3] = "../../textures/text4.xpm";
+	while (i < 4)
+	{
+		cube->texture[i].img = mlx_xpm_file_to_image(cube->mlx, path[i],
+				&cube->texture[i].width, &cube->texture[i].height);
+		if (!cube->texture[i].img)
+		{
+			print_error(RED "failed to load textures\n" RESET);
+			return ;
+		}
+		cube->texture[i].addr = mlx_get_data_addr(cube->texture[i].addr,
+				&cube->texture[i].bits_per_pixel, &cube->texture[i].line_length,
+				&cube->texture[i].endian);
+		i++;
+	}
+}
+
 void	init_mlx(t_cube *cube, t_data *data)
 {
 	int	example_map[10][10] = {{1, 1, 1, 1, 1, 1, 1, 1, 1, 1}, {1, 0, 0, 0, 0,
@@ -134,7 +171,7 @@ int	handle_keypress(int keycode, t_cube *cube)
 	double	rotation_speed;
 
 	movement_speed = 5;
-	rotation_speed = 0.1;
+	rotation_speed = 0.05;
 	new_x = cube->p_x;
 	new_y = cube->p_y;
 	if (keycode == ESC)

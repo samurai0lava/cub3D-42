@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:44:33 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/01/19 16:58:29 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/01/23 10:04:11 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ t_garbage_collector	*init_garbage_collector(void)
 	gc = (t_garbage_collector *)malloc(sizeof(t_garbage_collector));
 	if (!gc)
 	{
-		print_error(RED "Failed to initialize garbage collector" RESET);
+		perror("malloc");
 		return (NULL);
 	}
 	gc->head = NULL;
@@ -52,7 +52,7 @@ void	add_garbage(t_garbage_collector *gc, void *ptr)
 	new_node = (t_garbage_node *)malloc(sizeof(t_garbage_node));
 	if (!new_node)
 	{
-		print_error(RED "Failed to initialize garbage collector" RESET);
+		perror("malloc");
 		return ;
 	}
 	new_node->ptr = ptr;
@@ -68,7 +68,7 @@ void	*tracked_malloc(t_garbage_collector *gc, size_t size)
 	ptr = malloc(size);
 	if (!ptr)
 	{
-		print_error(RED "Failed to allocate memory\n" RESET);
+		perror("malloc");
 		return (NULL);
 	}
 	add_garbage(gc, ptr);
