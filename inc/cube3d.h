@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:44:41 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/01/23 11:05:40 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/01/23 11:12:16 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,8 +125,8 @@ void						draw_filled_circle(t_cube *cube, int radius,
 								int color);
 void						draw_map(t_data *data, int map[10][10]);
 void						clean_screen(t_data *data);
-int							get_texture_pixel(t_data *texture, int x, int y);
 void						init_textures(t_cube *cube);
 int	color_shading(int color, double distance);
+int get_texture_pixel(t_data *texture, int x, int y);
 
 #endif

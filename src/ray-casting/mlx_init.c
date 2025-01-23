@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:44:52 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/01/23 11:06:32 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/01/23 11:36:32 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,8 +88,9 @@ int get_texture_pixel(t_data *texture, int x, int y)
 {
     char *pixel;
 
+
     if (x < 0 || x >= texture->width || y < 0 || y >= texture->height)
-        return (0); // Avoid out-of-bounds access
+		return (0); // Avoid out-of-bounds access
     pixel = texture->addr + (y * texture->line_length + x * (texture->bits_per_pixel / 8));
     return (*(unsigned int *)pixel);
 }

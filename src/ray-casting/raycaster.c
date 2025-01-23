@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 12:44:24 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/01/23 11:06:14 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/01/23 11:39:34 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -193,7 +193,7 @@ void	cast_away(t_cube *cube)
 					}
 					else
 					{
-						selected_tex = &cube->texture[4];
+						selected_tex = &cube->texture[3];
 						// draw_vertical_line(cube, i, wall_height,
 						// 	color_shading(0x00E4E6A8, true_distance));
 						wall_x = cube->p_x + distance * cos(ray_angle);
