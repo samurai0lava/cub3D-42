@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 12:44:24 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/01/23 11:39:34 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/01/24 15:53:45 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,8 +130,8 @@ void	cast_away(t_cube *cube)
 	double	dy;
 	int		map_x;
 	int		map_y;
-	t_data *selected_tex;
-	int tex_x;
+	// t_data	*selected_tex;
+	int		tex_x;
 
 	num_rays = S_RES;
 	angle_step = FOV / num_rays;
@@ -173,34 +173,50 @@ void	cast_away(t_cube *cube)
 					{
 						// draw_vertical_line(cube, i, wall_height,
 						// 	color_shading(0x0000FFFF, true_distance));
-						selected_tex = &cube->texture[0];
+						// selected_tex = &cube->texture[0];
 						wall_x = cube->p_y + distance * sin(ray_angle);
+						wall_x -= floor(wall_x);
+						tex_x = (int)(wall_x * cube->texture[0].width);
+						draw_vertical_line_with_texture(cube, i, wall_height,
+							&cube->texture[0], tex_x, true_distance);
 					}
 					else if (cube->map[map_y][map_x] == 3)
 					{
 						// draw_vertical_line(cube, i, wall_height,
-							// color_shading(0x00FFFF00, true_distance));
-						selected_tex = &cube->texture[1];
-
+						// color_shading(0x00FFFF00, true_distance));
+						// selected_tex = &cube->texture[1];
 						wall_x = cube->p_y + distance * sin(ray_angle);
+						wall_x -= floor(wall_x);
+						tex_x = (int)(wall_x * cube->texture[1].width);
+						draw_vertical_line_with_texture(cube, i, wall_height,
+							&cube->texture[1], tex_x, true_distance);
 					}
 					else if (cube->map[map_y][map_x] == 4)
 					{
-						selected_tex = &cube->texture[2];
 						// draw_vertical_line(cube, i, wall_height,
 						// 	color_shading(0x00FF00FF, true_distance));
+						// selected_tex = &cube->texture[2];
 						wall_x = cube->p_x + distance * cos(ray_angle);
+						wall_x -= floor(wall_x);
+						tex_x = (int)(wall_x * cube->texture[2].width);
+						draw_vertical_line_with_texture(cube, i, wall_height,
+							&cube->texture[2], tex_x, true_distance);
 					}
 					else
 					{
-						selected_tex = &cube->texture[3];
 						// draw_vertical_line(cube, i, wall_height,
 						// 	color_shading(0x00E4E6A8, true_distance));
+						// selected_tex = &cube->texture[3];
 						wall_x = cube->p_x + distance * cos(ray_angle);
+						wall_x -= floor(wall_x);
+						tex_x = (int)(wall_x * cube->texture[3].width);
+						draw_vertical_line_with_texture(cube, i, wall_height,
+							&cube->texture[3], tex_x, true_distance);
 					}
-					wall_x -= floor(wall_x);
-					tex_x =  (int)(wall_x * selected_tex->width);
-					draw_vertical_line_with_texture(cube, i, wall_height, selected_tex, tex_x, true_distance);	
+					// wall_x -= floor(wall_x);
+					// tex_x = (int)(wall_x * selected_tex->width);
+					// draw_vertical_line_with_texture(cube, i, wall_height,
+					// 	selected_tex, tex_x, true_distance);
 					break ;
 				}
 			}

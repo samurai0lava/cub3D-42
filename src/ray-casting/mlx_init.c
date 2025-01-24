@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:44:52 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/01/23 11:36:32 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/01/24 15:48:00 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,10 +102,10 @@ void	init_textures(t_cube *cube)
 	int		i;
 
 	i = 0;
-	path[0] = "../../textures/text1.xpm";
-	path[1] = "../../textures/text2.xpm";
-	path[2] = "../../textures/text3.xpm";
-	path[3] = "../../textures/text4.xpm";
+	path[0] = "/home/iouhssei/Desktop/cub3D-42/textures/text1.xpm";
+	path[1] = "/home/iouhssei/Desktop/cub3D-42/textures/text2.xpm";
+	path[2] = "/home/iouhssei/Desktop/cub3D-42/textures/text3.xpm";
+	path[3] = "/home/iouhssei/Desktop/cub3D-42/textures/text4.xpm";
 	while (i < 4)
 	{
 		cube->texture[i].img = mlx_xpm_file_to_image(cube->mlx, path[i],
@@ -115,7 +115,7 @@ void	init_textures(t_cube *cube)
 			print_error(RED "failed to load textures\n" RESET);
 			return ;
 		}
-		cube->texture[i].addr = mlx_get_data_addr(cube->texture[i].addr,
+		cube->texture[i].addr = mlx_get_data_addr(cube->texture[i].img,
 				&cube->texture[i].bits_per_pixel, &cube->texture[i].line_length,
 				&cube->texture[i].endian);
 		i++;
