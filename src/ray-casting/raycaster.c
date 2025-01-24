@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 12:44:24 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/01/24 15:53:45 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/01/24 18:32:57 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ void	draw_vertical_line_with_texture(t_cube *cube, int x, int wall_height,
 	int	tex_y;
 	int	color;
 
+	if (wall_height <= 0 || !texture || tex_x < 0 || tex_x >= texture->width)
+		return ;
 	start_y = (S_RES / 2) - (wall_height / 2);
 	if (start_y < 0)
 		start_y = 0;
@@ -60,9 +62,12 @@ void	draw_vertical_line_with_texture(t_cube *cube, int x, int wall_height,
 	while (y < end_y)
 	{
 		tex_y = (int)((y - start_y) * (double)texture->height / wall_height);
-		color = get_texture_pixel(texture, tex_x, tex_y);
-		color = color_shading(color, distance); // Optional shading
-		my_mlx_pixel_put(cube->data, x, y, color);
+		if (tex_y >= 0 && tex_y < texture->height)
+		{
+			color = get_texture_pixel(texture, tex_x, tex_y);
+			color = color_shading(color, distance);
+			my_mlx_pixel_put(cube->data, x, y, color);
+		}
 		y++;
 	}
 }
@@ -130,9 +135,9 @@ void	cast_away(t_cube *cube)
 	double	dy;
 	int		map_x;
 	int		map_y;
-	// t_data	*selected_tex;
 	int		tex_x;
 
+	// t_data	*selected_tex;
 	num_rays = S_RES;
 	angle_step = FOV / num_rays;
 	start_angle = cube->angle - (FOV / 2);
