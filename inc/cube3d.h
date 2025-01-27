@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:44:41 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/01/23 11:12:16 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/01/27 13:05:30 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@
 # define S_TEX 64
 # define MAP_SCALE 0.5
 # define TILE_SIZE (S_TEX * MAP_SCALE)
+# define RAY_STEP 0.1
 
 # define FOV PI / 3
 
@@ -126,7 +127,9 @@ void						draw_filled_circle(t_cube *cube, int radius,
 void						draw_map(t_data *data, int map[10][10]);
 void						clean_screen(t_data *data);
 void						init_textures(t_cube *cube);
-int	color_shading(int color, double distance);
-int get_texture_pixel(t_data *texture, int x, int y);
+int							color_shading(int color, double distance);
+int							get_texture_pixel(t_data *texture, int x, int y);
+double						normalize_angle(double angle);
+void						cast_rays(t_cube *cube);
 
 #endif
