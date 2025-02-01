@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube3d.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: samurai0lava <samurai0lava@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:44:41 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/01/27 13:05:30 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/02/02 00:18:47 by samurai0lav      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@
 # define M_PI_2 1.57079632679489661923
 # define LEFT_KEY 65361
 # define RIGHT_KEY 65363
-# define S_RES 800
+# define S_RES 1000
 # define S_TEX 64
 # define MAP_SCALE 0.5
 # define TILE_SIZE (S_TEX * MAP_SCALE)
