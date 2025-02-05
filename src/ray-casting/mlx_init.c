@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_init.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: samurai0lava <samurai0lava@student.42.f    +#+  +:+       +#+        */
+/*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:44:52 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/02/02 00:18:13 by samurai0lav      ###   ########.fr       */
+/*   Updated: 2025/02/05 16:33:19 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,10 +101,10 @@ void	init_textures(t_cube *cube)
 	int		i;
 
 	i = 0;
-	path[0] = "./textures/wolfstein/wall_w.xpm";
-	path[1] = "./textures/minecratft_museum/minecraft_paint2.xpm";
-	path[2] = "./textures/wolfstein/wall_ww2.xpm";
-	path[3] = "./textures/wolfstein/wall_hitler.xpm";
+	path[0] = "./textures/wolfstein/wall_w2.xpm";
+	path[1] = "./textures/wolfstein/wall_w.xpm";
+	path[2] = "./textures/minecratft_museum/minecraft_paint3.xpm";
+	path[3] = "./textures/minecratft_museum/minecraft_paint1.xpm";
 	while (i < 4)
 	{
 		cube->texture[i].img = mlx_xpm_file_to_image(cube->mlx, path[i],
