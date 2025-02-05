@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube3d.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: samurai0lava <samurai0lava@student.42.f    +#+  +:+       +#+        */
+/*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:44:41 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/02/02 00:18:47 by samurai0lav      ###   ########.fr       */
+/*   Updated: 2025/02/05 16:19:27 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,45 @@ typedef struct s_cube
 	double					angle;
 }							t_cube;
 
+typedef struct s_rgb
+{
+	int						r;
+	int						g;
+	int						b;
+	char					*rgb_in_hex;
+}							t_rgb;
+
+typedef struct s_map
+{
+	char					**map;
+	char					*se;
+	char					*no;
+	char					*we;
+	char					*ea;
+	char					*floor_color;
+	char					*celling_color;
+	int						is_valid;
+	int						map_height;
+	int						map_width;
+	int						x;
+	int						y;
+	t_rgb					f_rgb;
+	t_rgb					c_rgb;
+}							t_map;
+
+int							count_till_newline(char *s);
+int							get_bigger_mapline(char **s);
+int							get_line_of_biggervalue(char **s);
+int							check_map(t_map *map);
+void						print_2d(char **s);
+int							check_line(t_map *map);
+char						**split_file(char *s);
+int							check_file_name(char *s);
+void						fill_struct(t_map *map, char *av);
+int							check_texture(t_map *map);
+char						*get_file_in_char(char *av);
+void						initiliase_struct(t_map *map, char *av);
+void						get_map_into2darray(t_map *map, char *av);
 // FUNCTIONS :
 
 //----INITIALIZATION-==---------------//
