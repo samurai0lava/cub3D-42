@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycaster.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: samurai0lava <samurai0lava@student.42.f    +#+  +:+       +#+        */
+/*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 12:44:24 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/02/02 00:24:36 by samurai0lav      ###   ########.fr       */
+/*   Updated: 2025/02/09 13:45:16 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,115 +116,115 @@ int	color_shading(int color, double distance)
 	return ((r << 16) | (g << 8) | b);
 }
 
-void cast_away(t_cube *cube)
+void	cast_away(t_cube *cube)
 {
-    int     num_rays;
-    double  ray_angle;
-    double  start_angle;
-    double  angle_step;
-    int     i;
-    double  distance;
-    int     wall_height;
-    double  ray_step;
-    int     hit_wall;
-    double  true_distance;
-    double  angle_diff;
-    double  wall_x;
-    double  x;
-    double  y;
-    double  dx;
-    double  dy;
-    int     map_x;
-    int     map_y;
-    int     tex_x;
-    t_data  *selected_tex;
+	int		num_rays;
+	double	ray_angle;
+	double	start_angle;
+	double	angle_step;
+	int		i;
+	double	distance;
+	int		wall_height;
+	double	ray_step;
+	int		hit_wall;
+	double	true_distance;
+	double	angle_diff;
+	double	wall_x;
+	double	x;
+	double	y;
+	double	dx;
+	double	dy;
+	int		map_x;
+	int		map_y;
+	int		tex_x;
+	t_data	*selected_tex;
+	int		color;
 
-    num_rays = S_RES;
-    angle_step = FOV / num_rays;
-    start_angle = cube->angle - (FOV / 2);
-    ray_step = 0.1;
-    clean_display(cube);
-    init_textures(cube);
-    i = 0;
-    while (i < num_rays)
-    {
-        ray_angle = start_angle + (i * angle_step);
-        ray_angle = fmod(ray_angle + 2 * PI, 2 * PI);
-        dx = cos(ray_angle) * ray_step;
-        dy = sin(ray_angle) * ray_step;
-        x = cube->p_x;
-        y = cube->p_y;
-        hit_wall = 0;
-        distance = 0.0;
-        
-        while (distance < 1000 && !hit_wall)
-        {
-            x += dx;
-            y += dy;
-            distance += ray_step;
-            map_x = (int)x / S_TEX;
-            map_y = (int)y / S_TEX;
-            
-            if (map_x >= 0 && map_x < 10 && map_y >= 0 && map_y < 10 && cube->map[map_y][map_x] != 0)
-            {
-                hit_wall = 1;
-                // Inside the hit_wall condition in cast_away:
-                true_distance = get_distance(cube->p_x, cube->p_y, x, y);
-
-                // Correct the distance to remove the fish-eye effect
-                angle_diff = ray_angle - cube->angle;
-                if (angle_diff > PI)
-                    angle_diff -= 2 * PI;
-                if (angle_diff < -PI)
-                   angle_diff += 2 * PI;
-                true_distance *= cos(angle_diff);
-                if (true_distance < 1.0)
-                    true_distance = 1.0;
-                // printf("true distance : %f\n", true_distance);
-                wall_height = (int)((S_RES * S_TEX) / true_distance);
-                selected_tex = NULL;
-                if (cube->map[map_y][map_x] == 2)
-                    selected_tex = &cube->texture[0];
-                else if (cube->map[map_y][map_x] == 3)
-                    selected_tex = &cube->texture[1];
-                else if (cube->map[map_y][map_x] == 4)
-                    selected_tex = &cube->texture[2];
-                else
-                    selected_tex = &cube->texture[3];
-
-                // Calculate wall_x based on which side of the wall was hit
-                if (fabs(x - map_x * S_TEX) < 0.1 || fabs(x - (map_x + 1) * S_TEX) < 0.1)
-                    wall_x = fmod(y, S_TEX) / S_TEX;  // vertical wall hit
-                else
-                    wall_x = fmod(x, S_TEX) / S_TEX;  // horizontal wall hit
-
-                // Ensure wall_x is between 0 and 1
-                wall_x = wall_x - floor(wall_x);
-                
-                if (selected_tex && selected_tex->img)
-                {
-                    tex_x = (int)(wall_x * selected_tex->width);
-                    draw_vertical_line_with_texture(cube, i, wall_height, selected_tex, tex_x, true_distance);
-                }
-                else
-                {
-                    int color = 0x00FFFFFF;
-                    if (cube->map[map_y][map_x] == 2)
-                        color = 0x0000FFFF;
-                    else if (cube->map[map_y][map_x] == 3)
-                        color = 0x00FFFF00;
-                    else if (cube->map[map_y][map_x] == 4)
-                        color = 0x00FF00FF;
-                    draw_vertical_line(cube, i, wall_height, color_shading(color, true_distance));
-                }
-                break;
-            }
-        }
-        if (!hit_wall)
-        {
-            // Draw a black vertical line for rays that didn't hit anything
-            draw_vertical_line(cube, i, S_RES, 0x00000000);
-        }
-        i++;
-    }
+	num_rays = S_RES;
+	angle_step = FOV / num_rays;           // FOV = 60 / num_rays = 1000
+	start_angle = cube->angle - (FOV / 2);
+		// parse from the map where the player start
+	ray_step = 0.1;
+	clean_display(cube);
+	init_textures(cube);
+	i = 0;
+	while (i < num_rays)
+	{
+		ray_angle = start_angle + (i * angle_step);
+		ray_angle = fmod(ray_angle + 2 * PI, 2 * PI);
+		dx = cos(ray_angle) * ray_step;
+		dy = sin(ray_angle) * ray_step;
+		x = cube->p_x;
+		y = cube->p_y;
+		hit_wall = 0;
+		distance = 0.0;
+		while (distance < 1000 && !hit_wall)
+		{
+			x += dx;
+			y += dy;
+			distance += ray_step;
+			map_x = (int)x / S_TEX;
+			map_y = (int)y / S_TEX;
+			selected_tex = NULL;
+			if (map_x >= 0 && map_x < 10 && map_y >= 0 && map_y < 10
+				&& cube->map[map_y][map_x] != 0)
+			{
+				hit_wall = 1;
+				// Inside the hit_wall condition in cast_away:
+				true_distance = get_distance(cube->p_x, cube->p_y, x, y);
+				// Correct the distance to remove the fish-eye effect
+				angle_diff = ray_angle - cube->angle;
+				if (angle_diff > PI)
+					angle_diff -= 2 * PI;
+				if (angle_diff < -PI)
+					angle_diff += 2 * PI;
+				true_distance *= cos(angle_diff);
+				if (true_distance < 0.5)
+					true_distance = 0.5;
+				// printf("true distance : %f\n", true_distance);
+				wall_height = (int)((S_RES * S_TEX) / true_distance);
+				if (cube->map[map_y][map_x] == 2)
+					selected_tex = &cube->texture[0];
+				else if (cube->map[map_y][map_x] == 3)
+					selected_tex = &cube->texture[1];
+				else if (cube->map[map_y][map_x] == 4)
+					selected_tex = &cube->texture[2];
+				else
+					selected_tex = &cube->texture[3];
+				// Calculate wall_x based on which side of the wall was hit
+				if (fabs(x - map_x * S_TEX) < 0.1 || fabs(x - (map_x + 1)
+						* S_TEX) < 0.1)
+					wall_x = fmod(y, S_TEX) / S_TEX; // vertical wall hit
+				else
+					wall_x = fmod(x, S_TEX) / S_TEX; // horizontal wall hit
+				// Ensure wall_x is between 0 and 1
+				wall_x = wall_x - floor(wall_x);
+				if (selected_tex && selected_tex->img)
+				{
+					tex_x = (int)(wall_x * selected_tex->width);
+					draw_vertical_line_with_texture(cube, i, wall_height,
+						selected_tex, tex_x, true_distance);
+				}
+				else
+				{
+					color = 0x00FFFFFF;
+					if (cube->map[map_y][map_x] == 2)
+						color = 0x0000FFFF;
+					else if (cube->map[map_y][map_x] == 3)
+						color = 0x00FFFF00;
+					else if (cube->map[map_y][map_x] == 4)
+						color = 0x00FF00FF;
+					draw_vertical_line(cube, i, wall_height,
+						color_shading(color, true_distance));
+				}
+				break ;
+			}
+		}
+		if (!hit_wall)
+		{
+			// Draw a black vertical line for rays that didn't hit anything
+			draw_vertical_line(cube, i, S_RES, 0x00000000);
+		}
+		i++;
+	}
 }
