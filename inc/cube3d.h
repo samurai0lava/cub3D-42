@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:44:41 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/02/09 14:59:11 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/02/09 15:57:11 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ typedef struct s_cube
 	int						p_x;
 	int						p_y;
 	double					angle;
+	int						move;
 }							t_cube;
 
 typedef struct s_rgb

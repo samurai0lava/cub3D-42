@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 12:44:24 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/02/09 14:56:23 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/02/09 16:02:57 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,14 +42,35 @@ void	draw_vertical_line(t_cube *cube, int x, int wall_height, int color)
 	}
 }
 
+void	draw_floor(t_cube *cube, int y, int x)
+{
+	while (y < S_RES)
+	{
+		my_mlx_pixel_put(cube->data, x, y, 0x00333333);
+		y++;
+	}
+}
+int	draw_sky(t_cube *cube ,int x, int start_y)
+{
+	int y;
+
+	y = 0;
+	while (y < start_y)
+	{
+		my_mlx_pixel_put(cube->data, x, y, 0x00FFCEEB);
+		y++;
+	}
+	return(y);
+}
+
 void	draw_vertical_line_with_texture(t_cube *cube, int x, int wall_height,
 		t_data *texture, int tex_x, double distance)
 {
 	int	start_y;
 	int	end_y;
-	int	y;
 	int	tex_y;
 	int	color;
+	int y;
 
 	if (wall_height <= 0 || !texture || tex_x < 0 || tex_x >= texture->width)
 		return ;
@@ -57,38 +78,21 @@ void	draw_vertical_line_with_texture(t_cube *cube, int x, int wall_height,
 	if (start_y < 0)
 		start_y = 0;
 	end_y = (S_RES / 2) + (wall_height / 2);
-	if (end_y >= S_RES)
+	if (end_y > S_RES)
 		end_y = S_RES - 1;
-	y = 0;
-
-	// Draw Sky (Blue)
-	while (y < start_y)
-	{
-		my_mlx_pixel_put(cube->data, x, y, 0x0087CEEB); // Light blue color
-		y++;
-	}
-
-	// Draw Wall with Texture
+	y = draw_sky(cube, x, start_y);
 	while (y < end_y)
 	{
 		tex_y = (int)((y - start_y) * (double)texture->height / wall_height);
 		if (tex_y >= 0 && tex_y < texture->height)
 		{
 			color = get_texture_pixel(texture, tex_x, tex_y);
-			color = color_shading(color, distance);
-			my_mlx_pixel_put(cube->data, x, y, color);
+			my_mlx_pixel_put(cube->data, x, y, color_shading(color, distance));
 		}
 		y++;
 	}
-
-	// Draw Floor (Black)
-	while (y < S_RES)
-	{
-		my_mlx_pixel_put(cube->data, x, y, 0x00333333); // Dark grey/black
-		y++;
-	}
+	draw_floor(cube, y, x);
 }
-
 
 double	get_distance(double x1, double y1, double x2, double y2)
 {
@@ -158,9 +162,9 @@ void	cast_away(t_cube *cube)
 	int		color;
 
 	num_rays = S_RES;
-	angle_step = FOV / num_rays;           // FOV = 60 / num_rays = 1000
+	angle_step = FOV / num_rays; // FOV = 60 / num_rays = 1000
 	start_angle = cube->angle - (FOV / 2);
-		// parse from the map where the player start
+	// parse from the map where the player start
 	ray_step = 0.1;
 	clean_display(cube);
 	init_textures(cube);
