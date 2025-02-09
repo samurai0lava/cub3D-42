@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:44:29 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/02/05 16:26:32 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/02/09 14:58:38 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ int	main(void)
 	}
 	cube->data = data;
 	init_cube(cube, data);
+	//parse(cube);
 	init_mlx(cube, data);
 	free_all(cube->gc);
 	return (0);

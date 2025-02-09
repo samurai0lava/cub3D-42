@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 12:44:24 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/02/09 13:45:16 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/02/09 14:56:23 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,16 @@ void	draw_vertical_line_with_texture(t_cube *cube, int x, int wall_height,
 	end_y = (S_RES / 2) + (wall_height / 2);
 	if (end_y >= S_RES)
 		end_y = S_RES - 1;
-	y = start_y;
+	y = 0;
+
+	// Draw Sky (Blue)
+	while (y < start_y)
+	{
+		my_mlx_pixel_put(cube->data, x, y, 0x0087CEEB); // Light blue color
+		y++;
+	}
+
+	// Draw Wall with Texture
 	while (y < end_y)
 	{
 		tex_y = (int)((y - start_y) * (double)texture->height / wall_height);
@@ -71,7 +80,15 @@ void	draw_vertical_line_with_texture(t_cube *cube, int x, int wall_height,
 		}
 		y++;
 	}
+
+	// Draw Floor (Black)
+	while (y < S_RES)
+	{
+		my_mlx_pixel_put(cube->data, x, y, 0x00333333); // Dark grey/black
+		y++;
+	}
 }
+
 
 double	get_distance(double x1, double y1, double x2, double y2)
 {
