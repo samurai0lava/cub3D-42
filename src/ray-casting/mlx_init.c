@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:44:52 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/02/09 16:03:03 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/02/11 09:51:52 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	draw_rectangle(t_data *data, int x, int y, int size, int color)
 		j = y;
 		while (j < y + size)
 		{
-			if (i >= 0 && i < S_RES && j >= 0 && j < S_RES)
+			if (i >= 0 && i < WIDTH && j >= 0 && j < HEIGHT)
 			{
 				my_mlx_pixel_put(data, i, j, color);
 			}
@@ -101,10 +101,10 @@ void	init_textures(t_cube *cube)
 	int		i;
 
 	i = 0;
-	path[0] = "./textures/wolfstein/wall_w2.xpm";
-	path[1] = "./textures/wolfstein/wall_w.xpm";
-	path[2] = "./textures/minecratft_museum/minecraft_paint3.xpm";
-	path[3] = "./textures/minecratft_museum/minecraft_paint1.xpm";
+	path[0] = "./textures/gnawa/zelij64v1.xpm";
+	path[1] = "./textures/gnawa/bab64.xpm";
+	path[2] = "./textures/gnawa/zelij64v1.xpm";
+	path[3] = "./textures/gnawa/zelij64v1.xpm";
 	while (i < 4)
 	{
 		cube->texture[i].img = mlx_xpm_file_to_image(cube->mlx, path[i],
@@ -142,13 +142,13 @@ void	init_mlx(t_cube *cube, t_data *data)
 		free_all(cube->gc);
 		return ;
 	}
-	cube->mlx_window = mlx_new_window(cube->mlx, S_RES, S_RES, "Cub3D");
+	cube->mlx_window = mlx_new_window(cube->mlx, WIDTH, HEIGHT, "Cub3D");
 	if (cube->mlx_window == NULL)
 	{
 		print_error(RED "mlx_window failed\n" RESET);
 		return ;
 	}
-	data->img = mlx_new_image(cube->mlx, S_RES, S_RES);
+	data->img = mlx_new_image(cube->mlx, WIDTH, HEIGHT);
 	data->addr = mlx_get_data_addr(data->img, &data->bits_per_pixel,
 			&data->line_length, &data->endian);
 	cube->data = data;
@@ -156,11 +156,11 @@ void	init_mlx(t_cube *cube, t_data *data)
 	cube->p_y = 250;
 	cube->angle = 0;
 	ft_memcpy(cube->map, example_map, sizeof(example_map));
-	draw_map(data, cube->map);
+	// draw_map(data, cube->map);
 	// the raycster 3D effect
 	cast_away(cube);
 	// the minimap
-	draw_filled_circle(cube, 1, 0x0000FFFF);
+	// draw_filled_circle(cube, 1, 0x0000FFFF);
 	mlx_put_image_to_window(cube->mlx, cube->mlx_window, data->img, 0, 0);
 	mlx_hook(cube->mlx_window, 2, 1L << 0, handle_keypress, cube);
 	mlx_loop(cube->mlx);
@@ -225,11 +225,11 @@ int	handle_keypress(int keycode, t_cube *cube)
 		cube->p_x = new_x;
 		cube->p_y = new_y;
 	}
-	draw_map(cube->data, cube->map);
+	// draw_map(cube->data, cube->map);
 	// the raycster 3D effect
 	cast_away(cube);
 	// the minimap
-	draw_filled_circle(cube, 1, 0x0000FFFF);
+	// draw_filled_circle(cube, 1, 0x0000FFFF);
 	mlx_put_image_to_window(cube->mlx, cube->mlx_window, cube->data->img, 0, 0);
 	return (1);
 }

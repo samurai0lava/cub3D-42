@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 15:02:54 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/01/21 16:05:05 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/02/10 10:36:47 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	draw_line(t_cube *cube, double angle, int length, int color)
 		{
 			if (cube->map[map_y][map_x] != 0)
 				break ;
-			if (x >= 0 && x < (S_RES * MAP_SCALE) && y >= 0 && y < (S_RES
+			if (x >= 0 && x < (WIDTH * MAP_SCALE) && y >= 0 && y < (HEIGHT
 					* MAP_SCALE))
 				my_mlx_pixel_put(cube->data, (int)x, (int)y, color);
 		}

@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 12:44:24 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/02/09 16:02:57 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/02/11 09:44:17 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,12 @@ void	draw_vertical_line(t_cube *cube, int x, int wall_height, int color)
 	int	end_y;
 	int	y;
 
-	start_y = (S_RES / 2) - (wall_height / 2);
+	start_y = (HEIGHT / 2) - (wall_height / 2);
 	if (start_y < 0)
 		start_y = 0;
-	end_y = (S_RES / 2) + (wall_height / 2);
-	if (end_y >= S_RES)
-		end_y = S_RES - 1;
+	end_y = (HEIGHT / 2) + (wall_height / 2);
+	if (end_y >= HEIGHT)
+		end_y = HEIGHT - 1;
 	y = 0;
 	while (y < start_y)
 	{
@@ -35,7 +35,7 @@ void	draw_vertical_line(t_cube *cube, int x, int wall_height, int color)
 		my_mlx_pixel_put(cube->data, x, y, color);
 		y++;
 	}
-	while (y < S_RES)
+	while (y < HEIGHT)
 	{
 		my_mlx_pixel_put(cube->data, x, y, 0x00333333);
 		y++;
@@ -44,7 +44,7 @@ void	draw_vertical_line(t_cube *cube, int x, int wall_height, int color)
 
 void	draw_floor(t_cube *cube, int y, int x)
 {
-	while (y < S_RES)
+	while (y < HEIGHT)
 	{
 		my_mlx_pixel_put(cube->data, x, y, 0x00333333);
 		y++;
@@ -74,12 +74,12 @@ void	draw_vertical_line_with_texture(t_cube *cube, int x, int wall_height,
 
 	if (wall_height <= 0 || !texture || tex_x < 0 || tex_x >= texture->width)
 		return ;
-	start_y = (S_RES / 2) - (wall_height / 2);
+	start_y = (HEIGHT / 2) - (wall_height / 2);
 	if (start_y < 0)
 		start_y = 0;
-	end_y = (S_RES / 2) + (wall_height / 2);
-	if (end_y > S_RES)
-		end_y = S_RES - 1;
+	end_y = (HEIGHT / 2) + (wall_height / 2);
+	if (end_y > HEIGHT)
+		end_y = HEIGHT - 1;
 	y = draw_sky(cube, x, start_y);
 	while (y < end_y)
 	{
@@ -105,10 +105,10 @@ void	clean_display(t_cube *cube)
 	int	j;
 
 	i = 0;
-	while (i < S_RES)
+	while (i < WIDTH)
 	{
 		j = 0;
-		while (j < S_RES)
+		while (j < HEIGHT)
 		{
 			my_mlx_pixel_put(cube->data, i, j, 0x00000000);
 			j++;
@@ -161,7 +161,7 @@ void	cast_away(t_cube *cube)
 	t_data	*selected_tex;
 	int		color;
 
-	num_rays = S_RES;
+	num_rays = WIDTH;
 	angle_step = FOV / num_rays; // FOV = 60 / num_rays = 1000
 	start_angle = cube->angle - (FOV / 2);
 	// parse from the map where the player start
@@ -203,7 +203,7 @@ void	cast_away(t_cube *cube)
 				if (true_distance < 0.5)
 					true_distance = 0.5;
 				// printf("true distance : %f\n", true_distance);
-				wall_height = (int)((S_RES * S_TEX) / true_distance);
+				wall_height = (int)((HEIGHT * S_TEX) / true_distance);
 				if (cube->map[map_y][map_x] == 2)
 					selected_tex = &cube->texture[0];
 				else if (cube->map[map_y][map_x] == 3)
@@ -212,13 +212,11 @@ void	cast_away(t_cube *cube)
 					selected_tex = &cube->texture[2];
 				else
 					selected_tex = &cube->texture[3];
-				// Calculate wall_x based on which side of the wall was hit
 				if (fabs(x - map_x * S_TEX) < 0.1 || fabs(x - (map_x + 1)
 						* S_TEX) < 0.1)
-					wall_x = fmod(y, S_TEX) / S_TEX; // vertical wall hit
+					wall_x = fmod(y, S_TEX) / S_TEX;
 				else
-					wall_x = fmod(x, S_TEX) / S_TEX; // horizontal wall hit
-				// Ensure wall_x is between 0 and 1
+					wall_x = fmod(x, S_TEX) / S_TEX;
 				wall_x = wall_x - floor(wall_x);
 				if (selected_tex && selected_tex->img)
 				{
@@ -244,7 +242,7 @@ void	cast_away(t_cube *cube)
 		if (!hit_wall)
 		{
 			// Draw a black vertical line for rays that didn't hit anything
-			draw_vertical_line(cube, i, S_RES, 0x00000000);
+			draw_vertical_line(cube, i, HEIGHT, 0x00000000);
 		}
 		i++;
 	}
