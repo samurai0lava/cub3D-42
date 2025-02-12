@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:44:52 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/02/12 14:58:26 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/02/12 15:25:46 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,10 +101,10 @@ void	init_textures(t_cube *cube)
 	int		i;
 
 	i = 0;
-	path[0] = "./textures/minecratft_museum/minecraft_paint1.xpm";
+	path[0] = "./textures/gnawa/zelij64v1.xpm";
 	path[1] = "./textures/gnawa/bab64.xpm";
-	path[2] = "./textures/minecratft_museum/minecraft_paint2.xpm";
-	path[3] = "./textures/minecratft_museum/minecraft_paint3.xpm";
+	path[2] = "./textures/gnawa/zelij64v1.xpm";
+	path[3] = "./textures/gnawa/zelij64v1.xpm";
 	while (i < 4)
 	{
 		cube->texture[i].img = mlx_xpm_file_to_image(cube->mlx, path[i],

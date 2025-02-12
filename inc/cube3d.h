@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:44:41 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/02/12 14:59:22 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/02/12 15:16:45 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,8 @@ typedef struct s_cube
 	int						p_y;
 	double					angle;
 	int						move;
+	int						start_y;
+	int						end_y;
 }							t_cube;
 
 typedef struct s_rgb
@@ -173,5 +175,12 @@ int							color_shading(int color, double distance);
 int							get_texture_pixel(t_data *texture, int x, int y);
 double						normalize_angle(double angle);
 void						cast_rays(t_cube *cube);
+void						draw_vertical_line(t_cube *cube, int x,
+								int wall_height, int color);
+void						draw_floor(t_cube *cube, int y, int x);
+int							draw_sky(t_cube *cube, int x, int start_y);
+void						draw_vertical_line_with_texture(t_cube *cube, int x,
+								int wall_height, int tex_x, double distance);
+double						eye_fish_correction(double ray_angle, t_cube *cube);
 
 #endif
