@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:44:52 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/02/11 09:51:52 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/02/12 14:58:26 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,10 +101,10 @@ void	init_textures(t_cube *cube)
 	int		i;
 
 	i = 0;
-	path[0] = "./textures/gnawa/zelij64v1.xpm";
+	path[0] = "./textures/minecratft_museum/minecraft_paint1.xpm";
 	path[1] = "./textures/gnawa/bab64.xpm";
-	path[2] = "./textures/gnawa/zelij64v1.xpm";
-	path[3] = "./textures/gnawa/zelij64v1.xpm";
+	path[2] = "./textures/minecratft_museum/minecraft_paint2.xpm";
+	path[3] = "./textures/minecratft_museum/minecraft_paint3.xpm";
 	while (i < 4)
 	{
 		cube->texture[i].img = mlx_xpm_file_to_image(cube->mlx, path[i],
@@ -175,8 +175,8 @@ int	handle_keypress(int keycode, t_cube *cube)
 	int		map_y;
 	double	rotation_speed;
 
-	movement_speed = 5;
-	rotation_speed = 0.05;
+	movement_speed = 8;
+	rotation_speed = 0.08;
 	new_x = cube->p_x;
 	new_y = cube->p_y;
 	if (keycode == ESC)

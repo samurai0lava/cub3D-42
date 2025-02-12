@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 12:44:24 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/02/11 09:44:17 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/02/12 14:55:35 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	draw_floor(t_cube *cube, int y, int x)
 {
 	while (y < HEIGHT)
 	{
-		my_mlx_pixel_put(cube->data, x, y, 0x00333333);
+		my_mlx_pixel_put(cube->data, x, y, 0x00111111);
 		y++;
 	}
 }
@@ -57,41 +57,54 @@ int	draw_sky(t_cube *cube ,int x, int start_y)
 	y = 0;
 	while (y < start_y)
 	{
-		my_mlx_pixel_put(cube->data, x, y, 0x00FFCEEB);
+		my_mlx_pixel_put(cube->data, x, y, 0x00FFFFFF);
 		y++;
 	}
 	return(y);
 }
 
-void	draw_vertical_line_with_texture(t_cube *cube, int x, int wall_height,
-		t_data *texture, int tex_x, double distance)
-{
-	int	start_y;
-	int	end_y;
-	int	tex_y;
-	int	color;
-	int y;
 
-	if (wall_height <= 0 || !texture || tex_x < 0 || tex_x >= texture->width)
-		return ;
-	start_y = (HEIGHT / 2) - (wall_height / 2);
-	if (start_y < 0)
-		start_y = 0;
-	end_y = (HEIGHT / 2) + (wall_height / 2);
-	if (end_y > HEIGHT)
-		end_y = HEIGHT - 1;
-	y = draw_sky(cube, x, start_y);
-	while (y < end_y)
-	{
-		tex_y = (int)((y - start_y) * (double)texture->height / wall_height);
-		if (tex_y >= 0 && tex_y < texture->height)
-		{
-			color = get_texture_pixel(texture, tex_x, tex_y);
-			my_mlx_pixel_put(cube->data, x, y, color_shading(color, distance));
-		}
-		y++;
-	}
-	draw_floor(cube, y, x);
+
+void draw_vertical_line_with_texture(t_cube *cube, int x, int wall_height,
+        t_data *texture, int tex_x, double distance)
+{
+    int start_y;
+    int end_y;
+    double tex_step;
+    double tex_pos;
+    int y;
+    int color;
+
+    if (wall_height <= 0 || !texture || tex_x < 0 || tex_x >= texture->width)
+        return;
+    
+    // Pre-calculate texture step to avoid division in the loop
+    tex_step = (double)texture->height / wall_height;
+    
+    start_y = (HEIGHT / 2) - (wall_height / 2);
+    if (start_y < 0)
+        start_y = 0;
+    end_y = (HEIGHT / 2) + (wall_height / 2);
+    if (end_y > HEIGHT)
+        end_y = HEIGHT;
+    
+    // Draw sky once
+    y = draw_sky(cube, x, start_y);
+    
+    // Pre-calculate starting texture position
+    tex_pos = (y - ((HEIGHT / 2) - (wall_height / 2))) * tex_step;
+    
+    // Main rendering loop with optimized texture coordinate calculation
+    while (y < end_y)
+    {
+        int tex_y = (int)tex_pos & (texture->height - 1); // Faster modulo for power of 2
+        color = get_texture_pixel(texture, tex_x, tex_y);
+        my_mlx_pixel_put(cube->data, x, y, color_shading(color, distance));
+        tex_pos += tex_step;
+        y++;
+    }
+    
+    draw_floor(cube, y, x);
 }
 
 double	get_distance(double x1, double y1, double x2, double y2)
