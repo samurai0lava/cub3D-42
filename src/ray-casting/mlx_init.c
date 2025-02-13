@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:44:52 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/02/12 15:25:46 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/02/13 19:25:13 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,16 +95,17 @@ int	get_texture_pixel(t_data *texture, int x, int y)
 	return (*(unsigned int *)pixel);
 }
 
+
 void	init_textures(t_cube *cube)
 {
 	char	*path[4];
 	int		i;
 
 	i = 0;
-	path[0] = "./textures/gnawa/zelij64v1.xpm";
-	path[1] = "./textures/gnawa/bab64.xpm";
-	path[2] = "./textures/gnawa/zelij64v1.xpm";
-	path[3] = "./textures/gnawa/zelij64v1.xpm";
+	path[0] = "./textures/gnawa/wall2_pixel.xpm";
+	path[1] = "./textures/gnawa/wall2_pixel.xpm";
+	path[2] = "./textures/gnawa/door.xpm";
+	path[3] = "./textures/gnawa/door.xpm";
 	while (i < 4)
 	{
 		cube->texture[i].img = mlx_xpm_file_to_image(cube->mlx, path[i],
@@ -131,7 +132,7 @@ void	init_mlx(t_cube *cube, t_data *data)
 	int	example_map[10][10] = {{1, 1, 1, 1, 1, 1, 1, 1, 1, 1}, {1, 0, 0, 0, 0,
 			0, 0, 0, 1, 1}, {1, 0, 3, 3, 1, 1, 1, 0, 1, 1}, {1, 0, 0, 0, 0, 0,
 			0, 0, 0, 1}, {1, 0, 0, 0, 0, 0, 0, 0, 0, 1}, {1, 0, 0, 0, 0, 0, 0,
-			0, 0, 1}, {1, 1, 4, 0, 2, 2, 1, 1, 4, 1}, {1, 1, 1, 0, 0, 0, 0, 0,
+			0, 0, 1}, {1, 1, 4, 0, 1, 1, 1, 1, 4, 1}, {1, 1, 1, 0, 0, 0, 0, 0,
 			0, 1}, {1, 0, 0, 0, 0, 0, 0, 0, 0, 1}, {1, 1, 1, 1, 1, 1, 1, 1, 1,
 			1}};
 
@@ -158,6 +159,7 @@ void	init_mlx(t_cube *cube, t_data *data)
 	ft_memcpy(cube->map, example_map, sizeof(example_map));
 	// draw_map(data, cube->map);
 	// the raycster 3D effect
+	draw_weapon(cube);
 	cast_away(cube);
 	// the minimap
 	// draw_filled_circle(cube, 1, 0x0000FFFF);
@@ -227,6 +229,7 @@ int	handle_keypress(int keycode, t_cube *cube)
 	}
 	// draw_map(cube->data, cube->map);
 	// the raycster 3D effect
+	draw_weapon(cube);
 	cast_away(cube);
 	// the minimap
 	// draw_filled_circle(cube, 1, 0x0000FFFF);

@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 12:44:24 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/02/12 15:27:27 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/02/13 19:23:36 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int	draw_sky(t_cube *cube, int x, int start_y)
 }
 
 void	draw_vertical_line_with_texture(t_cube *cube, int x, int wall_height,
-		int tex_x, double distance)
+		int tex_x, double distance, t_data *selected_tex)
 {
 	double	tex_step;
 	double	tex_pos;
@@ -70,10 +70,10 @@ void	draw_vertical_line_with_texture(t_cube *cube, int x, int wall_height,
 	int		y;
 	int		color;
 
-	if (wall_height <= 0 || !cube->texture || tex_x < 0
-		|| tex_x >= cube->texture->width)
+	if (wall_height <= 0 || !selected_tex || tex_x < 0
+		|| tex_x >= selected_tex->width)
 		return ;
-	tex_step = (double)cube->texture->height / wall_height;
+	tex_step = (double)selected_tex->height / wall_height;
 	cube->start_y = (HEIGHT / 2) - (wall_height / 2);
 	if (cube->start_y < 0)
 		cube->start_y = 0;
@@ -84,8 +84,8 @@ void	draw_vertical_line_with_texture(t_cube *cube, int x, int wall_height,
 	tex_pos = (y - ((HEIGHT / 2) - (wall_height / 2))) * tex_step;
 	while (y < cube->end_y)
 	{
-		tex_y = (int)tex_pos & (cube->texture->height - 1);
-		color = get_texture_pixel(cube->texture, tex_x, tex_y);
+		tex_y = (int)tex_pos & (selected_tex->height - 1);
+		color = get_texture_pixel(selected_tex, tex_x, tex_y);
 		my_mlx_pixel_put(cube->data, x, y, color_shading(color, distance));
 		tex_pos += tex_step;
 		y++;
@@ -136,17 +136,17 @@ int	color_shading(int color, double distance)
 	return ((r << 16) | (g << 8) | b);
 }
 
-// double	eye_fish_correction(double ray_angle, t_cube *cube)
-// {
-// 	double	angle_diff;
+double	eye_fish_correction(double ray_angle, t_cube *cube)
+{
+	double	angle_diff;
 
-// 	angle_diff = ray_angle - cube->angle;
-// 	if (angle_diff > PI)
-// 		angle_diff -= 2 * PI;
-// 	if (angle_diff < -PI)
-// 		angle_diff += 2 * PI;
-// 	return (angle_diff);
-// }
+	angle_diff = ray_angle - cube->angle;
+	if (angle_diff > PI)
+		angle_diff -= 2 * PI;
+	if (angle_diff < -PI)
+		angle_diff += 2 * PI;
+	return (angle_diff);
+}
 
 void	cast_away(t_cube *cube)
 {
@@ -179,6 +179,7 @@ void	cast_away(t_cube *cube)
 	ray_step = 0.1;
 	clean_display(cube);
 	init_textures(cube);
+	init_weapon(cube);
 	i = 0;
 	while (i < num_rays)
 	{
@@ -203,24 +204,19 @@ void	cast_away(t_cube *cube)
 			{
 				hit_wall = 1;
 				true_distance = get_distance(cube->p_x, cube->p_y, x, y);
-				// angle_diff = eye_fish_correction(ray_angle, cube);
-					angle_diff = ray_angle - cube->angle;
-					if (angle_diff > PI)
-						angle_diff -= 2 * PI;
-					if (angle_diff < -PI)
-						angle_diff += 2 * PI;
+				angle_diff = eye_fish_correction(ray_angle, cube);
 				true_distance *= cos(angle_diff);
 				if (true_distance < 0.5)
 					true_distance = 0.5;
 				wall_height = (int)((HEIGHT * S_TEX) / true_distance);
-				if (cube->map[map_y][map_x] == 2)
+				if (cube->map[map_y][map_x] == 4)
 					selected_tex = &cube->texture[0];
-				else if (cube->map[map_y][map_x] == 3)
+				else if (cube->map[map_y][map_x] == 2)
 					selected_tex = &cube->texture[1];
-				else if (cube->map[map_y][map_x] == 4)
-					selected_tex = &cube->texture[2];
-				else
+				else if (cube->map[map_y][map_x] == 3)
 					selected_tex = &cube->texture[3];
+				else
+					selected_tex = &cube->texture[1];
 				if (fabs(x - map_x * S_TEX) < 0.1 || fabs(x - (map_x + 1)
 						* S_TEX) < 0.1)
 					wall_x = fmod(y, S_TEX) / S_TEX;
@@ -231,7 +227,7 @@ void	cast_away(t_cube *cube)
 				{
 					tex_x = (int)(wall_x * selected_tex->width);
 					draw_vertical_line_with_texture(cube, i, wall_height, tex_x,
-						true_distance);
+						true_distance, selected_tex);
 				}
 				else
 				{

@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:44:29 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/02/09 14:58:38 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/02/13 19:20:28 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ void	init_cube(t_cube *cube, t_data *data)
 	cube->p_x = 250;
 	cube->p_y= 250;
 	cube->angle = 0;
+	cube->weapon.orig_height = S_TEX;
+	cube->weapon.orig_width = S_TEX;
 
 }
 int	main(void)

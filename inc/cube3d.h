@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:44:41 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/02/12 15:16:45 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/02/13 20:14:32 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,17 @@ typedef struct s_data
 	int						height;
 }							t_data;
 
+typedef struct s_weapon
+{
+	t_data					texture;
+	int orig_width; // Original texture dimensions
+	int						orig_height;
+	int scaled_width; // Scaled dimensions for rendering
+	int						scaled_height;
+	int						pos_x;
+	int						pos_y;
+}							t_weapon;
+
 typedef struct s_cube
 {
 	void					*mlx;
@@ -99,6 +110,7 @@ typedef struct s_cube
 	int						move;
 	int						start_y;
 	int						end_y;
+	t_weapon				weapon;
 }							t_cube;
 
 typedef struct s_rgb
@@ -179,8 +191,11 @@ void						draw_vertical_line(t_cube *cube, int x,
 								int wall_height, int color);
 void						draw_floor(t_cube *cube, int y, int x);
 int							draw_sky(t_cube *cube, int x, int start_y);
-void						draw_vertical_line_with_texture(t_cube *cube, int x,
-								int wall_height, int tex_x, double distance);
 double						eye_fish_correction(double ray_angle, t_cube *cube);
-
+void						draw_vertical_line_with_texture(t_cube *cube, int x,
+								int wall_height, int tex_x, double distance,
+								t_data *selected_tex);
+void						init_weapon(t_cube *cube);
+void						draw_weapon(t_cube *cube);
+void						scale_weapon(t_cube *cube);
 #endif
