@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:44:41 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/02/14 18:56:41 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/02/14 19:09:22 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,13 +93,35 @@ typedef struct s_data
 typedef struct s_weapon
 {
 	t_data					texture;
-	int orig_width; // Original texture dimensions
+	int						orig_width;
 	int						orig_height;
-	int scaled_width; // Scaled dimensions for rendering
+	int						scaled_width;
 	int						scaled_height;
 	int						pos_x;
 	int						pos_y;
 }							t_weapon;
+
+typedef struct s_bar
+{
+	t_data					texture;
+	int						orig_width;
+	int						orig_height;
+	int						scaled_width;
+	int						scaled_height;
+	int						pos_x;
+	int						pos_y;
+}							t_bar;
+
+typedef struct s_enemie
+{
+	t_data					texture;
+	int						orig_width;
+	int						orig_height;
+	int						scaled_width;
+	int						scaled_height;
+	int						pos_x;
+	int						pos_y;
+}							t_enemie;
 
 typedef struct s_cube
 {
@@ -116,6 +138,8 @@ typedef struct s_cube
 	int						start_y;
 	int						end_y;
 	t_weapon				weapon;
+	t_bar					bar;
+	t_enemie 				enemie;
 }							t_cube;
 
 typedef struct s_rgb

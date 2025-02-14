@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:44:52 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/02/14 18:55:24 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/02/14 19:53:53 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,8 +101,8 @@ void	init_textures(t_cube *cube)
 	int		i;
 
 	i = 0;
+	path[1] = "./textures/gnawa/textured_wall.xpm";
 	path[0] = "./textures/gnawa/wall2_pixel.xpm";
-	path[1] = "./textures/gnawa/wall2_pixel.xpm";
 	path[2] = "./textures/gnawa/door.xpm";
 	path[3] = "./textures/gnawa/door.xpm";
 	while (i < 4)
