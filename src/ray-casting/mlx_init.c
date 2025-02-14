@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:44:52 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/02/13 19:25:13 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/02/14 18:12:52 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,6 @@ int	get_texture_pixel(t_data *texture, int x, int y)
 	return (*(unsigned int *)pixel);
 }
 
-
 void	init_textures(t_cube *cube)
 {
 	char	*path[4];
@@ -157,12 +156,12 @@ void	init_mlx(t_cube *cube, t_data *data)
 	cube->p_y = 250;
 	cube->angle = 0;
 	ft_memcpy(cube->map, example_map, sizeof(example_map));
-	// draw_map(data, cube->map);
-	// the raycster 3D effect
-	draw_weapon(cube);
+	init_textures(cube);
+	init_weapon(cube);
 	cast_away(cube);
-	// the minimap
+	draw_weapon(cube);
 	// draw_filled_circle(cube, 1, 0x0000FFFF);
+	draw_circular_minimap(cube);
 	mlx_put_image_to_window(cube->mlx, cube->mlx_window, data->img, 0, 0);
 	mlx_hook(cube->mlx_window, 2, 1L << 0, handle_keypress, cube);
 	mlx_loop(cube->mlx);
@@ -229,10 +228,11 @@ int	handle_keypress(int keycode, t_cube *cube)
 	}
 	// draw_map(cube->data, cube->map);
 	// the raycster 3D effect
-	draw_weapon(cube);
 	cast_away(cube);
+	draw_weapon(cube);
 	// the minimap
 	// draw_filled_circle(cube, 1, 0x0000FFFF);
+	draw_circular_minimap(cube);
 	mlx_put_image_to_window(cube->mlx, cube->mlx_window, cube->data->img, 0, 0);
 	return (1);
 }

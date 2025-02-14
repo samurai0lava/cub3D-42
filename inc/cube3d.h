@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:44:41 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/02/13 20:14:32 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/02/14 18:30:26 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,11 @@
 # define MAP_SCALE 0.5
 # define TILE_SIZE (S_TEX * MAP_SCALE)
 # define RAY_STEP 0.1
+# define MINIMAP_RADIUS 80
+# define MINIMAP_X (MINIMAP_RADIUS + 10)           // Position from left edge
+# define MINIMAP_Y (MINIMAP_RADIUS + HEIGHT - 180) // Position from top edge
+# define PLAYER_DOT_SIZE 3
+# define MINIMAP_SCALE 3
 
 # define FOV PI / 3
 
@@ -198,4 +203,9 @@ void						draw_vertical_line_with_texture(t_cube *cube, int x,
 void						init_weapon(t_cube *cube);
 void						draw_weapon(t_cube *cube);
 void						scale_weapon(t_cube *cube);
+void						draw_circular_minimap(t_cube *cube);
+void						draw_minimap_pixel(t_cube *cube, int x, int y,
+								int color);
+void						draw_minimap_line(t_cube *cube, double angle,
+								int length, int color);
 #endif

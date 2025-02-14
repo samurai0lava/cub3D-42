@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 12:44:24 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/02/13 19:23:36 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/02/14 17:24:23 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	draw_floor(t_cube *cube, int y, int x)
 {
 	while (y < HEIGHT)
 	{
-		my_mlx_pixel_put(cube->data, x, y, 0x00111111);
+		my_mlx_pixel_put(cube->data, x, y, 0x003E2723);
 		y++;
 	}
 }
@@ -55,7 +55,7 @@ int	draw_sky(t_cube *cube, int x, int start_y)
 	y = 0;
 	while (y < start_y)
 	{
-		my_mlx_pixel_put(cube->data, x, y, 0x00FFFFFF);
+		my_mlx_pixel_put(cube->data, x, y, 0x003E2723);
 		y++;
 	}
 	return (y);
@@ -178,8 +178,7 @@ void	cast_away(t_cube *cube)
 	// parse from the map where the player start
 	ray_step = 0.1;
 	clean_display(cube);
-	init_textures(cube);
-	init_weapon(cube);
+
 	i = 0;
 	while (i < num_rays)
 	{

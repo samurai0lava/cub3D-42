@@ -6,96 +6,100 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 15:02:54 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/02/10 10:36:47 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/02/14 18:39:06 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/cube3d.h"
 
-void	draw_line(t_cube *cube, double angle, int length, int color)
+void	draw_minimap_pixel(t_cube *cube, int x, int y, int color)
+{
+	int		screen_x;
+	int		screen_y;
+	double	distance_from_center;
+
+	screen_x = MINIMAP_X + x;
+	screen_y = MINIMAP_Y + y;
+	if (screen_x >= 0 && screen_x < WIDTH && screen_y >= 0 && screen_y < HEIGHT)
+	{
+		distance_from_center = sqrt(x * x + y * y);
+		if (distance_from_center <= MINIMAP_RADIUS)
+		{
+			my_mlx_pixel_put(cube->data, screen_x, screen_y, color);
+		}
+	}
+}
+
+void	draw_minimap_line(t_cube *cube, double angle, int length, int color)
 {
 	double	steps;
+	double	x_inc;
+	double	y_inc;
+	double	x;
+	double	y;
 	int		i;
-	double	x2;
-	double	y2;
-	double dx, dy;
-	double x, y;
-	double x_inc, y_inc;
-	int map_x, map_y;
+	int		map_x;
+	int		map_y;
 
+	steps = length;
+	x_inc = cos(angle);
+	y_inc = sin(angle);
+	x = 0;
+	y = 0;
 	i = 0;
-	x2 = cube->p_x + cos(angle) * length;
-	y2 = cube->p_y + sin(angle) * length;
-	dx = x2 - cube->p_x;
-	dy = y2 - cube->p_y;
-	steps = fmax(fabs(dx), fabs(dy));
-	x_inc = dx / steps;
-	y_inc = dy / steps;
-	x = cube->p_x * MAP_SCALE;
-	y = cube->p_y * MAP_SCALE;
-	while (i <= steps)
+	while (i < steps)
 	{
-		map_x = (int)(x / TILE_SIZE);
-		map_y = (int)(y / TILE_SIZE);
+		map_x = (int)((cube->p_x + (x / MINIMAP_SCALE)) / S_TEX);
+		map_y = (int)((cube->p_y + (y / MINIMAP_SCALE)) / S_TEX);
 		if (map_x >= 0 && map_x < 10 && map_y >= 0 && map_y < 10)
 		{
 			if (cube->map[map_y][map_x] != 0)
 				break ;
-			if (x >= 0 && x < (WIDTH * MAP_SCALE) && y >= 0 && y < (HEIGHT
-					* MAP_SCALE))
-				my_mlx_pixel_put(cube->data, (int)x, (int)y, color);
+			draw_minimap_pixel(cube, (int)x, (int)y, color);
 		}
-		x += x_inc * MAP_SCALE;
-		y += y_inc * MAP_SCALE;
+		x += x_inc;
+		y += y_inc;
 		i++;
 	}
 }
 
-void	cast_away_minirays(t_cube *cube)
+void	draw_circular_minimap(t_cube *cube)
 {
-	int		num_rays;
-	double	ray_angle;
-	double	start_angle;
-	double	angle_step;
-	int		i;
+	int	map_x;
+	int	map_y;
+	int	x;
+	int	y;
+	int sqrt;
 
-	num_rays = 60;
-	angle_step = FOV / num_rays;
-	start_angle = cube->angle - (FOV / 2);
-	i = 0;
-	while (i < num_rays)
+	y = -MINIMAP_RADIUS;
+	while (y <= MINIMAP_RADIUS)
 	{
-		ray_angle = start_angle + (i * angle_step);
-		ray_angle = fmod(ray_angle + 2 * PI, 2 * PI);
-		draw_line(cube, ray_angle, 1000 * MAP_SCALE, 0x0000FFEE);
-		i++;
-	}
-}
-
-void	draw_filled_circle(t_cube *cube, int radius, int color)
-{
-	double	radius_squared;
-	int		x;
-	int		y;
-
-	radius_squared = radius * radius * MAP_SCALE;
-	draw_map(cube->data, cube->map);
-	y = cube->p_y - (radius * MAP_SCALE);
-	while (y <= cube->p_y + (radius * MAP_SCALE))
-	{
-		x = cube->p_x - (radius * MAP_SCALE);
-		while (x <= cube->p_x + (radius * MAP_SCALE))
+		x = -MINIMAP_RADIUS;
+		while (x <= MINIMAP_RADIUS)
 		{
-			if (((x - cube->p_x) * (x - cube->p_x) + (y - cube->p_y) * (y
-						- cube->p_y)) <= radius_squared)
+			map_x = (int)((cube->p_x + (x * MINIMAP_SCALE)) / S_TEX);
+			map_y = (int)((cube->p_y + (y * MINIMAP_SCALE)) / S_TEX);
+			if (map_x >= 0 && map_x < 10 && map_y >= 0 && map_y < 10)
 			{
-				if (x >= 0 && x < (10 * MAP_SCALE) && y >= 0 && y < (10
-						* MAP_SCALE))
-					my_mlx_pixel_put(cube->data, x, y, color);
+				if (cube->map[map_y][map_x] != 0)
+					draw_minimap_pixel(cube, x, y, 0x000000);
 			}
 			x++;
 		}
 		y++;
 	}
-	cast_away_minirays(cube);
+	y = -PLAYER_DOT_SIZE;
+	while (y <= PLAYER_DOT_SIZE)
+	{
+		x = -PLAYER_DOT_SIZE;
+		while (x <= PLAYER_DOT_SIZE)
+		{
+			sqrt = x * x + y * y;
+			if (sqrt <= PLAYER_DOT_SIZE * PLAYER_DOT_SIZE)
+				draw_minimap_pixel(cube, x, y, 0xFF0000);
+			x++;
+		}
+		y++;
+	}
+	draw_minimap_line(cube, cube->angle, PLAYER_DOT_SIZE * 3, 0xFF0000);
 }
