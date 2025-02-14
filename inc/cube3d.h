@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:44:41 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/02/14 19:09:22 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/02/14 20:05:13 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,8 @@
 # define LEFT_KEY 65361
 # define RIGHT_KEY 65363
 # define S_RES 400
-# define WIDTH 800
-# define HEIGHT 800
+# define WIDTH 100
+# define HEIGHT 100
 # define S_TEX 64
 # define MAP_SCALE 0.5
 # define TILE_SIZE (S_TEX * MAP_SCALE)
