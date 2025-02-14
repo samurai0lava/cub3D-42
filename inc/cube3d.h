@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:44:41 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/02/14 18:30:26 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/02/14 18:56:41 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -208,4 +208,5 @@ void						draw_minimap_pixel(t_cube *cube, int x, int y,
 								int color);
 void						draw_minimap_line(t_cube *cube, double angle,
 								int length, int color);
+void						draw_health_bar(t_cube *cube);
 #endif

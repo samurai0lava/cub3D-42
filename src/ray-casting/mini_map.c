@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 15:02:54 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/02/14 18:39:06 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/02/14 18:54:06 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,13 +63,12 @@ void	draw_minimap_line(t_cube *cube, double angle, int length, int color)
 	}
 }
 
-void	draw_circular_minimap(t_cube *cube)
+void	draw_walls_mini_map(t_cube *cube)
 {
 	int	map_x;
 	int	map_y;
 	int	x;
 	int	y;
-	int sqrt;
 
 	y = -MINIMAP_RADIUS;
 	while (y <= MINIMAP_RADIUS)
@@ -88,6 +87,14 @@ void	draw_circular_minimap(t_cube *cube)
 		}
 		y++;
 	}
+}
+
+void	draw_circular_minimap(t_cube *cube)
+{
+	int	x;
+	int	y;
+	int	sqrt;
+	draw_walls_mini_map(cube);
 	y = -PLAYER_DOT_SIZE;
 	while (y <= PLAYER_DOT_SIZE)
 	{

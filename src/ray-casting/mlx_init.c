@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:44:52 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/02/14 18:12:52 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/02/14 18:55:24 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,7 +160,6 @@ void	init_mlx(t_cube *cube, t_data *data)
 	init_weapon(cube);
 	cast_away(cube);
 	draw_weapon(cube);
-	// draw_filled_circle(cube, 1, 0x0000FFFF);
 	draw_circular_minimap(cube);
 	mlx_put_image_to_window(cube->mlx, cube->mlx_window, data->img, 0, 0);
 	mlx_hook(cube->mlx_window, 2, 1L << 0, handle_keypress, cube);
@@ -226,12 +225,8 @@ int	handle_keypress(int keycode, t_cube *cube)
 		cube->p_x = new_x;
 		cube->p_y = new_y;
 	}
-	// draw_map(cube->data, cube->map);
-	// the raycster 3D effect
 	cast_away(cube);
 	draw_weapon(cube);
-	// the minimap
-	// draw_filled_circle(cube, 1, 0x0000FFFF);
 	draw_circular_minimap(cube);
 	mlx_put_image_to_window(cube->mlx, cube->mlx_window, cube->data->img, 0, 0);
 	return (1);
