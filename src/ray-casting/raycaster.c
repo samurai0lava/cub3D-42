@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 12:44:24 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/02/14 17:24:23 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/02/15 18:17:52 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,14 +150,10 @@ double	eye_fish_correction(double ray_angle, t_cube *cube)
 
 void	cast_away(t_cube *cube)
 {
-	int		num_rays;
 	double	ray_angle;
-	double	start_angle;
-	double	angle_step;
 	int		i;
 	double	distance;
 	int		wall_height;
-	double	ray_step;
 	int		hit_wall;
 	double	true_distance;
 	double	angle_diff;
@@ -172,20 +168,18 @@ void	cast_away(t_cube *cube)
 	t_data	*selected_tex;
 	int		color;
 
-	num_rays = WIDTH;
-	angle_step = FOV / num_rays; // FOV = 60 / num_rays = 1000
-	start_angle = cube->angle - (FOV / 2);
-	// parse from the map where the player start
-	ray_step = 0.1;
+	cube->num_rays = WIDTH;
+	cube->angle_step = FOV / cube->num_rays;
+	cube->start_angle = cube->angle - (FOV / 2);
+	cube->ray_step = 0.1;
 	clean_display(cube);
-
 	i = 0;
-	while (i < num_rays)
+	while (i < cube->num_rays)
 	{
-		ray_angle = start_angle + (i * angle_step);
+		ray_angle = cube->start_angle + (i * cube->angle_step);
 		ray_angle = fmod(ray_angle + 2 * PI, 2 * PI);
-		dx = cos(ray_angle) * ray_step;
-		dy = sin(ray_angle) * ray_step;
+		dx = cos(ray_angle) * cube->ray_step;
+		dy = sin(ray_angle) * cube->ray_step;
 		x = cube->p_x;
 		y = cube->p_y;
 		hit_wall = 0;
@@ -194,7 +188,7 @@ void	cast_away(t_cube *cube)
 		{
 			x += dx;
 			y += dy;
-			distance += ray_step;
+			distance += cube->ray_step;
 			map_x = (int)x / S_TEX;
 			map_y = (int)y / S_TEX;
 			selected_tex = NULL;

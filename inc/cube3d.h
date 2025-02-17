@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:44:41 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/02/14 20:05:13 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/02/17 13:34:53 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,8 @@
 # define LEFT_KEY 65361
 # define RIGHT_KEY 65363
 # define S_RES 400
-# define WIDTH 100
-# define HEIGHT 100
+# define WIDTH 800
+# define HEIGHT 800
 # define S_TEX 64
 # define MAP_SCALE 0.5
 # define TILE_SIZE (S_TEX * MAP_SCALE)
@@ -79,6 +79,12 @@ typedef struct s_garbage_collector
 	t_garbage_node			*head;
 }							t_garbage_collector;
 
+typedef struct s_frame_anime
+{
+	void					*ptr;
+	struct s_frame_anime	*next;
+}							t_frame_anime;
+
 typedef struct s_data
 {
 	void					*img;
@@ -92,7 +98,7 @@ typedef struct s_data
 
 typedef struct s_weapon
 {
-	t_data					texture;
+	t_data					texture[6];
 	int						orig_width;
 	int						orig_height;
 	int						scaled_width;
@@ -139,7 +145,12 @@ typedef struct s_cube
 	int						end_y;
 	t_weapon				weapon;
 	t_bar					bar;
-	t_enemie 				enemie;
+	t_enemie				enemie;
+	int						num_rays;
+	double					angle_step;
+	double					ray_step;
+	double					start_angle;
+	t_frame_anime			*frame;
 }							t_cube;
 
 typedef struct s_rgb

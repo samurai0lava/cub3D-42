@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 19:13:34 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/02/14 17:17:00 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/02/17 13:46:02 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,24 +31,24 @@ void    init_weapon(t_cube *cube)
     int     line_length;
     int     endian;
 
-    cube->weapon.texture.img = mlx_xpm_file_to_image(cube->mlx, "./textures/gnawa/pov.xpm",
+    cube->weapon.texture[0].img = mlx_xpm_file_to_image(cube->mlx, "./textures/gnawa/pov.xpm",
             &cube->weapon.orig_width, &cube->weapon.orig_height);;
-	if(!cube->weapon.texture.img)
+	if(!cube->weapon.texture[0].img)
 	{
 		print_error(RED "Failed to load weapon\n" RESET);
 		return;
 	}
-    cube->weapon.texture.addr = mlx_get_data_addr(cube->weapon.texture.img, &bpp, &line_length,
+    cube->weapon.texture[0].addr = mlx_get_data_addr(cube->weapon.texture[0].img, &bpp, &line_length,
             &endian);
-    cube->weapon.texture.bits_per_pixel = bpp;
-    cube->weapon.texture.line_length = line_length;
-    cube->weapon.texture.endian = endian;
-    cube->weapon.texture.width = cube->weapon.orig_width;   // Add these
-    cube->weapon.texture.height = cube->weapon.orig_height; // Add these
+    cube->weapon.texture[0].bits_per_pixel = bpp;
+    cube->weapon.texture[0].line_length = line_length;
+    cube->weapon.texture[0].endian = endian;
+    cube->weapon.texture[0].width = cube->weapon.orig_width;   // Add these
+    cube->weapon.texture[0].height = cube->weapon.orig_height; // Add these
     scale_weapon(cube);
 }
 
-void	draw_weapon(t_cube *cube)
+void	 draw_weapon(t_cube *cube)
 {
 	int x, y;
 	int tex_x;
