@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:44:52 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/02/14 19:53:53 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/02/18 20:12:07 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,9 +157,13 @@ void	init_mlx(t_cube *cube, t_data *data)
 	cube->angle = 0;
 	ft_memcpy(cube->map, example_map, sizeof(example_map));
 	init_textures(cube);
-	init_weapon(cube);
+	// init_weapon(cube);
 	cast_away(cube);
+	load_frames(cube);
+
+	add_frame_ls(cube);
 	draw_weapon(cube);
+	update_frame(cube);
 	draw_circular_minimap(cube);
 	mlx_put_image_to_window(cube->mlx, cube->mlx_window, data->img, 0, 0);
 	mlx_hook(cube->mlx_window, 2, 1L << 0, handle_keypress, cube);
@@ -227,6 +231,7 @@ int	handle_keypress(int keycode, t_cube *cube)
 	}
 	cast_away(cube);
 	draw_weapon(cube);
+	update_frame(cube);
 	draw_circular_minimap(cube);
 	mlx_put_image_to_window(cube->mlx, cube->mlx_window, cube->data->img, 0, 0);
 	return (1);

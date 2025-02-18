@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 19:13:34 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/02/17 13:46:02 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/02/18 19:44:54 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,38 +48,38 @@ void    init_weapon(t_cube *cube)
     scale_weapon(cube);
 }
 
-void	 draw_weapon(t_cube *cube)
-{
-	int x, y;
-	int tex_x;
-	int tex_y;
-	int color;
-	float x_ratio;
-	float y_ratio;
+// void	 draw_weapon(t_cube *cube)
+// {
+// 	int x, y;
+// 	int tex_x;
+// 	int tex_y;
+// 	int color;
+// 	float x_ratio;
+// 	float y_ratio;
 
-	x_ratio = (float)cube->weapon.orig_width / cube->weapon.scaled_width;
-	y_ratio = (float)cube->weapon.orig_height / cube->weapon.scaled_height;
-	y = 0;
-	while (y < cube->weapon.scaled_height)
-	{
-		x = 0;
-		while (x < cube->weapon.scaled_width)
-		{
-			tex_x = x * x_ratio;
-			tex_y = y * y_ratio;
-			color = get_texture_pixel(&cube->weapon.texture, tex_x, tex_y);
-			if ((color & 0xFF000000) == 0)
-			{
-				int screen_x = cube->weapon.pos_x + x;
-				int screen_y = cube->weapon.pos_y + y;
-				if (screen_x >= 0 && screen_x < WIDTH && screen_y >= 0
-					&& screen_y < HEIGHT)
-				{
-					my_mlx_pixel_put(cube->data, screen_x, screen_y, color);
-				}
-			}
-			x++;
-		}
-		y++;
-	}
-}
+// 	x_ratio = (float)cube->weapon.orig_width / cube->weapon.scaled_width;
+// 	y_ratio = (float)cube->weapon.orig_height / cube->weapon.scaled_height;
+// 	y = 0;
+// 	while (y < cube->weapon.scaled_height)
+// 	{
+// 		x = 0;
+// 		while (x < cube->weapon.scaled_width)
+// 		{
+// 			tex_x = x * x_ratio;
+// 			tex_y = y * y_ratio;
+// 			color = get_texture_pixel(&cube->weapon.texture[0], tex_x, tex_y);
+// 			if ((color & 0xFF000000) == 0)
+// 			{
+// 				int screen_x = cube->weapon.pos_x + x;
+// 				int screen_y = cube->weapon.pos_y + y;
+// 				if (screen_x >= 0 && screen_x < WIDTH && screen_y >= 0
+// 					&& screen_y < HEIGHT)
+// 				{
+// 					my_mlx_pixel_put(cube->data, screen_x, screen_y, color);
+// 				}
+// 			}
+// 			x++;
+// 		}
+// 		y++;
+// 	}
+// }
