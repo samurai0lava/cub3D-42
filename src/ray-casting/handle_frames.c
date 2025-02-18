@@ -6,18 +6,11 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/16 14:39:37 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/02/18 22:17:07 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/02/18 22:17:42 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/cube3d.h"
-
-// LOAD THE TEXTURES
-// ADD  IT TO THE LINKED LIST IN ORDER (circular linked list)
-// FUNCTION TO UPADTE THE MOUVEMENT
-
-// update the mouvement
-// linked list o
 
 int	load_frames(t_cube *cube)
 {
@@ -59,7 +52,7 @@ void	add_frame_ls(t_cube *cube)
 
 	i = 0;
 	cube->frame = ft_lstnew(&cube->weapon.texture[i]);
-	if(!cube->frame)
+	if (!cube->frame)
 	{
 		perror("malloc");
 		return ;
@@ -110,8 +103,8 @@ void	draw_weapon(t_cube *cube)
 		{
 			tex_x = x * x_ratio;
 			tex_y = y * y_ratio;
-			color = get_texture_pixel((t_data *)cube->frame->content,
-					tex_x, tex_y);
+			color = get_texture_pixel((t_data *)cube->frame->content, tex_x,
+					tex_y);
 			if ((color & 0xFF000000) == 0)
 			{
 				screen_x = cube->weapon.pos_x + x;
