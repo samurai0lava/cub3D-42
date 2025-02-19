@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:44:41 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/02/18 22:13:44 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/02/19 17:57:22 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@
 # define PLAYER_DOT_SIZE 3
 # define MINIMAP_SCALE 3
 # define FRAME_DELAY 5
+# define MOUSE_SENSITIVITY 0.003
 
 # define FOV PI / 3
 
@@ -147,6 +148,8 @@ typedef struct s_cube
 	double					start_angle;
 	t_list					*frame;
 	t_list					*current_frame;
+	int						mouse_x;
+	int						mouse_y;
 }							t_cube;
 
 typedef struct s_rgb
@@ -243,4 +246,5 @@ void						draw_health_bar(t_cube *cube);
 void						update_frame(t_cube *cube);
 int							load_frames(t_cube *cube);
 void						add_frame_ls(t_cube *cube);
+int							handle_mouse_move(int x, int y, t_cube *cube);
 #endif

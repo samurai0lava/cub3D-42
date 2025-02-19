@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:44:52 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/02/18 22:19:24 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/02/19 18:15:42 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,13 +160,17 @@ void	init_mlx(t_cube *cube, t_data *data)
 	// init_weapon(cube);
 	cast_away(cube);
 	load_frames(cube);
-
 	add_frame_ls(cube);
 	draw_weapon(cube);
 	update_frame(cube);
 	draw_circular_minimap(cube);
 	mlx_put_image_to_window(cube->mlx, cube->mlx_window, data->img, 0, 0);
 	mlx_hook(cube->mlx_window, 2, 1L << 0, handle_keypress, cube);
+	// mlx_mouse_hide(cube->mlx, cube->mlx_window);
+	// mlx_hook(cube->mlx_window, 6, 1L << 6, handle_mouse_move, cube);
+	// cube->mouse_x = WIDTH / 2;
+	// cube->mouse_y = HEIGHT / 2;
+	// mlx_mouse_move(cube->mlx ,cube->mlx_window, WIDTH / 2, HEIGHT / 2);
 	mlx_loop(cube->mlx);
 }
 

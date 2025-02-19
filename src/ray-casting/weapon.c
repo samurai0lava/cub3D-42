@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 19:13:34 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/02/18 22:18:01 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/02/19 17:12:26 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ void	init_weapon(t_cube *cube)
 	cube->weapon.texture[0].img = mlx_xpm_file_to_image(cube->mlx,
 			"./textures/gnawa/pov.xpm", &cube->weapon.orig_width,
 			&cube->weapon.orig_height);
-	;
 	if (!cube->weapon.texture[0].img)
 	{
 		print_error(RED "Failed to load weapon\n" RESET);
