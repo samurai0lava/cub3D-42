@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 15:02:54 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/02/14 20:03:28 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/02/20 18:34:14 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	draw_minimap_line(t_cube *cube, double angle, int length, int color)
 	{
 		map_x = (int)((cube->p_x + (x / MINIMAP_SCALE)) / S_TEX);
 		map_y = (int)((cube->p_y + (y / MINIMAP_SCALE)) / S_TEX);
-		if (map_x >= 0 && map_x < 10 && map_y >= 0 && map_y < 10)
+		if (map_x >= 0 && map_x < 30 && map_y >= 0 && map_y < 30)
 		{
 			if (cube->map[map_y][map_x] != 0)
 				break ;
@@ -78,7 +78,7 @@ void	draw_walls_mini_map(t_cube *cube)
 		{
 			map_x = (int)((cube->p_x + (x * MINIMAP_SCALE)) / S_TEX);
 			map_y = (int)((cube->p_y + (y * MINIMAP_SCALE)) / S_TEX);
-			if (map_x >= 0 && map_x < 10 && map_y >= 0 && map_y < 10)
+			if (map_x >= 0 && map_x < 30 && map_y >= 0 && map_y < 30)
 			{
 				if (cube->map[map_y][map_x] != 0)
 					draw_minimap_pixel(cube, x, y, 0x003F3733);
@@ -94,6 +94,7 @@ void	draw_circular_minimap(t_cube *cube)
 	int	x;
 	int	y;
 	int	sqrt;
+
 	draw_walls_mini_map(cube);
 	y = -PLAYER_DOT_SIZE;
 	while (y <= PLAYER_DOT_SIZE)

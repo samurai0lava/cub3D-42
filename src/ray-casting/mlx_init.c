@@ -6,83 +6,11 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:44:52 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/02/19 18:15:42 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/02/22 21:49:27 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/cube3d.h"
-
-void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
-{
-	char	*dst;
-
-	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
-	*(unsigned int *)dst = color;
-}
-
-void	draw_rectangle(t_data *data, int x, int y, int size, int color)
-{
-	int	i;
-	int	j;
-
-	i = x;
-	while (i < x + size)
-	{
-		j = y;
-		while (j < y + size)
-		{
-			if (i >= 0 && i < WIDTH && j >= 0 && j < HEIGHT)
-			{
-				my_mlx_pixel_put(data, i, j, color);
-			}
-			j++;
-		}
-		i++;
-	}
-}
-void	clean_screen(t_data *data)
-{
-	int	x;
-	int	y;
-
-	x = 0;
-	while (x < 10)
-	{
-		y = 0;
-		while (y < 10)
-		{
-			my_mlx_pixel_put(data, x, y, 0x00000000);
-			y++;
-		}
-		x++;
-	}
-}
-
-void	draw_map(t_data *data, int map[10][10])
-{
-	int	x;
-	int	y;
-	int	scaled_tex;
-
-	scaled_tex = S_TEX * MAP_SCALE;
-	clean_screen(data);
-	y = 0;
-	while (y < 10)
-	{
-		x = 0;
-		while (x < 10)
-		{
-			if (map[y][x] != 0)
-				draw_rectangle(data, x * scaled_tex, y * scaled_tex, scaled_tex,
-					0x00FFEEFF);
-			else
-				draw_rectangle(data, x * scaled_tex, y * scaled_tex, scaled_tex,
-					0x00000000);
-			x++;
-		}
-		y++;
-	}
-}
 
 int	get_texture_pixel(t_data *texture, int x, int y)
 {
@@ -128,12 +56,38 @@ void	init_textures(t_cube *cube)
 
 void	init_mlx(t_cube *cube, t_data *data)
 {
-	int	example_map[10][10] = {{1, 1, 1, 1, 1, 1, 1, 1, 1, 1}, {1, 0, 0, 0, 0,
-			0, 0, 0, 1, 1}, {1, 0, 3, 3, 1, 1, 1, 0, 1, 1}, {1, 0, 0, 0, 0, 0,
-			0, 0, 0, 1}, {1, 0, 0, 0, 0, 0, 0, 0, 0, 1}, {1, 0, 0, 0, 0, 0, 0,
-			0, 0, 1}, {1, 1, 4, 0, 1, 1, 1, 1, 4, 1}, {1, 1, 1, 0, 0, 0, 0, 0,
-			0, 1}, {1, 0, 0, 0, 0, 0, 0, 0, 0, 1}, {1, 1, 1, 1, 1, 1, 1, 1, 1,
-			1}};
+	int example_map[30][30] = {
+    {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
+    {1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+    {1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+    {1,0,0,0,3,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+    {1,0,0,0,3,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+    {1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+    {1,1,1,1,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+    {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+    {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+    {1,0,0,0,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+    {1,0,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+    {1,0,0,0,0,0,0,0,0,1,0,3,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+    {1,0,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+    {1,0,0,0,0,0,0,0,0,1,1,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+    {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+    {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+    {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,0,0,0,0,0,0,0,1},
+    {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,1,0,0,0,0,0,0,0,1},
+    {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,3,3,0,1,0,0,0,0,0,0,0,1},
+    {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,1,0,0,0,0,0,0,0,1},
+    {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,1,1,1,0,0,0,0,0,0,0,1},
+    {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+    {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+    {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+    {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+    {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+    {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+    {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+    {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+    {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
+};
 
 	cube->mlx = mlx_init();
 	if (cube->mlx == NULL)
@@ -157,15 +111,13 @@ void	init_mlx(t_cube *cube, t_data *data)
 	cube->angle = 0;
 	ft_memcpy(cube->map, example_map, sizeof(example_map));
 	init_textures(cube);
-	// init_weapon(cube);
-	cast_away(cube);
 	load_frames(cube);
 	add_frame_ls(cube);
-	draw_weapon(cube);
-	update_frame(cube);
-	draw_circular_minimap(cube);
-	mlx_put_image_to_window(cube->mlx, cube->mlx_window, data->img, 0, 0);
 	mlx_hook(cube->mlx_window, 2, 1L << 0, handle_keypress, cube);
+	cast_away(cube);
+	draw_weapon(cube);
+	draw_circular_minimap(cube);
+	mlx_put_image_to_window(cube->mlx, cube->mlx_window, cube->data->img, 0, 0);
 	// mlx_mouse_hide(cube->mlx, cube->mlx_window);
 	// mlx_hook(cube->mlx_window, 6, 1L << 6, handle_mouse_move, cube);
 	// cube->mouse_x = WIDTH / 2;
@@ -174,69 +126,4 @@ void	init_mlx(t_cube *cube, t_data *data)
 	mlx_loop(cube->mlx);
 }
 
-int	handle_keypress(int keycode, t_cube *cube)
-{
-	int		movement_speed;
-	int		new_x;
-	int		new_y;
-	int		map_x;
-	int		map_y;
-	double	rotation_speed;
 
-	movement_speed = 8;
-	rotation_speed = 0.08;
-	new_x = cube->p_x;
-	new_y = cube->p_y;
-	if (keycode == ESC)
-	{
-		if (cube->data && cube->data->img)
-			mlx_destroy_image(cube->mlx, cube->data->img);
-		mlx_destroy_window(cube->mlx, cube->mlx_window);
-		free_all(cube->gc);
-		free(cube);
-		exit(0);
-	}
-	else if (keycode == W_KEY)
-	{
-		new_x += cos(cube->angle) * movement_speed;
-		new_y += sin(cube->angle) * movement_speed;
-	}
-	else if (keycode == S_KEY)
-	{
-		new_x -= cos(cube->angle) * movement_speed;
-		new_y -= sin(cube->angle) * movement_speed;
-	}
-	else if (keycode == D_KEY)
-	{
-		new_x += cos(cube->angle + M_PI_2) * movement_speed;
-		new_y += sin(cube->angle + M_PI_2) * movement_speed;
-	}
-	else if (keycode == A_KEY)
-	{
-		new_x += cos(cube->angle - M_PI_2) * movement_speed;
-		new_y += sin(cube->angle - M_PI_2) * movement_speed;
-	}
-	else if (keycode == LEFT_KEY)
-	{
-		cube->angle -= rotation_speed;
-	}
-	else if (keycode == RIGHT_KEY)
-	{
-		cube->angle += rotation_speed;
-	}
-	cube->angle = fmod(cube->angle + 2 * PI, 2 * PI);
-	map_x = new_x / S_TEX;
-	map_y = new_y / S_TEX;
-	if (map_x >= 0 && map_x < 10 && map_y >= 0 && map_y < 10
-		&& cube->map[map_y][map_x] == 0)
-	{
-		cube->p_x = new_x;
-		cube->p_y = new_y;
-	}
-	cast_away(cube);
-	draw_weapon(cube);
-	update_frame(cube);
-	draw_circular_minimap(cube);
-	mlx_put_image_to_window(cube->mlx, cube->mlx_window, cube->data->img, 0, 0);
-	return (1);
-}

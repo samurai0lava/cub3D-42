@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:44:41 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/02/19 17:57:22 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/02/23 17:27:04 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@
 # define DOWN 125
 # define PI 3.14159265359
 # define M_PI_2 1.57079632679489661923
+# define T_PI 6.28318530718
 # define LEFT_KEY 65361
 # define RIGHT_KEY 65363
 # define S_RES 400
@@ -60,11 +61,13 @@
 # define TILE_SIZE (S_TEX * MAP_SCALE)
 # define RAY_STEP 0.1
 # define MINIMAP_RADIUS 80
-# define MINIMAP_X (MINIMAP_RADIUS + 10)           // Position from left edge
-# define MINIMAP_Y (MINIMAP_RADIUS + HEIGHT - 180) // Position from top edge
+# define MINIMAP_X (MINIMAP_RADIUS + 10)
+# define MINIMAP_Y (MINIMAP_RADIUS + HEIGHT - 180)
 # define PLAYER_DOT_SIZE 3
 # define MINIMAP_SCALE 3
 # define FRAME_DELAY 5
+# define MIN_DISTANCE 0.5
+# define MAX_DISTANCE 1000.0
 # define MOUSE_SENSITIVITY 0.003
 
 # define FOV PI / 3
@@ -132,7 +135,7 @@ typedef struct s_cube
 	t_garbage_collector		*gc;
 	t_data					*data;
 	t_data					texture[4];
-	int						map[10][10];
+	int						map[30][30];
 	int						p_x;
 	int						p_y;
 	double					angle;
@@ -219,13 +222,11 @@ void						draw_line(t_cube *cube, double angle, int length,
 void						cast_away_minirays(t_cube *cube);
 void						draw_filled_circle(t_cube *cube, int radius,
 								int color);
-void						draw_map(t_data *data, int map[10][10]);
+void						draw_map(t_data *data, int map[30][30]);
 void						clean_screen(t_data *data);
 void						init_textures(t_cube *cube);
 int							color_shading(int color, double distance);
 int							get_texture_pixel(t_data *texture, int x, int y);
-double						normalize_angle(double angle);
-void						cast_rays(t_cube *cube);
 void						draw_vertical_line(t_cube *cube, int x,
 								int wall_height, int color);
 void						draw_floor(t_cube *cube, int y, int x);
@@ -247,4 +248,8 @@ void						update_frame(t_cube *cube);
 int							load_frames(t_cube *cube);
 void						add_frame_ls(t_cube *cube);
 int							handle_mouse_move(int x, int y, t_cube *cube);
+void						draw_rectangle(t_data *data, int x, int y, int size,
+								int color);
+int						game_loop(t_cube *cube);
+int game_loop_wrapper(void *param);
 #endif
