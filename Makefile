@@ -6,7 +6,8 @@ SRCS =	src/main.c src/ray-casting/add_text.c src/ray-casting/mini_map.c src/ray-
 		src/ray-casting/handle_frames.c\
 		src/ray-casting/mouse_handling.c\
 		src/ray-casting/handle_keypress.c\
-		src/ray-casting/draw.c
+		src/ray-casting/draw.c\
+		src/ray-casting/door_animation.c
 SRCS_PARCE = src/parce/parce_helper.c src/parce/parce_map.c src/parce/parce_mapv2.c src/parce/parce.c
 LIB = libft/libft.a
 NAME = cub3D

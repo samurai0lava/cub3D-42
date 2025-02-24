@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:44:41 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/02/23 17:27:04 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/02/24 15:45:42 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,10 +65,10 @@
 # define MINIMAP_Y (MINIMAP_RADIUS + HEIGHT - 180)
 # define PLAYER_DOT_SIZE 3
 # define MINIMAP_SCALE 3
-# define FRAME_DELAY 5
+# define FRAME_DELAY 3
 # define MIN_DISTANCE 0.5
 # define MAX_DISTANCE 1000.0
-# define MOUSE_SENSITIVITY 0.003
+# define MOUSE_SENSITIVITY 0.001
 
 # define FOV PI / 3
 
@@ -250,6 +250,8 @@ void						add_frame_ls(t_cube *cube);
 int							handle_mouse_move(int x, int y, t_cube *cube);
 void						draw_rectangle(t_data *data, int x, int y, int size,
 								int color);
-int						game_loop(t_cube *cube);
-int game_loop_wrapper(void *param);
+int							game_loop(t_cube *cube);
+int							game_loop_wrapper(void *param);
+void						draw_door(t_cube *cube);
+
 #endif
