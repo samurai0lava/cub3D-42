@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 18:37:49 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/02/20 20:17:12 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/03/07 15:56:34 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ void	draw_rectangle(t_data *data, int x, int y, int size, int color)
 		i++;
 	}
 }
+
 void	clean_screen(t_data *data)
 {
 	int	x;
