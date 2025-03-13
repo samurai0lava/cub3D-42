@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 12:44:24 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/03/11 03:24:28 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/03/11 04:03:03 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -567,7 +567,6 @@ void cast_away(t_cube *cube)
         }
         else
         {
-            // No texture? Use a flat color
             int color = 0x00FFFFFF;
             if (tile_val == 2)
                 color = 0x0000FFFF;
@@ -579,5 +578,5 @@ void cast_away(t_cube *cube)
             draw_vertical_line(cube, i, wall_height,
                 color_shading(color, perpWallDist));
         }
-    } // end for (i in [0..num_rays))
+    }
 }

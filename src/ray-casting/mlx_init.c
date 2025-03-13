@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:44:52 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/03/11 03:49:16 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/03/12 02:06:20 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ void	init_mlx(t_cube *cube, t_data *data)
     {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
     {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
     {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
-};
+								};
 
 	cube->mlx = mlx_init();
 	if (cube->mlx == NULL)
@@ -114,6 +114,7 @@ void	init_mlx(t_cube *cube, t_data *data)
 	load_frames(cube);
 	add_frame_ls(cube);
 	mlx_hook(cube->mlx_window, 2, 1L << 0, handle_keypress, cube);
+	init_minimap_params(cube);
 	cast_away(cube);
 	draw_weapon(cube);
 	draw_circular_minimap(cube);

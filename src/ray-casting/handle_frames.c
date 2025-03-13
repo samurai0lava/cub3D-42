@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/16 14:39:37 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/02/18 22:17:42 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/03/12 00:42:11 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,34 +85,28 @@ void	draw_weapon(t_cube *cube)
 {
 	int		x;
 	int		y;
-	int		tex_x;
-	int		tex_y;
-	int		color;
-	float	x_ratio;
-	float	y_ratio;
-	int		screen_x;
-	int		screen_y;
 
-	x_ratio = (float)cube->weapon.orig_width / cube->weapon.scaled_width;
-	y_ratio = (float)cube->weapon.orig_height / cube->weapon.scaled_height;
+
+	cube->weapon.x_ratio = (float)cube->weapon.orig_width / cube->weapon.scaled_width;
+	cube->weapon.y_ratio = (float)cube->weapon.orig_height / cube->weapon.scaled_height;
 	y = 0;
 	while (y < cube->weapon.scaled_height)
 	{
 		x = 0;
 		while (x < cube->weapon.scaled_width)
 		{
-			tex_x = x * x_ratio;
-			tex_y = y * y_ratio;
-			color = get_texture_pixel((t_data *)cube->frame->content, tex_x,
-					tex_y);
-			if ((color & 0xFF000000) == 0)
+			cube->weapon.tex_x = x * cube->weapon.x_ratio;
+			cube->weapon.tex_y = y * cube->weapon.y_ratio;
+			cube->weapon.color = get_texture_pixel((t_data *)cube->frame->content, cube->weapon.tex_x,
+					cube->weapon.tex_y);
+			if ((cube->weapon.color & 0xFF000000) == 0)
 			{
-				screen_x = cube->weapon.pos_x + x;
-				screen_y = cube->weapon.pos_y + y;
-				if (screen_x >= 0 && screen_x < WIDTH && screen_y >= 0
-					&& screen_y < HEIGHT)
+				cube->weapon.screen_x = cube->weapon.pos_x + x;
+				cube->weapon.screen_y = cube->weapon.pos_y + y;
+				if (cube->weapon.screen_x >= 0 && cube->weapon.screen_x < WIDTH && cube->weapon.screen_y >= 0
+					&& cube->weapon.screen_y < HEIGHT)
 				{
-					my_mlx_pixel_put(cube->data, screen_x, screen_y, color);
+					my_mlx_pixel_put(cube->data, cube->weapon.screen_x, cube->weapon.screen_y, cube->weapon.color);
 				}
 			}
 			x++;
