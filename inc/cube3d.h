@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:44:41 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/03/14 03:08:39 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/03/14 04:00:27 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,12 +57,13 @@
 # define M_PI_2 1.57079632679489661923
 # define T_PI 6.28318530718
 # define RAY_STEP 0.1
+# define PLAYER_RADIUS 10
 
 // game resolution
 
 # define S_RES 400
-# define WIDTH 800
-# define HEIGHT 800
+# define WIDTH 1920
+# define HEIGHT 1080
 # define S_TEX 64
 # define MAP_SCALE 0.5
 # define TILE_SIZE (S_TEX * MAP_SCALE)
@@ -178,6 +179,33 @@ typedef struct s_raycast
 	double					hitY;
 }							t_raycast;
 
+typedef struct s_handle_keys
+{
+	int						movement_speed;
+	double					rotation_speed;
+	double					new_x;
+	double					new_y;
+	double					temp_x;
+	double					temp_y;
+	double					candidate_x;
+	double					candidate_y;
+
+}							t_handle_keys;
+
+typedef struct s_is_collidding
+{
+	double					left;
+	double					right;
+	double					top;
+	double					bottom;
+	int						left_tile;
+	int						right_tile;
+	int						top_tile;
+	int						bottom_tile;
+	int						ty;
+	int						tx;
+}							t_is_collidding;
+
 typedef struct s_cube
 {
 	void					*mlx;
@@ -208,6 +236,8 @@ typedef struct s_cube
 	int						minimap_center_y;
 	double					minimap_scale;
 	int						player_dot_size;
+	t_is_collidding			collid;
+	t_handle_keys			hc;
 }							t_cube;
 
 typedef struct s_rgb
