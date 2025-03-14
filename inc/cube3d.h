@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:44:41 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/03/13 23:49:11 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/03/14 03:08:39 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@
 # include <sys/types.h>
 # include <unistd.h>
 
-//----------------------------==----------//
-//-----------MACROS-------====------------//
-//--------------==------------------------//
+//----------------------------------------//
+//-----------MACROS-----------------------//
+//----------------------------------------//
 
 // colors
 
@@ -150,6 +150,34 @@ typedef struct s_enemie
 	int						pos_y;
 }							t_enemie;
 
+typedef struct s_raycast
+{
+	double					ray_angle;
+	double					rayDirX;
+	double					rayDirY;
+	int						mapX;
+	int						mapY;
+	double					deltaDistX;
+	double					deltaDistY;
+	int						stepX;
+	int						stepY;
+	double					sideDistX;
+	double					sideDistY;
+	int						hit_wall;
+	int						side;
+	int						safety;
+	double					perpWallDist;
+	double					angle_diff;
+	int						wall_height;
+	t_data					*selected_tex;
+	double					wall_x;
+	int						tex_x;
+	int						color;
+	int						tile_val;
+	double					hitX;
+	double					hitY;
+}							t_raycast;
+
 typedef struct s_cube
 {
 	void					*mlx;
@@ -244,11 +272,6 @@ void						my_mlx_pixel_put(t_data *data, int x, int y,
 								int color);
 int							handle_keypress(int keycode, t_cube *cube);
 void						cast_away(t_cube *cube);
-void						draw_line(t_cube *cube, double angle, int length,
-								int color);
-void						cast_away_minirays(t_cube *cube);
-void						draw_filled_circle(t_cube *cube, int radius,
-								int color);
 void						draw_map(t_data *data, int map[30][30]);
 void						clean_screen(t_data *data);
 void						init_textures(t_cube *cube);
@@ -270,7 +293,6 @@ void						draw_minimap_pixel(t_cube *cube, int x, int y,
 								int color);
 void						draw_minimap_line(t_cube *cube, double angle,
 								int length, int color);
-void						draw_health_bar(t_cube *cube);
 void						update_frame(t_cube *cube);
 int							load_frames(t_cube *cube);
 void						add_frame_ls(t_cube *cube);
@@ -281,5 +303,15 @@ int							game_loop(t_cube *cube);
 int							game_loop_wrapper(void *param);
 void						draw_door(t_cube *cube);
 void						init_minimap_params(t_cube *cube);
-
+void						init_raycast(t_cube *cube, t_raycast *rc,
+								int ray_index);
+void						compute_wall_distance(t_cube *cube, t_raycast *rc);
+void						run_dda(t_cube *cube, t_raycast *rc);
+void						select_textures(t_cube *cube, t_raycast *rc);
+void						draw_slice(t_cube *cube, t_raycast *rc,
+								int screen_x);
+void						init_raycast_steps(t_cube *cube, t_raycast *rc);
+void						init_raycast_angle_and_delta(t_cube *cube,
+								t_raycast *rc, int ray_index);
+void						clean_display(t_cube *cube);
 #endif
