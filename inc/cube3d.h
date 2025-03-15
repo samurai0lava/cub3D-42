@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:44:41 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/03/14 04:00:27 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/03/15 21:08:01 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,13 +57,13 @@
 # define M_PI_2 1.57079632679489661923
 # define T_PI 6.28318530718
 # define RAY_STEP 0.1
-# define PLAYER_RADIUS 10
+# define PLAYER_RADIUS 5
 
 // game resolution
 
 # define S_RES 400
-# define WIDTH 1920
-# define HEIGHT 1080
+# define WIDTH 800
+# define HEIGHT 800
 # define S_TEX 64
 # define MAP_SCALE 0.5
 # define TILE_SIZE (S_TEX * MAP_SCALE)
@@ -81,10 +81,9 @@
 
 // animations
 
-# define FRAME_DELAY 3
-
-// mouse
-
+# define FRAME_DELAY 20
+# define MVM_SPEED 1.5
+# define RT_SPEED 0.02
 # define MOUSE_SENSITIVITY 0.001
 
 // Structs
@@ -181,7 +180,7 @@ typedef struct s_raycast
 
 typedef struct s_handle_keys
 {
-	int						movement_speed;
+	double					movement_speed;
 	double					rotation_speed;
 	double					new_x;
 	double					new_y;
@@ -191,6 +190,16 @@ typedef struct s_handle_keys
 	double					candidate_y;
 
 }							t_handle_keys;
+
+typedef struct s_keys
+{
+	int						w;
+	int						a;
+	int						s;
+	int						d;
+	int						left;
+	int						right;
+}							t_keys;
 
 typedef struct s_is_collidding
 {
@@ -214,8 +223,8 @@ typedef struct s_cube
 	t_data					*data;
 	t_data					texture[4];
 	int						map[30][30];
-	int						p_x;
-	int						p_y;
+	double					p_x;
+	double					p_y;
 	double					angle;
 	int						move;
 	int						start_y;
@@ -238,6 +247,7 @@ typedef struct s_cube
 	int						player_dot_size;
 	t_is_collidding			collid;
 	t_handle_keys			hc;
+	t_keys					keys;
 }							t_cube;
 
 typedef struct s_rgb
@@ -344,4 +354,8 @@ void						init_raycast_steps(t_cube *cube, t_raycast *rc);
 void						init_raycast_angle_and_delta(t_cube *cube,
 								t_raycast *rc, int ray_index);
 void						clean_display(t_cube *cube);
+int							on_key_release(int keycode, t_cube *cube);
+int							on_key_press(int keycode, t_cube *cube);
+int							key_loop(t_cube *cube);
+
 #endif

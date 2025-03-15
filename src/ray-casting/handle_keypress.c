@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 18:16:55 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/03/14 04:06:39 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/03/15 21:07:51 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ static void	game_loop_keypress(t_cube *cube)
 	draw_weapon(cube);
 	draw_circular_minimap(cube);
 	mlx_put_image_to_window(cube->mlx, cube->mlx_window, cube->data->img, 0, 0);
-	update_frame(cube);
 }
 static void	handle_esc(t_cube *cube)
 {
@@ -56,42 +55,77 @@ static int	is_colliding(t_cube *cube, double px, double py)
 	}
 	return (0);
 }
-
-int	handle_keypress(int keycode, t_cube *cube)
+int	on_key_press(int keycode, t_cube *cube)
 {
-	cube->hc.movement_speed = 8;
-	cube->hc.rotation_speed = 0.08;
-	cube->hc.new_x = cube->p_x;
-	cube->hc.new_y = cube->p_y;
 	if (keycode == ESC)
 	{
 		handle_esc(cube);
 		exit(0);
 	}
-	else if (keycode == W_KEY)
+	if (keycode == W_KEY)
+		cube->keys.w = 1;
+	if (keycode == A_KEY)
+		cube->keys.a = 1;
+	if (keycode == S_KEY)
+		cube->keys.s = 1;
+	if (keycode == D_KEY)
+		cube->keys.d = 1;
+	if (keycode == LEFT_KEY)
+		cube->keys.left = 1;
+	if (keycode == RIGHT_KEY)
+		cube->keys.right = 1;
+	return (0);
+}
+
+int	on_key_release(int keycode, t_cube *cube)
+{
+	if (keycode == W_KEY)
+		cube->keys.w = 0;
+	if (keycode == A_KEY)
+		cube->keys.a = 0;
+	if (keycode == S_KEY)
+		cube->keys.s = 0;
+	if (keycode == D_KEY)
+		cube->keys.d = 0;
+	if (keycode == LEFT_KEY)
+		cube->keys.left = 0;
+	if (keycode == RIGHT_KEY)
+		cube->keys.right = 0;
+	return (0);
+}
+
+int	key_loop(t_cube *cube)
+{
+	cube->hc.new_x = cube->p_x;
+	cube->hc.new_y = cube->p_y;
+	if (cube->keys.w)
 	{
-		cube->hc.new_x += cos(cube->angle) * cube->hc.movement_speed;
-		cube->hc.new_y += sin(cube->angle) * cube->hc.movement_speed;
+		cube->hc.new_x += cos(cube->angle) * MVM_SPEED;
+		cube->hc.new_y += sin(cube->angle) * MVM_SPEED;
+		update_frame(cube);
 	}
-	else if (keycode == S_KEY)
+	if (cube->keys.s)
 	{
-		cube->hc.new_x -= cos(cube->angle) * cube->hc.movement_speed;
-		cube->hc.new_y -= sin(cube->angle) * cube->hc.movement_speed;
+		cube->hc.new_x -= cos(cube->angle) * MVM_SPEED;
+		cube->hc.new_y -= sin(cube->angle) * MVM_SPEED;
+		update_frame(cube);
 	}
-	else if (keycode == D_KEY)
+	if (cube->keys.d)
 	{
-		cube->hc.new_x += cos(cube->angle + M_PI_2) * cube->hc.movement_speed;
-		cube->hc.new_y += sin(cube->angle + M_PI_2) * cube->hc.movement_speed;
+		cube->hc.new_x += cos(cube->angle + M_PI_2) * MVM_SPEED;
+		cube->hc.new_y += sin(cube->angle + M_PI_2) * MVM_SPEED;
+		update_frame(cube);
 	}
-	else if (keycode == A_KEY)
+	if (cube->keys.a)
 	{
-		cube->hc.new_x += cos(cube->angle - M_PI_2) * cube->hc.movement_speed;
-		cube->hc.new_y += sin(cube->angle - M_PI_2) * cube->hc.movement_speed;
+		cube->hc.new_x += cos(cube->angle - M_PI_2) * MVM_SPEED;
+		cube->hc.new_y += sin(cube->angle - M_PI_2) * MVM_SPEED;
+		update_frame(cube);
 	}
-	else if (keycode == LEFT_KEY)
-		cube->angle -= cube->hc.rotation_speed;
-	else if (keycode == RIGHT_KEY)
-		cube->angle += cube->hc.rotation_speed;
+	if (cube->keys.left)
+		cube->angle -= RT_SPEED;
+	if (cube->keys.right)
+		cube->angle += RT_SPEED;
 	cube->angle = fmod(cube->angle + 2 * PI, 2 * PI);
 	cube->hc.temp_x = cube->p_x;
 	cube->hc.temp_y = cube->p_y;
@@ -102,5 +136,5 @@ int	handle_keypress(int keycode, t_cube *cube)
 	if (!is_colliding(cube, cube->p_x, cube->hc.candidate_y))
 		cube->p_y = cube->hc.candidate_y;
 	game_loop_keypress(cube);
-	return (1);
+	return (0);
 }
