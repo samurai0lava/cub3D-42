@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:44:33 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/01/23 10:04:11 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/03/17 00:34:41 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void	*tracked_malloc(t_garbage_collector *gc, size_t size)
 	add_garbage(gc, ptr);
 	return (ptr);
 }
-//free all the nodes
+// free all the nodes
 
 void	*free_all(t_garbage_collector *gc)
 {
@@ -94,4 +94,23 @@ void	*free_all(t_garbage_collector *gc)
 	free(gc);
 	gc = NULL;
 	return (NULL);
+}
+
+void	destroy_mlx(t_cube *cube)
+{
+	int i;
+
+	i = 0;
+	while (i < 4)
+	{
+		mlx_destroy_image(cube->mlx, cube->texture[i].img);
+		i++;
+	}
+	i = 0;
+	while (i < 6)
+	{
+		mlx_destroy_image(cube->mlx, cube->weapon.texture[i].img);
+		i++;
+	}
+	mlx_destroy_window(cube->mlx, cube->mlx_window);
 }

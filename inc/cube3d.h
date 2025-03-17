@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:44:41 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/03/15 23:17:28 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/03/17 02:07:12 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -358,5 +358,6 @@ int							on_key_release(int keycode, t_cube *cube);
 int							on_key_press(int keycode, t_cube *cube);
 int							key_loop(t_cube *cube);
 int							close_win(t_cube *cube);
+void						destroy_mlx(t_cube *cube);
 
 #endif

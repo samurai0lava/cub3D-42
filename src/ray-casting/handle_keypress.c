@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 18:16:55 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/03/15 23:17:43 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/03/17 02:13:19 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,7 @@
 
 int	close_win(t_cube *cube)
 {
-	if (cube->data && cube->data->img)
-		mlx_destroy_image(cube->mlx, cube->data->img);
-	mlx_destroy_window(cube->mlx, cube->mlx_window);
+	destroy_mlx(cube);
 	free_all(cube->gc);
 	free(cube);
 	return (0);
@@ -31,9 +29,7 @@ static void	game_loop_keypress(t_cube *cube)
 }
 static void	handle_esc(t_cube *cube)
 {
-	if (cube->data && cube->data->img)
-		mlx_destroy_image(cube->mlx, cube->data->img);
-	mlx_destroy_window(cube->mlx, cube->mlx_window);
+	destroy_mlx(cube);
 	free_all(cube->gc);
 	free(cube);
 }
