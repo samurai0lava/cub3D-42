@@ -6,11 +6,21 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 18:16:55 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/03/15 21:07:51 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/03/15 23:17:43 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/cube3d.h"
+
+int	close_win(t_cube *cube)
+{
+	if (cube->data && cube->data->img)
+		mlx_destroy_image(cube->mlx, cube->data->img);
+	mlx_destroy_window(cube->mlx, cube->mlx_window);
+	free_all(cube->gc);
+	free(cube);
+	return (0);
+}
 
 static void	game_loop_keypress(t_cube *cube)
 {

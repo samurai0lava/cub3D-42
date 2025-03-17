@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:44:52 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/03/15 20:07:26 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/03/15 23:18:56 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,12 +113,9 @@ void	init_mlx(t_cube *cube, t_data *data)
 	init_textures(cube);
 	load_frames(cube);
 	add_frame_ls(cube);
-	// Key press hook (2) -> on_key_press
+	mlx_hook(cube->mlx_window, 17, 1L << 17, close_win, cube);
 	mlx_hook(cube->mlx_window, 2, 1L << 0, on_key_press, cube);
-
-// Key release hook (3) -> on_key_release
 	mlx_hook(cube->mlx_window, 3, 1L << 1, on_key_release, cube);
-
 	init_minimap_params(cube);
 	cast_away(cube);
 	draw_weapon(cube);
