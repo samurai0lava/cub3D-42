@@ -3,14 +3,12 @@
 /*                                                        :::      ::::::::   */
 /*   parse_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moaregra <moaregra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 13:42:06 by moaregra          #+#    #+#             */
-/*   Updated: 2025/03/17 15:40:29 by moaregra         ###   ########.fr       */
+/*   Updated: 2025/03/18 16:41:22 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-#include "../../inc/cube3d.h"
 
 #include "../../inc/cube3d.h"
 

@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 18:37:49 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/03/07 15:56:34 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/03/18 01:25:13 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,16 +41,16 @@ void	draw_rectangle(t_data *data, int x, int y, int size, int color)
 	}
 }
 
-void	clean_screen(t_data *data)
+void	clean_screen(t_data *data, t_cube *cube)
 {
 	int	x;
 	int	y;
 
 	x = 0;
-	while (x < 30)
+	while (x < cube->map.map_height)
 	{
 		y = 0;
-		while (y < 30)
+		while (y < cube->map.map_width)
 		{
 			my_mlx_pixel_put(data, x, y, 0x00000000);
 			y++;
@@ -59,21 +59,21 @@ void	clean_screen(t_data *data)
 	}
 }
 
-void	draw_map(t_data *data, int map[30][30])
+void	draw_map(t_data *data, t_cube *cube)
 {
 	int	x;
 	int	y;
 	int	scaled_tex;
 
 	scaled_tex = S_TEX * MAP_SCALE;
-	clean_screen(data);
+	clean_screen(data, cube);
 	y = 0;
-	while (y < 30)
+	while (y < cube->map.map_height)
 	{
 		x = 0;
-		while (x < 30)
+		while (x < cube->map.map_width)
 		{
-			if (map[y][x] != 0)
+			if (cube->map.map[x][y] != 0)
 				draw_rectangle(data, x * scaled_tex, y * scaled_tex, scaled_tex,
 					0x00FFEEFF);
 			else

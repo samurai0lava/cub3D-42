@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:44:41 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/03/17 02:07:12 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/03/18 16:48:35 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -214,6 +214,30 @@ typedef struct s_is_collidding
 	int						ty;
 	int						tx;
 }							t_is_collidding;
+typedef struct s_rgb
+{
+	int						r;
+	int						g;
+	int						b;
+}							t_rgb;
+
+typedef struct s_map
+{
+	char					**map;
+	char					*se;
+	char					*no;
+	char					*we;
+	char					*ea;
+	char					*floor_color;
+	char					*celling_color;
+	int						is_valid;
+	int						map_height;
+	int						map_width;
+	int						x;
+	int						y;
+	t_rgb					f_rgb;
+	t_rgb					c_rgb;
+}							t_map;
 
 typedef struct s_cube
 {
@@ -222,7 +246,6 @@ typedef struct s_cube
 	t_garbage_collector		*gc;
 	t_data					*data;
 	t_data					texture[4];
-	int						map[30][30];
 	double					p_x;
 	double					p_y;
 	double					angle;
@@ -248,47 +271,74 @@ typedef struct s_cube
 	t_is_collidding			collid;
 	t_handle_keys			hc;
 	t_keys					keys;
+	t_map					map;
 }							t_cube;
 
-typedef struct s_rgb
-{
-	int						r;
-	int						g;
-	int						b;
-	char					*rgb_in_hex;
-}							t_rgb;
+void						print_2d(char **s);
+void						free_map_textures(t_map *map);
+void						free_map_struct(t_map *map);
+int							handle_errors(int err_code);
 
-typedef struct s_map
-{
-	char					**map;
-	char					*se;
-	char					*no;
-	char					*we;
-	char					*ea;
-	char					*floor_color;
-	char					*celling_color;
-	int						is_valid;
-	int						map_height;
-	int						map_width;
-	int						x;
-	int						y;
-	t_rgb					f_rgb;
-	t_rgb					c_rgb;
-}							t_map;
+/* parse.c */
+int							check_file_name(char *s);
+int							check_texture(t_map *map);
+size_t						ft_strlenewline(char *s);
+int							check_virgul(char *av);
+char						*get_file_in_char(char *av);
 
+/* parse_helpers1.c */
+void						free_all_lines(char **lines);
+void						alloc_clean_lines(char **all_line,
+								char ***clean_line, int count);
+char						**count_and_alloc_lines(char **all_line,
+								int *count);
+char						**split_file(char *s);
+void						*free_clean_lines(char **clean_line, int j);
+
+/* parse_helpers2.c */
+char						*parse_line(char *s, char *to_trim);
+void						free_rgb_arrays(char **floor_rgb,
+								char **celling_rgb);
+void						fill_rgb(t_map *map);
+int							is_valid_rgb(int r, int g, int b);
+int							check_rgbs(t_map *map);
+
+/* parse_helpers3.c */
+void						parse_texture(t_map *map, char *line,
+								char *identifier, char **dest);
+void						fill_struct_helper(t_map *map, char **file);
+void						fill_struct(t_map *map, char *av);
+void						initiliase_struct(t_map *map, char *av);
+
+/* parse_map1.c */
+int							check_map_line(char *s);
+void						count_map_lines(char **all_file, int *lines,
+								int *map_started);
+void						fill_map_array(t_map *map, char **all_file,
+								int lines);
+void						get_map_into2darray(t_map *map, char *av);
+int							count_double_char(char **s);
+/*parse_helpers.c*/
+
+void						count_w_h(t_map *map);
+void						get_x_y(t_map *map);
+
+/* parse_map2.c */
+int							check_borders(char *s);
+int							check_top_and_bottom(char *s);
+int							check_line_endings(char **map, int i,
+								int current_len, int prev_len);
+int							check_map_steps(t_map *map);
+int							check_surroundings(t_map *map, int i, int j,
+								int size);
+
+/* parse_map3.c */
+int							check_map_content(t_map *map, int size);
+int							check_map(t_map *map);
 int							count_till_newline(char *s);
 int							get_bigger_mapline(char **s);
 int							get_line_of_biggervalue(char **s);
-int							check_map(t_map *map);
-void						print_2d(char **s);
-int							check_line(t_map *map);
-char						**split_file(char *s);
-int							check_file_name(char *s);
-void						fill_struct(t_map *map, char *av);
-int							check_texture(t_map *map);
-char						*get_file_in_char(char *av);
-void						initiliase_struct(t_map *map, char *av);
-void						get_map_into2darray(t_map *map, char *av);
+int							check_map_content(t_map *map, int size);
 // FUNCTIONS :
 
 //----INITIALIZATION-==---------------//
@@ -312,8 +362,8 @@ void						my_mlx_pixel_put(t_data *data, int x, int y,
 								int color);
 int							handle_keypress(int keycode, t_cube *cube);
 void						cast_away(t_cube *cube);
-void						draw_map(t_data *data, int map[30][30]);
-void						clean_screen(t_data *data);
+void						draw_map(t_data *data, t_cube *cube);
+void						clean_screen(t_data *data, t_cube *cube);
 void						init_textures(t_cube *cube);
 int							color_shading(int color, double distance);
 int							get_texture_pixel(t_data *texture, int x, int y);

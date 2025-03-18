@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 18:16:55 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/03/17 02:13:19 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/03/18 17:48:54 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ int	close_win(t_cube *cube)
 {
 	destroy_mlx(cube);
 	free_all(cube->gc);
+	free_map_struct(&cube->map);
 	free(cube);
 	return (0);
 }
@@ -31,6 +32,7 @@ static void	handle_esc(t_cube *cube)
 {
 	destroy_mlx(cube);
 	free_all(cube->gc);
+	free_map_struct(&cube->map);
 	free(cube);
 }
 
@@ -50,10 +52,10 @@ static int	is_colliding(t_cube *cube, double px, double py)
 		cube->collid.tx = cube->collid.left_tile;
 		while (cube->collid.tx <= cube->collid.right_tile)
 		{
-			if (cube->collid.ty < 0 || cube->collid.ty >= 30
-				|| cube->collid.tx < 0 || cube->collid.tx >= 30)
+			if (cube->collid.ty < 0 || cube->collid.ty >= cube->map.map_width
+				|| cube->collid.tx < 0 || cube->collid.tx >= cube->map.map_height)
 				return (1);
-			if (cube->map[cube->collid.ty][cube->collid.tx] != 0)
+			if (cube->map.map[cube->collid.ty][cube->collid.tx] != 0)
 				return (1);
 			cube->collid.tx++;
 		}

@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 12:44:24 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/03/14 03:08:53 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/03/18 17:47:57 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,9 @@ void	run_dda(t_cube *cube, t_raycast *rc)
 			rc->mapY += rc->stepY;
 			rc->side = 1;
 		}
-		if (rc->mapX < 0 || rc->mapX >= 30 || rc->mapY < 0 || rc->mapY >= 30)
+		if (rc->mapX < 0 || rc->mapX >= cube->map.map_width || rc->mapY < 0 || rc->mapY >= cube->map.map_height)
 			break ;
-		if (cube->map[rc->mapY][rc->mapX] != 0)
+		if (cube->map.map[rc->mapY][rc->mapX] != 0)
 			rc->hit_wall = 1;
 	}
 }
@@ -52,8 +52,8 @@ void	select_textures(t_cube *cube, t_raycast *rc)
 {
 	rc->wall_height = (int)((HEIGHT * (double)S_TEX) / rc->perpWallDist);
 	rc->tile_val = 0;
-	if (rc->mapX >= 0 && rc->mapX < 30 && rc->mapY >= 0 && rc->mapY < 30)
-		rc->tile_val = cube->map[rc->mapY][rc->mapX];
+	if (rc->mapX >= 0 && rc->mapX < cube->map.map_width && rc->mapY >= 0 && rc->mapY < cube->map.map_height)
+		rc->tile_val = cube->map.map[rc->mapY][rc->mapX];
 	if (rc->tile_val == 4)
 		rc->selected_tex = &cube->texture[0];
 	else if (rc->tile_val == 2)

@@ -13,9 +13,16 @@ SRCS =	src/main.c src/ray-casting/add_text.c\
 		src/ray-casting/draw.c\
 		src/ray-casting/door_animation.c\
 		src/ray-casting/raycaster_utils1.c\
-		src/ray-casting/raycaster_utils.c
+		src/ray-casting/raycaster_utils.c \
+		src/parse/parse_helpers.c \
+		src/parse/parse_helpers2.c \
+		src/parse/parse_helpers3.c \
+		src/parse/parse_map.c \
+		src/parse/parse_mapv2.c \
+		src/parse/parse_mapv3.c \
+		src/parse/parse.c\
+		src/parse/parse_outils.c\
 
-SRCS_PARCE = src/parce/parce_helper.c src/parce/parce_map.c src/parce/parce_mapv2.c src/parce/parce.c
 LIB = libft/libft.a
 NAME = cub3D
 OBJ = $(SRCS:.c=.o)
