@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 12:44:24 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/03/18 17:47:57 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/03/20 17:59:36 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,30 +48,33 @@ void	compute_wall_distance(t_cube *cube, t_raycast *rc)
 		rc->perpWallDist = 0.5;
 }
 
-void	select_textures(t_cube *cube, t_raycast *rc)
+void select_textures(t_cube *cube, t_raycast *rc)
 {
-	rc->wall_height = (int)((HEIGHT * (double)S_TEX) / rc->perpWallDist);
-	rc->tile_val = 0;
-	if (rc->mapX >= 0 && rc->mapX < cube->map.map_width && rc->mapY >= 0 && rc->mapY < cube->map.map_height)
-		rc->tile_val = cube->map.map[rc->mapY][rc->mapX];
-	if (rc->tile_val == 4)
-		rc->selected_tex = &cube->texture[0];
-	else if (rc->tile_val == 2)
-		rc->selected_tex = &cube->texture[1];
-	else if (rc->tile_val == 3)
-		rc->selected_tex = &cube->texture[3];
-	else
-		rc->selected_tex = &cube->texture[1];
-	rc->hitX = cube->p_x + rc->rayDirX * rc->perpWallDist;
-	rc->hitY = cube->p_y + rc->rayDirY * rc->perpWallDist;
-	if (rc->side == 0)
-		rc->wall_x = fmod(rc->hitY, (double)S_TEX);
-	else
-		rc->wall_x = fmod(rc->hitX, (double)S_TEX);
-	rc->wall_x /= (double)S_TEX;
-	if (rc->wall_x < 0)
-		rc->wall_x += 1.0;
+    rc->wall_height = (int)((HEIGHT * S_TEX) / rc->perpWallDist);
+    rc->hitX = cube->p_x + rc->rayDirX * rc->perpWallDist;
+    rc->hitY = cube->p_y + rc->rayDirY * rc->perpWallDist;
+    if (rc->side == 0)
+    {
+        if (rc->rayDirX > 0)
+            rc->selected_tex = &cube->texture[0]; 
+        else
+            rc->selected_tex = &cube->texture[1];
+        rc->wall_x = fmod(rc->hitY, (double)S_TEX);
+    }
+    else
+    {
+        if (rc->rayDirY > 0)
+            rc->selected_tex = &cube->texture[3];
+        else
+            rc->selected_tex = &cube->texture[4];
+        rc->wall_x = fmod(rc->hitX, (double)S_TEX);
+    }
+
+    rc->wall_x /= (double)S_TEX;
+    if (rc->wall_x < 0)
+        rc->wall_x += 1.0;
 }
+
 
 void	draw_slice(t_cube *cube, t_raycast *rc, int screen_x)
 {

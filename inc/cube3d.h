@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:44:41 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/03/18 16:48:35 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/03/20 17:42:12 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -237,6 +237,7 @@ typedef struct s_map
 	int						y;
 	t_rgb					f_rgb;
 	t_rgb					c_rgb;
+	double					start_angle;
 }							t_map;
 
 typedef struct s_cube
@@ -339,6 +340,7 @@ int							count_till_newline(char *s);
 int							get_bigger_mapline(char **s);
 int							get_line_of_biggervalue(char **s);
 int							check_map_content(t_map *map, int size);
+void						check_direction(t_map *map);
 // FUNCTIONS :
 
 //----INITIALIZATION-==---------------//

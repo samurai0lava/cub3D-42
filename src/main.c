@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:44:29 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/03/18 17:27:03 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/03/20 17:42:36 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,6 @@ void	init_cube(t_cube *cube, t_data *data)
 	cube->angle = 0;
 	cube->weapon.orig_height = S_TEX;
 	cube->weapon.orig_width = S_TEX;
-    cube->weapon.scaled_width = 0;
-    cube->weapon.scaled_height = 0;
-    cube->weapon.pos_x = 0;
-    cube->weapon.pos_y = 0;
 	cube->minimap_radius = 0;
     cube->minimap_center_x = 0;
     cube->minimap_center_y = 0;
@@ -148,6 +144,7 @@ static int	parse_map(t_map *map, int ac, char **av)
 	get_map_into2darray(map, av[1]);
 	count_w_h(map);
 	get_x_y(map);
+	check_direction(map);
 	if (check_rgbs(map) == 1)
 	{
 		free_map_struct(map);

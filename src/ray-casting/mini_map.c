@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 15:02:54 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/03/18 17:33:11 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/03/19 02:08:22 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	draw_minimap_line(t_cube *cube, double angle, int length, int color)
 		map_y = (int)((cube->p_y + (y / cube->minimap_scale)) / S_TEX);
 		if (map_x < 0 || map_x >= cube->map.map_width || map_y < 0 || map_y >= cube->map.map_height)
 			break ;
-		if (cube->map.map[map_y][map_x] != '0')
+		if (cube->map.map[map_y][map_x] == '1')
 			break ;
 		draw_minimap_pixel(cube, (int)x, (int)y, color);
 		x += x_inc;
@@ -92,7 +92,7 @@ void	draw_walls_mini_map(t_cube *cube)
 			map_y = (int)((cube->p_y + local_y / cube->minimap_scale) / S_TEX);
 			if (map_x >= 0 && map_x < cube->map.map_width && map_y >= 0 && map_y < cube->map.map_height)
 			{
-				if (cube->map.map[map_y][map_x] != '0')
+				if (cube->map.map[map_y][map_x] == '1')
 					draw_minimap_pixel(cube, local_x, local_y, 0x003F3733);
 			}
 		}

@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 13:39:01 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/03/18 16:39:34 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/03/19 00:18:58 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,6 @@ char	*ft_strjoin( char *stash, char *buffer)
 	while (buffer[j] != '\0')
 		line[i++] = buffer[j++];
 	line[ft_strlen(stash) + ft_strlen(buffer)] = '\0';
-	free(stash);
+	// free(stash);
 	return (line);
 }

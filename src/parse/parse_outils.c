@@ -56,3 +56,16 @@ void get_x_y(t_map *map)
         i++;
     }
 }
+
+void	check_direction(t_map *map)
+{
+	get_x_y(map);
+	if (map->map[map->x][map->y] == 'N')
+		map->start_angle = 0;
+	if (map->map[map->x][map->y] == 'S')
+		map->start_angle = PI;
+	if (map->map[map->x][map->y] == 'E')
+		map->start_angle = 3*PI / 2;
+	if (map->map[map->x][map->y] == 'W')
+		map->start_angle = PI / 2;
+}
