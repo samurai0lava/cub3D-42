@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 15:02:54 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/03/19 02:08:22 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/03/23 07:42:47 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,28 +76,42 @@ void	draw_minimap_line(t_cube *cube, double angle, int length, int color)
 	}
 }
 
-void	draw_walls_mini_map(t_cube *cube)
+int get_row_count(char **map)
 {
-	int	map_x;
-	int	map_y;
-
-	int local_x, local_y;
-	for (local_y =
-		-cube->minimap_radius; local_y <= cube->minimap_radius; local_y++)
-	{
-		for (local_x =
-			-cube->minimap_radius; local_x <= cube->minimap_radius; local_x++)
-		{
-			map_x = (int)((cube->p_x + local_x / cube->minimap_scale) / S_TEX);
-			map_y = (int)((cube->p_y + local_y / cube->minimap_scale) / S_TEX);
-			if (map_x >= 0 && map_x < cube->map.map_width && map_y >= 0 && map_y < cube->map.map_height)
-			{
-				if (cube->map.map[map_y][map_x] == '1')
-					draw_minimap_pixel(cube, local_x, local_y, 0x003F3733);
-			}
-		}
-	}
+    int count = 0;
+    while (map[count] != NULL)
+        count++;
+    return count;
 }
+
+
+void draw_walls_mini_map(t_cube *cube)
+{
+    int local_x;
+    int local_y;
+    int map_x, map_y;
+
+    int row_count = get_row_count(cube->map.map);
+
+    for (local_y = -cube->minimap_radius; local_y <= cube->minimap_radius; local_y++)
+    {
+        for (local_x = -cube->minimap_radius; local_x <= cube->minimap_radius; local_x++)
+        {
+            double world_x = cube->p_x + (local_x / cube->minimap_scale);
+            double world_y = cube->p_y + (local_y / cube->minimap_scale);
+            map_x = (int)(world_x / S_TEX);
+            map_y = (int)(world_y / S_TEX);
+            if (map_y < 0 || map_y >= row_count)
+                continue;
+            size_t col_count = ft_strlen(cube->map.map[map_y]);
+            if (map_x < 0 || map_x >= (int)col_count)
+                continue;
+            if (cube->map.map[map_y][map_x] == '1')
+                draw_minimap_pixel(cube, local_x, local_y, 0x003F3733);
+        }
+    }
+}
+
 
 void	draw_circular_minimap(t_cube *cube)
 {

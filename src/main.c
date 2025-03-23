@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:44:29 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/03/23 04:16:32 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/03/23 08:01:22 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ void	init_cube(t_cube *cube, t_data *data)
 	cube->minimap_center_y = 0;
 	cube->minimap_scale = 1.0;
 	cube->player_dot_size = 3;
-	cube->p_x = (cube->map.x) * S_TEX;
-	cube->p_y = (cube->map.y) * S_TEX;
+	cube->p_x = (cube->map.x) * S_TEX + 0.5;
+	cube->p_y = (cube->map.y) * S_TEX + 0.5;
 	// printf("cube->p_x :%f\n", cube->p_x);
 	// printf("cube->p_y : %f\n", cube->p_y);
 }

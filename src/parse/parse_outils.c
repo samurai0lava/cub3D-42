@@ -49,7 +49,6 @@ void get_x_y(t_map *map)
             {
                 map->x = i;
                 map->y = j;
-             
                 return ;
             }
             j++;

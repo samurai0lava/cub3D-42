@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 12:44:24 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/03/21 02:06:02 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/03/23 07:47:51 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,10 @@ void	run_dda(t_cube *cube, t_raycast *rc)
 			rc->mapY += rc->stepY;
 			rc->side = 1;
 		}
-		if (rc->mapX < 0 || rc->mapX >= cube->map.map_width || rc->mapY < 0 || rc->mapY >= cube->map.map_height)
+		if (rc->mapX < 0 || rc->mapX >= cube->map.map_width || rc->mapY < 0
+			|| rc->mapY >= cube->map.map_height)
 			break ;
-		if (cube->map.map[rc->mapY][rc->mapX] != 0)
+		if (cube->map.map[rc->mapY][rc->mapX] == '1')
 			rc->hit_wall = 1;
 	}
 }
@@ -48,32 +49,31 @@ void	compute_wall_distance(t_cube *cube, t_raycast *rc)
 		rc->perpWallDist = 0.5;
 }
 
-void select_textures(t_cube *cube, t_raycast *rc)
+void	select_textures(t_cube *cube, t_raycast *rc)
 {
-    rc->wall_height = (int)((HEIGHT * S_TEX) / rc->perpWallDist);
-    rc->hitX = cube->p_x + rc->rayDirX * rc->perpWallDist;
-    rc->hitY = cube->p_y + rc->rayDirY * rc->perpWallDist;
-    if (rc->side == 0)
-    {
-        if (rc->rayDirX > 0)
-            rc->selected_tex = &cube->texture[0]; 
-        else
-            rc->selected_tex = &cube->texture[1];
-        rc->wall_x = fmod(rc->hitY, (double)S_TEX);
-    }
-    else
-    {
-        if (rc->rayDirY > 0)
-            rc->selected_tex = &cube->texture[2];
-        else
-            rc->selected_tex = &cube->texture[3];
-        rc->wall_x = fmod(rc->hitX, (double)S_TEX);
-    }
-    rc->wall_x /= (double)S_TEX;
-    if (rc->wall_x < 0)
-        rc->wall_x += 1.0;
+	rc->wall_height = (int)((HEIGHT * S_TEX) / rc->perpWallDist);
+	rc->hitX = cube->p_x + rc->rayDirX * rc->perpWallDist;
+	rc->hitY = cube->p_y + rc->rayDirY * rc->perpWallDist;
+	if (rc->side == 0)
+	{
+		if (rc->rayDirX > 0)
+			rc->selected_tex = &cube->texture[0];
+		else
+			rc->selected_tex = &cube->texture[1];
+		rc->wall_x = fmod(rc->hitY, (double)S_TEX);
+	}
+	else
+	{
+		if (rc->rayDirY > 0)
+			rc->selected_tex = &cube->texture[2];
+		else
+			rc->selected_tex = &cube->texture[3];
+		rc->wall_x = fmod(rc->hitX, (double)S_TEX);
+	}
+	rc->wall_x /= (double)S_TEX;
+	if (rc->wall_x < 0)
+		rc->wall_x += 1.0;
 }
-
 
 void	draw_slice(t_cube *cube, t_raycast *rc, int screen_x)
 {
@@ -105,7 +105,6 @@ void	cast_away(t_cube *cube)
 	cube->num_rays = WIDTH;
 	cube->angle_step = FOV / (double)cube->num_rays;
 	cube->start_angle = cube->angle - (FOV / 2.0);
-
 	clean_display(cube);
 	i = 0;
 	while (i < cube->num_rays)

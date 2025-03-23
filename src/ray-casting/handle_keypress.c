@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 18:16:55 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/03/22 20:43:01 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/03/23 07:58:35 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,37 +36,48 @@ static void	handle_esc(t_cube *cube)
 	free(cube);
 }
 
-static int	is_colliding(t_cube *cube, double px, double py)
+static int is_colliding(t_cube *cube, double px, double py)
 {
-	cube->collid.left = px - PLAYER_RADIUS;
-	cube->collid.right = px + PLAYER_RADIUS;
-	cube->collid.top = py - PLAYER_RADIUS;
-	cube->collid.bottom = py + PLAYER_RADIUS;
-	cube->collid.left_tile = (int)(cube->collid.left / S_TEX);
-	cube->collid.right_tile = (int)(cube->collid.right / S_TEX);
-	cube->collid.top_tile = (int)(cube->collid.top / S_TEX);
-	cube->collid.bottom_tile = (int)(cube->collid.bottom / S_TEX);
-	cube->collid.ty = cube->collid.top_tile;
-	// printf("cube->collid.ty %d\n", cube->collid.ty);
-	// printf("cube->collid.tx %d\n", cube->collid.tx);
-	// printf("cube->collid.left_tile %d\n", cube->collid.left_tile);
-	// printf("cube->collid.right_tile %d\n", cube->collid.right_tile);
-	while (cube->collid.ty <= cube->collid.bottom_tile)
-	{
-		cube->collid.tx = cube->collid.left_tile;
-		while (cube->collid.tx <= cube->collid.right_tile)
-		{
-			if (cube->collid.ty < 0 || cube->collid.ty >= cube->map.map_height
-				|| cube->collid.tx < 0 || cube->collid.tx >= cube->map.map_width)
-				   return (1);
-			if (cube->map.map[cube->collid.ty][cube->collid.tx] != 0)
-				   return (1);
-			cube->collid.tx++;
-		}
-		cube->collid.ty++;
-	}
-	return (0);
+    // The player's bounding box
+    cube->collid.left   = px - PLAYER_RADIUS;
+    cube->collid.right  = px + PLAYER_RADIUS;
+    cube->collid.top    = py - PLAYER_RADIUS;
+    cube->collid.bottom = py + PLAYER_RADIUS;
+
+    // Convert bounding box to tile indices
+    cube->collid.left_tile   = (int)(cube->collid.left / S_TEX);
+    cube->collid.right_tile  = (int)(cube->collid.right / S_TEX);
+    cube->collid.top_tile    = (int)(cube->collid.top / S_TEX);
+    cube->collid.bottom_tile = (int)(cube->collid.bottom / S_TEX);
+
+    // How many rows exist in the map?
+    int row_count = get_row_count(cube->map.map);
+
+    // Loop over all tiles touched by the bounding box
+    for (int ty = cube->collid.top_tile; ty <= cube->collid.bottom_tile; ty++)
+    {
+        // Check row bounds
+        if (ty < 0 || ty >= row_count)
+            return 1; // out of bounds => treat as collision
+
+        // For each row, find how many columns are valid
+        size_t col_count = ft_strlen(cube->map.map[ty]); 
+        // (Or just strlen if not using the libft version)
+
+        for (int tx = cube->collid.left_tile; tx <= cube->collid.right_tile; tx++)
+        {
+            // Check column bounds for this row
+            if (tx < 0 || tx >= (int)col_count)
+                return 1; // out of bounds => treat as collision
+
+            // Finally, check if it's a wall (anything not '0')
+            if (cube->map.map[ty][tx] != '0')
+                return 1;
+        }
+    }
+    return 0; // No collision found
 }
+
 int	on_key_press(int keycode, t_cube *cube)
 {
 	if (keycode == ESC)
@@ -147,6 +158,8 @@ int	key_loop(t_cube *cube)
 	cube->hc.candidate_y = cube->hc.temp_y + (cube->hc.new_y - cube->hc.temp_y);
 	if (!is_colliding(cube, cube->p_x, cube->hc.candidate_y))
 		cube->p_y = cube->hc.candidate_y;
+	// printf("cube->p_x %f\n", cube->p_x);
+	// printf("cube->p_y %f\n", cube->p_y);
 	game_loop_keypress(cube);
 	return (0);
 }
