@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 12:44:24 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/03/23 07:47:51 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/03/23 08:19:11 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,10 @@
 
 void	run_dda(t_cube *cube, t_raycast *rc)
 {
+	int		row_count;
+	size_t	col_count;
+
+	row_count = get_row_count(cube->map.map);
 	while (!rc->hit_wall && rc->safety-- > 0)
 	{
 		if (rc->sideDistX < rc->sideDistY)
@@ -28,8 +32,10 @@ void	run_dda(t_cube *cube, t_raycast *rc)
 			rc->mapY += rc->stepY;
 			rc->side = 1;
 		}
-		if (rc->mapX < 0 || rc->mapX >= cube->map.map_width || rc->mapY < 0
-			|| rc->mapY >= cube->map.map_height)
+		if (rc->mapY < 0 || rc->mapY >= row_count)
+			break ;
+		col_count = ft_strlen(cube->map.map[rc->mapY]);
+		if (rc->mapX < 0 || rc->mapX >= (int)col_count)
 			break ;
 		if (cube->map.map[rc->mapY][rc->mapX] == '1')
 			rc->hit_wall = 1;
