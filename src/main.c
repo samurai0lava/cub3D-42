@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:44:29 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/03/20 17:42:36 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/03/23 04:16:32 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 void	init_cube(t_cube *cube, t_data *data)
 {
-	if (cube->gc)
-		return ;
 	cube->mlx = NULL;
 	cube->mlx_window = NULL;
 	data->img = NULL;
@@ -23,28 +21,18 @@ void	init_cube(t_cube *cube, t_data *data)
 	data->bits_per_pixel = 0;
 	data->endian = 0;
 	data->line_length = 0;
-	cube->p_x = cube->map.x;
-	cube->p_y = cube->map.y;
 	cube->angle = 0;
 	cube->weapon.orig_height = S_TEX;
 	cube->weapon.orig_width = S_TEX;
 	cube->minimap_radius = 0;
-    cube->minimap_center_x = 0;
-    cube->minimap_center_y = 0;
-    cube->minimap_scale = 1.0;
-    cube->player_dot_size = 3;
-}
-
-void	print_2d(char **s)
-{
-	int	i;
-
-	i = 0;
-	while (s[i])
-	{
-		printf("%s\n", s[i]);
-		i++;
-	}
+	cube->minimap_center_x = 0;
+	cube->minimap_center_y = 0;
+	cube->minimap_scale = 1.0;
+	cube->player_dot_size = 3;
+	cube->p_x = (cube->map.x) * S_TEX;
+	cube->p_y = (cube->map.y) * S_TEX;
+	// printf("cube->p_x :%f\n", cube->p_x);
+	// printf("cube->p_y : %f\n", cube->p_y);
 }
 
 void	free_map_textures(t_map *map)
@@ -100,7 +88,7 @@ void	print_map_info(t_map *m)
 		i = 0;
 		while (m->map[i])
 		{
-			printf("  Row %d: %s\n", i, m->map[i]);
+			printf("%s\n", m->map[i]);
 			i++;
 		}
 	}
@@ -127,9 +115,8 @@ void	print_map_info(t_map *m)
 	// Print the rest
 	printf("\n----- Map Metadata -----\n");
 	printf("is_valid:   %d\n", m->is_valid);
-	printf("x:          %d\n", m->x);
-	printf("y:          %d\n", m->y);
-
+	printf("x:          %f\n", m->x);
+	printf("y:          %f\n", m->y);
 	printf("------------------------------------\n");
 }
 
@@ -159,7 +146,7 @@ static int	parse_map(t_map *map, int ac, char **av)
 	}
 	else
 		write(2, "valid map\n", 11);
-	return(0);
+	return (0);
 }
 
 int	main(int ac, char **av)
@@ -168,7 +155,7 @@ int	main(int ac, char **av)
 	t_cube	*cube;
 	t_data	*data;
 
-	if(parse_map(&map, ac, av) != 0)
+	if (parse_map(&map, ac, av) != 0)
 		return (1);
 	cube = (t_cube *)malloc(sizeof(t_cube));
 	if (!cube)
@@ -191,8 +178,8 @@ int	main(int ac, char **av)
 	cube->data = data;
 	cube->map = map;
 	init_cube(cube, data);
+	print_map_info(&cube->map);
 	init_mlx(cube, data);
-	// print_map_info(&cube->map);
 	free_map_struct(&cube->map);
 	free_all(cube->gc);
 	free(cube);

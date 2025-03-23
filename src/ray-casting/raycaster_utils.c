@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 03:04:06 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/03/20 18:00:54 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/03/21 02:01:15 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,10 +68,9 @@ void	init_raycast_angle_and_delta(t_cube *cube, t_raycast *rc, int ray_index)
 	rc->ray_angle = fmod(rc->ray_angle + 2.0 * PI, 2.0 * PI);
 	rc->rayDirX = cos(rc->ray_angle);
 	rc->rayDirY = sin(rc->ray_angle);
-	rc->mapX = (int)(cube->map.x * S_TEX);
-	rc->mapY = (int)(cube->map.y * S_TEX);
-	printf("rc->mapY %d\n", rc->mapY);
-	printf("rc->mapX %d\n", rc->mapX);
+
+	rc->mapX = (int)(cube->p_x / S_TEX);
+	rc->mapY = (int)(cube->p_y / S_TEX);	
 	if (rc->rayDirX == 0)
 		rc->deltaDistX = 1e30;
 	else

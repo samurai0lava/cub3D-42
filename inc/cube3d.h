@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:44:41 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/03/20 17:42:12 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/03/21 00:26:25 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -233,8 +233,8 @@ typedef struct s_map
 	int						is_valid;
 	int						map_height;
 	int						map_width;
-	int						x;
-	int						y;
+	double					x;
+	double					y;
 	t_rgb					f_rgb;
 	t_rgb					c_rgb;
 	double					start_angle;

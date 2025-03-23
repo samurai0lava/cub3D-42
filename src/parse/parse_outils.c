@@ -49,6 +49,7 @@ void get_x_y(t_map *map)
             {
                 map->x = i;
                 map->y = j;
+             
                 return ;
             }
             j++;
@@ -60,12 +61,17 @@ void get_x_y(t_map *map)
 void	check_direction(t_map *map)
 {
 	get_x_y(map);
-	if (map->map[map->x][map->y] == 'N')
+    int x;
+    int y;
+
+    x = (int)map->x;
+    y = (int)map->y;
+	if (map->map[x][y] == 'N')
 		map->start_angle = 0;
-	if (map->map[map->x][map->y] == 'S')
+	if (map->map[x][y] == 'S')
 		map->start_angle = PI;
-	if (map->map[map->x][map->y] == 'E')
+	if (map->map[x][y] == 'E')
 		map->start_angle = 3*PI / 2;
-	if (map->map[map->x][map->y] == 'W')
+	if (map->map[x][y] == 'W')
 		map->start_angle = PI / 2;
 }

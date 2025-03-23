@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 18:16:55 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/03/18 17:48:54 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/03/22 20:43:01 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,16 +47,20 @@ static int	is_colliding(t_cube *cube, double px, double py)
 	cube->collid.top_tile = (int)(cube->collid.top / S_TEX);
 	cube->collid.bottom_tile = (int)(cube->collid.bottom / S_TEX);
 	cube->collid.ty = cube->collid.top_tile;
+	// printf("cube->collid.ty %d\n", cube->collid.ty);
+	// printf("cube->collid.tx %d\n", cube->collid.tx);
+	// printf("cube->collid.left_tile %d\n", cube->collid.left_tile);
+	// printf("cube->collid.right_tile %d\n", cube->collid.right_tile);
 	while (cube->collid.ty <= cube->collid.bottom_tile)
 	{
 		cube->collid.tx = cube->collid.left_tile;
 		while (cube->collid.tx <= cube->collid.right_tile)
 		{
-			if (cube->collid.ty < 0 || cube->collid.ty >= cube->map.map_width
-				|| cube->collid.tx < 0 || cube->collid.tx >= cube->map.map_height)
-				return (1);
+			if (cube->collid.ty < 0 || cube->collid.ty >= cube->map.map_height
+				|| cube->collid.tx < 0 || cube->collid.tx >= cube->map.map_width)
+				   return (1);
 			if (cube->map.map[cube->collid.ty][cube->collid.tx] != 0)
-				return (1);
+				   return (1);
 			cube->collid.tx++;
 		}
 		cube->collid.ty++;

@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 18:37:49 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/03/18 01:25:13 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/03/22 23:54:02 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,12 @@ void	clean_screen(t_data *data, t_cube *cube)
 	int	x;
 	int	y;
 
+	(void)cube;
 	x = 0;
-	while (x < cube->map.map_height)
+	while (x < HEIGHT)
 	{
 		y = 0;
-		while (y < cube->map.map_width)
+		while (y < WIDTH)
 		{
 			my_mlx_pixel_put(data, x, y, 0x00000000);
 			y++;

@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 12:44:24 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/03/20 17:59:36 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/03/21 02:06:02 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,12 +64,11 @@ void select_textures(t_cube *cube, t_raycast *rc)
     else
     {
         if (rc->rayDirY > 0)
-            rc->selected_tex = &cube->texture[3];
+            rc->selected_tex = &cube->texture[2];
         else
-            rc->selected_tex = &cube->texture[4];
+            rc->selected_tex = &cube->texture[3];
         rc->wall_x = fmod(rc->hitX, (double)S_TEX);
     }
-
     rc->wall_x /= (double)S_TEX;
     if (rc->wall_x < 0)
         rc->wall_x += 1.0;
@@ -106,6 +105,7 @@ void	cast_away(t_cube *cube)
 	cube->num_rays = WIDTH;
 	cube->angle_step = FOV / (double)cube->num_rays;
 	cube->start_angle = cube->angle - (FOV / 2.0);
+
 	clean_display(cube);
 	i = 0;
 	while (i < cube->num_rays)
