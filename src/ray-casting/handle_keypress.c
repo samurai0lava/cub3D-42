@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 18:16:55 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/03/23 20:42:39 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/03/24 00:18:10 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,21 +150,14 @@ int	key_loop(t_cube *cube)
 	if (cube->keys.right)
 		cube->angle += RT_SPEED;
 	cube->angle = fmod(cube->angle + 2 * PI, 2 * PI);
-	
-	// Store original position
 	cube->hc.temp_x = cube->p_x;
 	cube->hc.temp_y = cube->p_y;
-	
-	// Try X movement first
 	cube->hc.candidate_x = cube->hc.temp_x + (cube->hc.new_x - cube->p_x);
 	if (!is_colliding(cube, cube->hc.candidate_x, cube->hc.temp_y))
 		cube->p_x = cube->hc.candidate_x;
-	
-	// Then try Y movement
-	cube->hc.candidate_y = cube->hc.temp_y + (cube->hc.new_y - cube->p_y);  // Fixed this line
+	cube->hc.candidate_y = cube->hc.temp_y + (cube->hc.new_y - cube->p_y);
 	if (!is_colliding(cube, cube->p_x, cube->hc.candidate_y))
 		cube->p_y = cube->hc.candidate_y;
-	
 	game_loop_keypress(cube);
 	return (0);
 }
