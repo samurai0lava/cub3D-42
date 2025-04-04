@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: samurai0lava <samurai0lava@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:44:29 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/03/23 20:52:57 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/04/03 14:43:29 by samurai0lav      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,13 @@ void	init_cube(t_cube *cube, t_data *data)
 	cube->player_dot_size = 3;
 	cube->p_x = (cube->map.x * S_TEX) + (S_TEX / 2);
 	cube->p_y = (cube->map.y * S_TEX) + (S_TEX / 2);
+	cube->keys.w = 0;
+	cube->keys.s = 0;
+	cube->keys.d = 0;
+	cube->keys.a = 0;
+	cube->keys.right = 0;
+	cube->keys.left = 0;
+	
 	// printf("cube->p_x :%f\n", cube->p_x);
 	// printf("cube->p_y : %f\n", cube->p_y);
 }
@@ -68,13 +75,13 @@ void	free_map_struct(t_map *map)
 int	handle_errors(int err_code)
 {
 	if (err_code == 1)
-		return (write(2, "invalid number of parametres\n", 30), 1);
+		return (1);
 	else if (err_code == 2)
-		return (write(2, "file invalid\n", 14), 1);
+		return (1);
 	else if (err_code == 3)
-		return (write(2, "invalid rgbs\n", 14), 1);
+		return (1);
 	else if (err_code == 4)
-		return (write(2, "invalid map\n", 13), 1);
+		return (1);
 	return (1);
 }
 
@@ -118,11 +125,17 @@ void	print_map_info(t_map *m)
 	printf("x:          %f\n", m->x);
 	printf("y:          %f\n", m->y);
 	printf("------------------------------------\n");
+
+	// printf("rows of the map : %ld\n", get_row_count(m->map));
+	// printf("rows of the map  * 64: %ld\n", get_row_count(m->map) * 64);
+	// printf("coll of the map : %ld\n", ft_strlen(m->map[0]));
+	// printf("coll of the map * 64 : %ld\n", ft_strlen(m->map[0]) * 64);
+	
 }
 
 static int	parse_map(t_map *map, int ac, char **av)
 {
-	ft_memset(map, 0, sizeof(t_map));
+	ft_memset(map, 0, sizeof(t_map)); 
 	if (ac != 2)
 		return (handle_errors(1));
 	if (check_file_name(av[1]) == 0)
@@ -137,15 +150,11 @@ static int	parse_map(t_map *map, int ac, char **av)
 		free_map_struct(map);
 		return (handle_errors(3));
 	}
-	else
-		write(1, "valid rgbs\n", 12);
 	if (check_map(map) == 0)
 	{
 		free_map_struct(map);
 		return (handle_errors(4));
 	}
-	else
-		write(2, "valid map\n", 11);
 	return (0);
 }
 
@@ -178,7 +187,7 @@ int	main(int ac, char **av)
 	cube->data = data;
 	cube->map = map;
 	init_cube(cube, data);
-	print_map_info(&cube->map);
+	// print_map_info(&cube->map);
 	init_mlx(cube, data);
 	free_map_struct(&cube->map);
 	free_all(cube->gc);

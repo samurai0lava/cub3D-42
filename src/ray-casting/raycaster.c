@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycaster.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: samurai0lava <samurai0lava@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 12:44:24 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/03/23 08:19:11 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/04/03 12:07:35 by samurai0lav      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 void	run_dda(t_cube *cube, t_raycast *rc)
 {
-	int		row_count;
+	size_t		row_count;
 	size_t	col_count;
 
 	row_count = get_row_count(cube->map.map);
-	while (!rc->hit_wall && rc->safety-- > 0)
+	while (!rc->hit_wall)
 	{
 		if (rc->sideDistX < rc->sideDistY)
 		{
@@ -32,10 +32,10 @@ void	run_dda(t_cube *cube, t_raycast *rc)
 			rc->mapY += rc->stepY;
 			rc->side = 1;
 		}
-		if (rc->mapY < 0 || rc->mapY >= row_count)
+		if (rc->mapY > row_count)
 			break ;
 		col_count = ft_strlen(cube->map.map[rc->mapY]);
-		if (rc->mapX < 0 || rc->mapX >= (int)col_count)
+		if (rc->mapX > col_count)
 			break ;
 		if (cube->map.map[rc->mapY][rc->mapX] == '1')
 			rc->hit_wall = 1;

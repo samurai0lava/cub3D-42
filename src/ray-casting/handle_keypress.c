@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_keypress.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: samurai0lava <samurai0lava@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 18:16:55 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/03/24 00:18:10 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/04/04 13:57:11 by samurai0lav      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,44 +38,37 @@ static void	handle_esc(t_cube *cube)
 
 static int is_colliding(t_cube *cube, double px, double py)
 {
-    // The player's bounding box
+	int ty;
+	int tx;
+	size_t col_count;
+
     cube->collid.left   = px - PLAYER_RADIUS;
     cube->collid.right  = px + PLAYER_RADIUS;
     cube->collid.top    = py - PLAYER_RADIUS;
     cube->collid.bottom = py + PLAYER_RADIUS;
-
-    // Convert bounding box to tile indices
     cube->collid.left_tile   = (int)(cube->collid.left / S_TEX);
     cube->collid.right_tile  = (int)(cube->collid.right / S_TEX);
     cube->collid.top_tile    = (int)(cube->collid.top / S_TEX);
     cube->collid.bottom_tile = (int)(cube->collid.bottom / S_TEX);
-
-    // How many rows exist in the map?
     int row_count = get_row_count(cube->map.map);
-
-    // Loop over all tiles touched by the bounding box
-    for (int ty = cube->collid.top_tile; ty <= cube->collid.bottom_tile; ty++)
+	ty = cube->collid.top_tile;
+    while (ty <= cube->collid.bottom_tile)
     {
-        // Check row bounds
         if (ty < 0 || ty >= row_count)
-            return 1; // out of bounds => treat as collision
-
-        // For each row, find how many columns are valid
-        size_t col_count = ft_strlen(cube->map.map[ty]); 
-        // (Or just strlen if not using the libft version)
-
-        for (int tx = cube->collid.left_tile; tx <= cube->collid.right_tile; tx++)
+            return (1);
+        col_count = ft_strlen(cube->map.map[ty]);
+		tx = cube->collid.left_tile; 
+        while (tx <= cube->collid.right_tile)
         {
-            // Check column bounds for this row
             if (tx < 0 || tx >= (int)col_count)
-                return 1; // out of bounds => treat as collision
-
-            // Finally, check if it's a wall (anything not '0')
+                return (1);
             if (cube->map.map[ty][tx] != '0')
-                return 1;
+                return (1);
+			tx++;
         }
+		ty++;
     }
-    return 0; // No collision found
+    return (0);
 }
 
 int	on_key_press(int keycode, t_cube *cube)
@@ -116,7 +109,6 @@ int	on_key_release(int keycode, t_cube *cube)
 		cube->keys.right = 0;
 	return (0);
 }
-
 int	key_loop(t_cube *cube)
 {
 	cube->hc.new_x = cube->p_x;
@@ -125,39 +117,42 @@ int	key_loop(t_cube *cube)
 	{
 		cube->hc.new_x += cos(cube->angle) * MVM_SPEED;
 		cube->hc.new_y += sin(cube->angle) * MVM_SPEED;
-		update_frame(cube);
 	}
 	if (cube->keys.s)
 	{
 		cube->hc.new_x -= cos(cube->angle) * MVM_SPEED;
 		cube->hc.new_y -= sin(cube->angle) * MVM_SPEED;
-		update_frame(cube);
 	}
 	if (cube->keys.d)
 	{
 		cube->hc.new_x += cos(cube->angle + M_PI_2) * MVM_SPEED;
 		cube->hc.new_y += sin(cube->angle + M_PI_2) * MVM_SPEED;
-		update_frame(cube);
 	}
 	if (cube->keys.a)
 	{
 		cube->hc.new_x += cos(cube->angle - M_PI_2) * MVM_SPEED;
 		cube->hc.new_y += sin(cube->angle - M_PI_2) * MVM_SPEED;
-		update_frame(cube);
 	}
 	if (cube->keys.left)
+	{
 		cube->angle -= RT_SPEED;
+	}
 	if (cube->keys.right)
+	{
 		cube->angle += RT_SPEED;
+	}
 	cube->angle = fmod(cube->angle + 2 * PI, 2 * PI);
 	cube->hc.temp_x = cube->p_x;
 	cube->hc.temp_y = cube->p_y;
 	cube->hc.candidate_x = cube->hc.temp_x + (cube->hc.new_x - cube->p_x);
 	if (!is_colliding(cube, cube->hc.candidate_x, cube->hc.temp_y))
-		cube->p_x = cube->hc.candidate_x;
+	cube->p_x = cube->hc.candidate_x;
 	cube->hc.candidate_y = cube->hc.temp_y + (cube->hc.new_y - cube->p_y);
 	if (!is_colliding(cube, cube->p_x, cube->hc.candidate_y))
-		cube->p_y = cube->hc.candidate_y;
+	cube->p_y = cube->hc.candidate_y;
+	update_frame(cube);
 	game_loop_keypress(cube);
+	// printf("cube->p_x: %f\n", cube->p_x);
+	// printf("cube->p_y: %f\n", cube->p_y);
 	return (0);
 }

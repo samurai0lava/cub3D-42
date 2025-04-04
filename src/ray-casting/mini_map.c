@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: samurai0lava <samurai0lava@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 15:02:54 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/03/23 07:42:47 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/04/03 11:57:59 by samurai0lav      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,12 +76,14 @@ void	draw_minimap_line(t_cube *cube, double angle, int length, int color)
 	}
 }
 
-int get_row_count(char **map)
+size_t get_row_count(char **map)
 {
-    int count = 0;
+    size_t count;
+
+	count = 0;
     while (map[count] != NULL)
         count++;
-    return count;
+    return (count);
 }
 
 

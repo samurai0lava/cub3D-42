@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube3d.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: samurai0lava <samurai0lava@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:44:41 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/03/24 06:22:58 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/04/03 11:59:52 by samurai0lav      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,13 +57,13 @@
 # define M_PI_2 1.57079632679489661923
 # define T_PI 6.28318530718
 # define RAY_STEP 0.1
-# define PLAYER_RADIUS 3
+# define PLAYER_RADIUS 2
 
 // game resolution
 
 # define S_RES 400
-# define WIDTH 800
-# define HEIGHT 800
+# define WIDTH 1000
+# define HEIGHT 1000
 # define S_TEX 64
 # define MAP_SCALE 0.5
 # define TILE_SIZE (S_TEX * MAP_SCALE)
@@ -81,9 +81,9 @@
 
 // animations
 
-# define FRAME_DELAY 20
-# define MVM_SPEED 1.6
-# define RT_SPEED 0.02
+# define FRAME_DELAY 10
+# define MVM_SPEED 5
+# define RT_SPEED 0.04
 # define MOUSE_SENSITIVITY 0.001
 
 // Structs
@@ -155,8 +155,8 @@ typedef struct s_raycast
 	double					ray_angle;
 	double					rayDirX;
 	double					rayDirY;
-	int						mapX;
-	int						mapY;
+	size_t						mapX;
+	size_t						mapY;
 	double					deltaDistX;
 	double					deltaDistY;
 	int						stepX;
@@ -411,6 +411,6 @@ int							on_key_press(int keycode, t_cube *cube);
 int							key_loop(t_cube *cube);
 int							close_win(t_cube *cube);
 void						destroy_mlx(t_cube *cube);
-int							get_row_count(char **map);
+size_t							get_row_count(char **map);
 
 #endif
