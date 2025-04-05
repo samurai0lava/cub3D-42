@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: samurai0lava <samurai0lava@student.42.f    +#+  +:+       +#+        */
+/*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:44:29 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/04/03 14:43:29 by samurai0lav      ###   ########.fr       */
+/*   Updated: 2025/04/05 16:34:24 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,10 +126,10 @@ void	print_map_info(t_map *m)
 	printf("y:          %f\n", m->y);
 	printf("------------------------------------\n");
 
-	// printf("rows of the map : %ld\n", get_row_count(m->map));
-	// printf("rows of the map  * 64: %ld\n", get_row_count(m->map) * 64);
-	// printf("coll of the map : %ld\n", ft_strlen(m->map[0]));
-	// printf("coll of the map * 64 : %ld\n", ft_strlen(m->map[0]) * 64);
+	printf("rows of the map : %ld\n", get_row_count(m->map));
+	printf("rows of the map  * 64: %ld\n", get_row_count(m->map) * 64);
+	printf("coll of the map : %ld\n", ft_strlen(m->map[0]));
+	printf("coll of the map * 64 : %ld\n", ft_strlen(m->map[0]) * 64);
 	
 }
 
@@ -153,6 +153,7 @@ static int	parse_map(t_map *map, int ac, char **av)
 	if (check_map(map) == 0)
 	{
 		free_map_struct(map);
+		printf(RED "Map is incorrect \n" RESET);
 		return (handle_errors(4));
 	}
 	return (0);
@@ -165,7 +166,10 @@ int	main(int ac, char **av)
 	t_data	*data;
 
 	if (parse_map(&map, ac, av) != 0)
+	{
+		printf(RED "FAILED TO PARCE\n" RESET);
 		return (1);
+	}
 	cube = (t_cube *)malloc(sizeof(t_cube));
 	if (!cube)
 	{
@@ -187,7 +191,7 @@ int	main(int ac, char **av)
 	cube->data = data;
 	cube->map = map;
 	init_cube(cube, data);
-	// print_map_info(&cube->map);
+	print_map_info(&cube->map);
 	init_mlx(cube, data);
 	free_map_struct(&cube->map);
 	free_all(cube->gc);

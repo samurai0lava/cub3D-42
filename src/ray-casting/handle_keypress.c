@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_keypress.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: samurai0lava <samurai0lava@student.42.f    +#+  +:+       +#+        */
+/*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 18:16:55 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/04/04 13:57:11 by samurai0lav      ###   ########.fr       */
+/*   Updated: 2025/04/05 16:36:35 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,7 +152,7 @@ int	key_loop(t_cube *cube)
 	cube->p_y = cube->hc.candidate_y;
 	update_frame(cube);
 	game_loop_keypress(cube);
-	// printf("cube->p_x: %f\n", cube->p_x);
-	// printf("cube->p_y: %f\n", cube->p_y);
+	printf("cube->p_x: %f\n", cube->p_x);
+	printf("cube->p_y: %f\n", cube->p_y);
 	return (0);
 }

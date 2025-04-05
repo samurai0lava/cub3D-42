@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube3d.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: samurai0lava <samurai0lava@student.42.f    +#+  +:+       +#+        */
+/*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:44:41 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/04/03 11:59:52 by samurai0lav      ###   ########.fr       */
+/*   Updated: 2025/04/05 15:12:46 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,9 +81,9 @@
 
 // animations
 
-# define FRAME_DELAY 10
-# define MVM_SPEED 5
-# define RT_SPEED 0.04
+# define FRAME_DELAY 25
+# define MVM_SPEED 3
+# define RT_SPEED 0.02
 # define MOUSE_SENSITIVITY 0.001
 
 // Structs
