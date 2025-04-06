@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:44:41 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/04/06 09:55:25 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/04/06 11:51:02 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@
 
 // animations
 
-# define FRAME_DELAY 25
+# define FRAME_DELAY 30
 # define MVM_SPEED 2
 # define RT_SPEED 0.01
 # define MOUSE_SENSITIVITY 0.001

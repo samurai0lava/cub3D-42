@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 03:04:06 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/04/06 08:57:34 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/04/06 11:43:17 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	draw_sky(t_cube *cube, int x, int start_y)
 	y = 0;
 	while (y < start_y)
 	{
-		my_mlx_pixel_put(cube->data, x, y, 0X00000000);
+		my_mlx_pixel_put(cube->data, x, y, 0X00FFFFFF);
 		y++;
 	}
 	return (y);

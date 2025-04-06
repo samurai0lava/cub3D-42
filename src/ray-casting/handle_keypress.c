@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 18:16:55 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/04/06 09:54:49 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/04/06 11:13:35 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,8 +152,8 @@ int	key_loop(t_cube *cube)
 	cube->hc.temp_y = cube->p_y;
 	cube->hc.candidate_x = cube->hc.temp_x + (cube->hc.new_x - cube->p_x);
 	// Before checking X movement
-	printf("Checking X: px=%.2f, py = %.2f, temp_y=%.2f, candidate_x=%.2f\n",
-		cube->p_x, cube->p_y, cube->hc.temp_y, cube->hc.candidate_x);
+	// printf("Checking X: px=%.2f, py = %.2f, temp_y=%.2f, candidate_x=%.2f\n",
+	// 	cube->p_x, cube->p_y, cube->hc.temp_y, cube->hc.candidate_x);
 	if (!is_colliding(cube, cube->hc.candidate_x, cube->hc.temp_y))
 	{
 		// printf("X move OK\n");

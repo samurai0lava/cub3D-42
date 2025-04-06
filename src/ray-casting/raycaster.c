@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 12:44:24 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/04/06 09:13:55 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/04/06 11:55:59 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,6 @@ void	cast_away(t_cube *cube)
 	cube->num_rays = WIDTH;
 	cube->angle_step = FOV / (double)cube->num_rays;
 	cube->start_angle = cube->angle - (FOV / 2.0);
-	clean_display(cube);
 	i = 0;
 	while (i < cube->num_rays)
 	{
