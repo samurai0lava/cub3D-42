@@ -41,47 +41,56 @@ void	count_w_h(t_map *map)
 	map->map_width = biggest_line;
 }
 
-void	get_x_y(t_map *map)
+void    get_x_y(t_map *map)
 {
-	int	i;
-	int	j;
+    int i;
+    int j;
 
-	i = 0;
-	if (!map || !map->map)
-		return ;
-	while (map->map[i] != NULL)
-	{
-		j = 0;
-		while (map->map[i][j] != '\0')
-		{
-			if (map->map[i][j] == 'N' || map->map[i][j] == 'S'
-				|| map->map[i][j] == 'E' || map->map[i][j] == 'W')
-			{
-				map->x = j;
-				map->y = i;
-				return ;
-			}
-			j++;
-		}
-		i++;
-	}
+    i = 0;
+    if (!map || !map->map)
+        return ;
+    while (map->map[i] != NULL)
+    {
+        // ---- ADD THIS BLOCK ----
+        // Print the string for row 3 specifically to see its exact content
+        if (i == 3)
+        {
+            printf("Scanning map->map[%d]: \"%s\"\n", i, map->map[i]);
+        }
+        // ---- END OF ADDED BLOCK ----
+
+        j = 0;
+        while (map->map[i][j] != '\0')
+        {
+            if (map->map[i][j] == 'N' || map->map[i][j] == 'S'
+                || map->map[i][j] == 'E' || map->map[i][j] == 'W')
+            {
+                map->x = j;
+                map->y = i;
+                printf("get_x_y found start position at: x=%d, y=%d\n", j, i);
+                return ;
+            }
+            j++;
+        }
+        i++;
+    }
 }
 
 void	check_direction(t_map *map)
 {
-	// get_x_y(map);
-	// int x;
-	// int y;
+	get_x_y(map);
+	
+	int x;
+	int y;
 
-	// y = (int)map->x;
-	// x = (int)map->y;
-	// if (map->map[x][y] == 'N')
-	// 	map->start_angle = 0;
-	// if (map->map[x][y] == 'S')
-	// 	map->start_angle = PI;
-	// if (map->map[x][y] == 'E')
-	// 	map->start_angle = 3 * PI / 2;
-	// if (map->map[x][y] == 'W')
-	// 	map->start_angle = PI / 2;
-    map->start_angle = PI;
+	y = (int)map->x;
+	x = (int)map->y;
+	if (map->map[x][y] == 'N')
+		map->start_angle = 0;
+	if (map->map[x][y] == 'S')
+		map->start_angle = PI;
+	if (map->map[x][y] == 'E')
+		map->start_angle = 3 * PI / 2;
+	if (map->map[x][y] == 'W')
+		map->start_angle = PI / 2;
 }

@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:44:41 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/04/05 15:12:46 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/04/06 09:55:25 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@
 # define M_PI_2 1.57079632679489661923
 # define T_PI 6.28318530718
 # define RAY_STEP 0.1
-# define PLAYER_RADIUS 2
+# define PLAYER_RADIUS 3
 
 // game resolution
 
@@ -82,8 +82,8 @@
 // animations
 
 # define FRAME_DELAY 25
-# define MVM_SPEED 3
-# define RT_SPEED 0.02
+# define MVM_SPEED 2
+# define RT_SPEED 0.01
 # define MOUSE_SENSITIVITY 0.001
 
 // Structs

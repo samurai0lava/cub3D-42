@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:44:29 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/04/05 16:34:24 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/04/06 09:43:04 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,8 +142,8 @@ static int	parse_map(t_map *map, int ac, char **av)
 		return (handle_errors(2));
 	initiliase_struct(map, av[1]);
 	get_map_into2darray(map, av[1]);
-	count_w_h(map);
 	get_x_y(map);
+	count_w_h(map);
 	check_direction(map);
 	if (check_rgbs(map) == 1)
 	{

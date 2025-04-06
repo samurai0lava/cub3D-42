@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 18:16:55 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/04/05 16:36:35 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/04/06 09:54:49 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,39 +36,45 @@ static void	handle_esc(t_cube *cube)
 	free(cube);
 }
 
-static int is_colliding(t_cube *cube, double px, double py)
+static int	is_colliding(t_cube *cube, double px, double py)
 {
-	int ty;
-	int tx;
-	size_t col_count;
+	int		ty;
+	int		tx;
+	size_t	col_count;
+	int		row_count;
 
-    cube->collid.left   = px - PLAYER_RADIUS;
-    cube->collid.right  = px + PLAYER_RADIUS;
-    cube->collid.top    = py - PLAYER_RADIUS;
-    cube->collid.bottom = py + PLAYER_RADIUS;
-    cube->collid.left_tile   = (int)(cube->collid.left / S_TEX);
-    cube->collid.right_tile  = (int)(cube->collid.right / S_TEX);
-    cube->collid.top_tile    = (int)(cube->collid.top / S_TEX);
-    cube->collid.bottom_tile = (int)(cube->collid.bottom / S_TEX);
-    int row_count = get_row_count(cube->map.map);
+	cube->collid.left = px - PLAYER_RADIUS;
+	cube->collid.right = px + PLAYER_RADIUS;
+	cube->collid.top = py - PLAYER_RADIUS;
+	cube->collid.bottom = py + PLAYER_RADIUS;
+	cube->collid.left_tile = (int)(cube->collid.left / S_TEX);
+	cube->collid.right_tile = (int)(cube->collid.right / S_TEX);
+	cube->collid.top_tile = (int)(cube->collid.top / S_TEX);
+	cube->collid.bottom_tile = (int)(cube->collid.bottom / S_TEX);
+	row_count = get_row_count(cube->map.map);
 	ty = cube->collid.top_tile;
-    while (ty <= cube->collid.bottom_tile)
-    {
-        if (ty < 0 || ty >= row_count)
-            return (1);
-        col_count = ft_strlen(cube->map.map[ty]);
-		tx = cube->collid.left_tile; 
-        while (tx <= cube->collid.right_tile)
-        {
-            if (tx < 0 || tx >= (int)col_count)
-                return (1);
-            if (cube->map.map[ty][tx] != '0')
-                return (1);
+	while (ty <= cube->collid.bottom_tile)
+	{
+		if (ty < 0 || ty >= row_count)
+			return (1);
+		col_count = ft_strlen(cube->map.map[ty]);
+		tx = cube->collid.left_tile;
+		while (tx <= cube->collid.right_tile)
+		{
+			if (tx < 0 || tx >= (int)col_count)
+				return (1);
+			// Inside is_colliding, replace the collision check line with this:
+			if (cube->map.map[ty][tx] != '0' && cube->map.map[ty][tx] != 'N'
+				&& cube->map.map[ty][tx] != 'S' && cube->map.map[ty][tx] != 'E'
+				&& cube->map.map[ty][tx] != 'W')
+			{
+				return (1); // Collision only if it's not '0' or a start char
+			};
 			tx++;
-        }
+		}
 		ty++;
-    }
-    return (0);
+	}
+	return (0);
 }
 
 int	on_key_press(int keycode, t_cube *cube)
@@ -145,14 +151,25 @@ int	key_loop(t_cube *cube)
 	cube->hc.temp_x = cube->p_x;
 	cube->hc.temp_y = cube->p_y;
 	cube->hc.candidate_x = cube->hc.temp_x + (cube->hc.new_x - cube->p_x);
+	// Before checking X movement
+	printf("Checking X: px=%.2f, py = %.2f, temp_y=%.2f, candidate_x=%.2f\n",
+		cube->p_x, cube->p_y, cube->hc.temp_y, cube->hc.candidate_x);
 	if (!is_colliding(cube, cube->hc.candidate_x, cube->hc.temp_y))
-	cube->p_x = cube->hc.candidate_x;
+	{
+		// printf("X move OK\n");
+		cube->p_x = cube->hc.candidate_x;
+	}
 	cube->hc.candidate_y = cube->hc.temp_y + (cube->hc.new_y - cube->p_y);
 	if (!is_colliding(cube, cube->p_x, cube->hc.candidate_y))
-	cube->p_y = cube->hc.candidate_y;
+	{
+		// printf("Y move OK\n");
+		cube->p_y = cube->hc.candidate_y;
+	}
+	// else
+	// {
+	// 	printf("Y move COLLISION\n");
+	// }
 	update_frame(cube);
 	game_loop_keypress(cube);
-	printf("cube->p_x: %f\n", cube->p_x);
-	printf("cube->p_y: %f\n", cube->p_y);
 	return (0);
 }

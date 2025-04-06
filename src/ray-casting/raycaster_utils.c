@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycaster_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: samurai0lava <samurai0lava@student.42.f    +#+  +:+       +#+        */
+/*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 03:04:06 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/04/03 14:45:51 by samurai0lav      ###   ########.fr       */
+/*   Updated: 2025/04/06 08:57:34 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,6 @@ void	init_raycast_angle_and_delta(t_cube *cube, t_raycast *rc, int ray_index)
 
 	rc->mapX = (int)(cube->p_x / S_TEX);
 	rc->mapY = (int)(cube->p_y / S_TEX);
-	// printf("rc->mapX : %ld\n", rc->mapX);
-	// printf("rc->mapY : %ld\n", rc->mapY);
 	if (rc->rayDirX == 0)
 		rc->deltaDistX = 1e30;
 	else
