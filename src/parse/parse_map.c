@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 13:42:06 by moaregra          #+#    #+#             */
-/*   Updated: 2025/04/06 09:45:34 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/04/08 13:37:53 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,11 @@ void	get_map_into2darray(t_map *map, char *av)
 	int		i;
 
 	s = get_file_in_char(av);
+	if(s == NULL)
+		return ;
 	all_file = split_file(s);
+	if(all_file == NULL)
+		return ;
 	count_map_lines(all_file, &lines, &map_started);
 	fill_map_array(map, all_file, lines);
 	i = 0;

@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 12:38:50 by moaregra          #+#    #+#             */
-/*   Updated: 2025/04/08 11:45:10 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/04/08 13:08:34 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,7 @@ char	*get_file_in_char(char *av)
 			map_content = temp_join;
 		}
 		free(line);
+		line = NULL;
 		line = get_next_line(fd);
 	}
 	close(fd);

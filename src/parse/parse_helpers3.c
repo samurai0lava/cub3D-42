@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_helpers3.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moaregra <moaregra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 15:38:42 by moaregra          #+#    #+#             */
-/*   Updated: 2025/03/17 15:40:26 by moaregra         ###   ########.fr       */
+/*   Updated: 2025/04/08 13:37:01 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ void	fill_struct(t_map *map, char *av)
 	int		i;
 
 	s = get_file_in_char(av);
+	if(s == NULL)
+		return ;
 	file = split_file(s);
 	i = 0;
 	if (!s || !file || !map)
