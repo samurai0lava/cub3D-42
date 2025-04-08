@@ -22,6 +22,7 @@ SRCS =	src/main.c src/ray-casting/add_text.c\
 		src/parse/parse_mapv3.c \
 		src/parse/parse.c\
 		src/parse/parse_outils.c\
+		src/ray-casting/draw_walls.c\
 
 LIB = libft/libft.a
 NAME = cub3D

@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:44:41 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/04/06 11:51:02 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/04/08 10:55:53 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,8 +155,8 @@ typedef struct s_raycast
 	double					ray_angle;
 	double					rayDirX;
 	double					rayDirY;
-	size_t						mapX;
-	size_t						mapY;
+	size_t					mapX;
+	size_t					mapY;
 	double					deltaDistX;
 	double					deltaDistY;
 	int						stepX;
@@ -176,6 +176,7 @@ typedef struct s_raycast
 	int						tile_val;
 	double					hitX;
 	double					hitY;
+	int						x;
 }							t_raycast;
 
 typedef struct s_handle_keys
@@ -239,6 +240,13 @@ typedef struct s_map
 	t_rgb					c_rgb;
 	double					start_angle;
 }							t_map;
+
+typedef struct s_wall
+{
+	int						start_y;
+	int						end_y;
+	double					tex_step;
+}							t_wall;
 
 typedef struct s_cube
 {
@@ -375,8 +383,7 @@ void						draw_floor(t_cube *cube, int y, int x);
 int							draw_sky(t_cube *cube, int x, int start_y);
 double						eye_fish_correction(double ray_angle, t_cube *cube);
 void						draw_vertical_line_with_texture(t_cube *cube, int x,
-								int wall_height, int tex_x, double distance,
-								t_data *selected_tex);
+								t_raycast *rc);
 void						init_weapon(t_cube *cube);
 void						draw_weapon(t_cube *cube);
 void						scale_weapon(t_cube *cube);
@@ -411,6 +418,6 @@ int							on_key_press(int keycode, t_cube *cube);
 int							key_loop(t_cube *cube);
 int							close_win(t_cube *cube);
 void						destroy_mlx(t_cube *cube);
-size_t							get_row_count(char **map);
+size_t						get_row_count(char **map);
 
 #endif

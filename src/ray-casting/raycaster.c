@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 12:44:24 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/04/06 11:55:59 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/04/08 10:09:00 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,8 +86,7 @@ void	draw_slice(t_cube *cube, t_raycast *rc, int screen_x)
 	if (rc->selected_tex && rc->selected_tex->img)
 	{
 		rc->tex_x = (int)(rc->wall_x * rc->selected_tex->width);
-		draw_vertical_line_with_texture(cube, screen_x, rc->wall_height,
-			rc->tex_x, rc->perpWallDist, rc->selected_tex);
+		draw_vertical_line_with_texture(cube, screen_x, rc);
 	}
 	else
 	{

@@ -6,45 +6,11 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 03:05:38 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/04/06 09:17:30 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/04/08 10:40:58 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/cube3d.h"
-
-void	draw_vertical_line_with_texture(t_cube *cube, int x, int wall_height,
-		int tex_x, double distance, t_data *selected_tex)
-{
-	double	tex_step;
-	double	tex_pos;
-	int		tex_y;
-	int		y;
-	int		color;
-
-	if (wall_height <= 0 || !selected_tex || tex_x < 0
-		|| tex_x >= selected_tex->width)
-		return ;
-	tex_step = (double)selected_tex->height / wall_height;
-	cube->start_y = (HEIGHT / 2) - (wall_height / 2);
-	if (cube->start_y < 0)
-		cube->start_y = 0;
-	cube->end_y = (HEIGHT / 2) + (wall_height / 2);
-	if (cube->end_y > HEIGHT)
-		cube->end_y = HEIGHT;
-	y = draw_sky(cube, x, cube->start_y);
-	tex_pos = (y - ((HEIGHT / 2) - (wall_height / 2))) * tex_step;
-	while (y < cube->end_y)
-	{
-		tex_y = (int)tex_pos;
-		if (tex_y >= selected_tex->height)
-			tex_y = selected_tex->height - 1;
-		color = get_texture_pixel(selected_tex, tex_x, tex_y);
-		my_mlx_pixel_put(cube->data, x, y, color_shading(color, distance));
-		tex_pos += tex_step;
-		y++;
-	}
-	draw_floor(cube, y, x);
-}
 
 void	clean_display(t_cube *cube)
 {
