@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/16 14:39:37 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/03/19 00:06:01 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/04/08 12:04:33 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ int	load_frames(t_cube *cube)
 		if (!num)
 			return (perror("malloc"), 1);
 		temp = ft_strjoin(num, ".xpm");
-		add_garbage(cube->gc, num);
 		if (!temp)
 			return (perror("malloc"), 1);
 		path = ft_strjoin(stand, temp);

@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:44:52 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/04/06 11:56:21 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/04/08 11:02:09 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,14 +46,16 @@ void	init_textures(t_cube *cube)
 				&cube->texture[i].bits_per_pixel, &cube->texture[i].line_length,
 				&cube->texture[i].endian);
 		if (!cube->texture[i].addr)
-		{
-			print_error(RED "failed to load textures\n" RESET);
 			return ;
-		}
 		i++;
 	}
 }
-
+static void mlx_hook_cube(t_cube *cube)
+{
+	mlx_hook(cube->mlx_window, 17, 1L << 17, close_win, cube);
+	mlx_hook(cube->mlx_window, 2, 1L << 0, on_key_press, cube);
+	mlx_hook(cube->mlx_window, 3, 1L << 1, on_key_release, cube);
+}
 void	init_mlx(t_cube *cube, t_data *data)
 {
 
@@ -73,23 +75,15 @@ void	init_mlx(t_cube *cube, t_data *data)
 	data->img = mlx_new_image(cube->mlx, WIDTH, HEIGHT);
 	data->addr = mlx_get_data_addr(data->img, &data->bits_per_pixel,
 			&data->line_length, &data->endian);
-	// ft_memcpy(cube->map, example_map, sizeof(example_map));
 	init_textures(cube);
 	load_frames(cube);
 	add_frame_ls(cube);
-	mlx_hook(cube->mlx_window, 17, 1L << 17, close_win, cube);
-	mlx_hook(cube->mlx_window, 2, 1L << 0, on_key_press, cube);
-	mlx_hook(cube->mlx_window, 3, 1L << 1, on_key_release, cube);
+	mlx_hook_cube(cube);
 	init_minimap_params(cube);
 	cast_away(cube);
 	draw_weapon(cube);
 	draw_circular_minimap(cube);
 	mlx_put_image_to_window(cube->mlx, cube->mlx_window, cube->data->img, 0, 0);
-	// mlx_mouse_hide(cube->mlx, cube->mlx_window);
-	// mlx_hook(cube->mlx_window, 6, 1L << 6, handle_mouse_move, cube);
-	// cube->mouse_x = WIDTH / 2;
-	// cube->mouse_y = HEIGHT / 2;
-	// mlx_mouse_move(cube->mlx ,cube->mlx_window, WIDTH / 2, HEIGHT / 2);
 	mlx_loop_hook(cube->mlx, key_loop, cube);
 	mlx_loop(cube->mlx);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moaregra <moaregra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 12:38:50 by moaregra          #+#    #+#             */
-/*   Updated: 2025/03/17 15:37:57 by moaregra         ###   ########.fr       */
+/*   Updated: 2025/04/08 11:45:10 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,27 +64,47 @@ char	*get_file_in_char(char *av)
 {
 	char	*line;
 	int		fd;
-	char	*map;
-	char	*temp;
+	char	*map_content;
+	char	*temp_join;
 
-	map = NULL;
+	map_content = NULL;
 	fd = open(av, O_RDONLY);
 	if (fd == -1)
 	{
-		printf("Error opening file\n");
-		exit(1);
+		perror("Error opening file");
+		return (NULL);
 	}
-	while ((line = get_next_line(fd)) != NULL)
+	line = get_next_line(fd);
+	while (line != NULL)
 	{
-		if (map == NULL)
-			map = ft_strdup(line);
+		if (map_content == NULL)
+		{
+			map_content = ft_strdup(line);
+			if (!map_content)
+			{
+				free(line);
+				close(fd);
+				return (NULL);
+			}
+		}
 		else
 		{
-			temp = ft_strjoin(map, line);
-			map = temp;
+			temp_join = ft_strjoin(map_content, line);
+			if (!temp_join)
+			{
+				free(map_content);
+				free(line);
+				close(fd);
+				return (NULL);
+			}
+			free(map_content);
+			map_content = temp_join;
 		}
 		free(line);
+		line = get_next_line(fd);
 	}
 	close(fd);
-	return (map);
+	if (map_content == NULL)
+		map_content = ft_strdup("");
+	return (map_content);
 }

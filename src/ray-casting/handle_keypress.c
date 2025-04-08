@@ -6,19 +6,34 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 18:16:55 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/04/06 11:13:35 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/04/08 11:42:32 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/cube3d.h"
 
-int	close_win(t_cube *cube)
+int close_win(t_cube *cube)
 {
-	destroy_mlx(cube);
-	free_all(cube->gc);
-	free_map_struct(&cube->map);
-	free(cube);
-	return (0);
+	if (!cube) // Basic NULL check
+		exit(1);
+		
+	// 1. Destroy MLX resources (images, window, display link)
+	destroy_mlx(cube); 
+	
+	// 2. Free map data (like the 2D map array, texture paths)
+	//    Ensure free_map_struct handles NULL pointers gracefully inside.
+	free_map_struct(&cube->map); 
+
+	// 3. Free all memory tracked by the garbage collector
+	//    This should free cube->data among other things.
+	//    Ensure free_all handles NULL gc pointer gracefully inside.
+	free_all(cube->gc); 
+
+	// 4. Free the main cube structure itself
+	free(cube); 
+
+	exit(0); // Exit cleanly
+	// return (0); // Unreachable
 }
 
 static void	game_loop_keypress(t_cube *cube)
@@ -28,12 +43,18 @@ static void	game_loop_keypress(t_cube *cube)
 	draw_circular_minimap(cube);
 	mlx_put_image_to_window(cube->mlx, cube->mlx_window, cube->data->img, 0, 0);
 }
-static void	handle_esc(t_cube *cube)
+static void handle_esc(t_cube *cube)
 {
+	if (!cube) // Basic NULL check
+		exit(1);
+
+	// Same cleanup order as close_win
 	destroy_mlx(cube);
-	free_all(cube->gc);
 	free_map_struct(&cube->map);
+	free_all(cube->gc);
 	free(cube);
+	
+	exit(0); // Exit cleanly
 }
 
 static int	is_colliding(t_cube *cube, double px, double py)
@@ -80,10 +101,7 @@ static int	is_colliding(t_cube *cube, double px, double py)
 int	on_key_press(int keycode, t_cube *cube)
 {
 	if (keycode == ESC)
-	{
 		handle_esc(cube);
-		exit(0);
-	}
 	if (keycode == W_KEY)
 		cube->keys.w = 1;
 	if (keycode == A_KEY)
