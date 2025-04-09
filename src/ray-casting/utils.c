@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:44:33 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/04/08 11:57:48 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/04/09 14:42:38 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,6 @@ void destroy_mlx(t_cube *cube)
 		i = 0;
 		while (i < 4) // Assuming 4 wall textures
 		{
-			// Check texture array pointer itself if it could be NULL
 			if (cube->texture[i].img)
 				mlx_destroy_image(cube->mlx, cube->texture[i].img);
 			i++;
@@ -154,7 +153,8 @@ void destroy_mlx(t_cube *cube)
 		if (cube->mlx_window)
 			mlx_destroy_window(cube->mlx, cube->mlx_window);
 		// Add mlx_destroy_display if needed for your OS/MLX version
-		// mlx_destroy_display(cube->mlx); 
+		mlx_destroy_display(cube->mlx);
+		free(cube->mlx); 
 		// Do NOT free cube->mlx itself here if it's managed elsewhere or not needed
 	}
 	// DO NOT free(cube->data) here if it's tracked by GC.

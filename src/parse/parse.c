@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 12:38:50 by moaregra          #+#    #+#             */
-/*   Updated: 2025/04/08 13:08:34 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/04/09 16:22:39 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ int	check_virgul(char *av)
 
 	i = 0;
 	count = 0;
+	if(!av)
+		return (0);
 	while (av[i])
 	{
 		if (av[i] == ',')
@@ -60,52 +62,55 @@ int	check_virgul(char *av)
 	return (1);
 }
 
-char	*get_file_in_char(char *av)
+char *get_file_in_char(char *av)
 {
-	char	*line;
-	int		fd;
-	char	*map_content;
-	char	*temp_join;
+    char *line;
+    int fd;
+    char *map_content = NULL; // Initialize to NULL
+    char *temp_join;
 
-	map_content = NULL;
-	fd = open(av, O_RDONLY);
-	if (fd == -1)
-	{
-		perror("Error opening file");
-		return (NULL);
-	}
-	line = get_next_line(fd);
-	while (line != NULL)
-	{
-		if (map_content == NULL)
-		{
-			map_content = ft_strdup(line);
-			if (!map_content)
-			{
-				free(line);
-				close(fd);
-				return (NULL);
-			}
-		}
-		else
-		{
-			temp_join = ft_strjoin(map_content, line);
-			if (!temp_join)
-			{
-				free(map_content);
-				free(line);
-				close(fd);
-				return (NULL);
-			}
-			free(map_content);
-			map_content = temp_join;
-		}
-		free(line);
-		line = NULL;
-		line = get_next_line(fd);
-	}
-	close(fd);
-	if (map_content == NULL)
-		map_content = ft_strdup("");
-	return (map_content);
+    fd = open(av, O_RDONLY);
+    if (fd == -1)
+    {
+        perror("Error opening file");
+        return (NULL);
+    }
+    line = get_next_line(fd);
+    while (line != NULL)
+    {
+        if (map_content == NULL)
+        {
+            map_content = ft_strdup(line);
+            if (!map_content)
+            {
+                free(line);
+                close(fd);
+                return (NULL);
+            }
+        }
+        else
+        {
+            temp_join = ft_strjoin(map_content, line);
+            if (!temp_join)
+            {
+                free(map_content);
+                free(line);
+                close(fd);
+                return (NULL);
+            }
+            free(map_content);
+            map_content = temp_join;
+        }
+        free(line);
+        line = get_next_line(fd);
+    }
+    close(fd);
+    if (map_content == NULL)
+        map_content = ft_strdup("");
+    if (!map_content) // Check if the strdup failed for empty string
+    {
+        close(fd);
+        return (NULL);
+    }
+    return (map_content);
 }

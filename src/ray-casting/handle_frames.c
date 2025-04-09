@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/16 14:39:37 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/04/08 13:02:30 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/04/09 16:36:58 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,11 @@ int	load_frames(t_cube *cube)
 	int		i;
 	int		j;
 
-	stand = "./textures/gnawa/pov";
 	i = 0;
 	j = 1;
 	while (i < 6)
 	{
+		stand = ft_strdup("./textures/gnawa/pov");
 		num = ft_itoa(j);
 		if (!num)
 			return (perror("malloc"), 1);

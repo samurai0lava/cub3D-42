@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 09:46:58 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/04/08 11:55:28 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/04/09 16:24:14 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static char	*rest(char *str)
 	rest = malloc((ft_strlen(str) - i + 1) * sizeof(char));
 	if (!rest)
 	{
-		free(rest);
+		free(str);
 		return (NULL);
 	}
 	i++;

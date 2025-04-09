@@ -1,5 +1,4 @@
 CC = cc
-FLAGS = -Wall -Wextra -Werror -Imlx -c -g
 SRCS =	src/main.c src/ray-casting/add_text.c\
 		src/ray-casting/mini_map.c\
 		src/ray-casting/raycaster.c\
@@ -42,7 +41,7 @@ $(NAME): $(OBJ) $(LIB)
 	$(CC) $(OBJ) -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o $(NAME) $(LIB)
 
 %.o: %.c
-	$(CC) -Wall -Wextra -Werror -I/usr/include -Imlx_linux -O3 -c $< -o $@
+	$(CC) -Wall -Wextra -Werror -g -I/usr/include -Imlx_linux -O3 -c $< -o $@
 
 clean :
 	$(MAKE) clean -C libft/
