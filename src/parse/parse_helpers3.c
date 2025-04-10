@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 15:38:42 by moaregra          #+#    #+#             */
-/*   Updated: 2025/04/08 13:37:01 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/04/10 21:44:48 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	parse_texture(t_map *map, char *line, char *identifier, char **dest)
 {
 	char	*tmp;
 
-	(void)map;
+	(void)map; //<---why
 	if (ft_strnstr(line, identifier, ft_strlen(line)))
 	{
 		tmp = ft_strdup(line);

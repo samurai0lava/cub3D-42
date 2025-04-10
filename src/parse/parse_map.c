@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 13:42:06 by moaregra          #+#    #+#             */
-/*   Updated: 2025/04/08 13:37:53 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/04/10 21:45:20 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	fill_map_array(t_map *map, char **all_file, int lines)
 	i = 0;
 	j = 0;
 	map_started = 0;
-	map->map = malloc(sizeof(char *) * (lines + 1));
+	map->map = malloc(sizeof(char *) * (lines + 1)); //<- check for null :(
 	while (all_file[i])
 	{
 		if (check_map_line(all_file[i]) == 0)

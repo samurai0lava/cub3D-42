@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 15:41:26 by moaregra          #+#    #+#             */
-/*   Updated: 2025/04/08 18:38:24 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/04/10 21:44:08 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	fill_rgb(t_map *map)
 	{
 		floor_rgb = ft_split(map->floor_color, ',');
 		celling_rgb = ft_split(map->celling_color, ',');
-		////
+		////- check for null :(
 		map->f_rgb.r = ft_atoi(floor_rgb[0]);
 		map->f_rgb.g = ft_atoi(floor_rgb[1]);
 		map->f_rgb.b = ft_atoi(floor_rgb[2]);

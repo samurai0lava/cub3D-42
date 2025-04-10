@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:44:29 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/04/08 18:36:51 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/04/10 21:43:26 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,6 @@ void	init_cube(t_cube *cube, t_data *data)
 	cube->keys.a = 0;
 	cube->keys.right = 0;
 	cube->keys.left = 0;
-	
-	// printf("cube->p_x :%f\n", cube->p_x);
-	// printf("cube->p_y : %f\n", cube->p_y);
 }
 
 void	free_map_textures(t_map *map)
@@ -72,67 +69,6 @@ void	free_map_struct(t_map *map)
 	free_map_textures(map);
 }
 
-int	handle_errors(int err_code)
-{
-	if (err_code == 1)
-		return (1);
-	else if (err_code == 2)
-		return (1);
-	else if (err_code == 3)
-		return (1);
-	else if (err_code == 4)
-		return (1);
-	return (1);
-}
-
-void	print_map_info(t_map *m)
-{
-	int	i;
-
-	printf("----- Map 2D Array -----\n");
-	if (m->map)
-	{
-		i = 0;
-		while (m->map[i])
-		{
-			printf("%s\n", m->map[i]);
-			i++;
-		}
-	}
-	else
-	{
-		printf("  (No map data)\n");
-	}
-	// Print the individual texture paths / directions
-	printf("\n----- Texture Paths -----\n");
-	printf("SE: %s\n", m->se ? m->se : "(null)");
-	printf("NO: %s\n", m->no ? m->no : "(null)");
-	printf("WE: %s\n", m->we ? m->we : "(null)");
-	printf("EA: %s\n", m->ea ? m->ea : "(null)");
-	// Floor & ceiling
-	printf("\n----- Colors -----\n");
-	printf("Floor color string:   %s\n",
-		m->floor_color ? m->floor_color : "(null)");
-	printf("Ceiling color string: %s\n",
-		m->celling_color ? m->celling_color : "(null)");
-	printf("Floor RGB:   R=%d, G=%d, B=%d\n", m->f_rgb.r, m->f_rgb.g,
-		m->f_rgb.b);
-	printf("Ceiling RGB: R=%d, G=%d, B=%d\n", m->c_rgb.r, m->c_rgb.g,
-		m->c_rgb.b);
-	// Print the rest
-	printf("\n----- Map Metadata -----\n");
-	printf("is_valid:   %d\n", m->is_valid);
-	printf("x:          %f\n", m->x);
-	printf("y:          %f\n", m->y);
-	printf("------------------------------------\n");
-
-	printf("rows of the map : %ld\n", get_row_count(m->map));
-	printf("rows of the map  * 64: %ld\n", get_row_count(m->map) * 64);
-	printf("coll of the map : %ld\n", ft_strlen(m->map[0]));
-	printf("coll of the map * 64 : %ld\n", ft_strlen(m->map[0]) * 64);
-	
-}
-
 static int	parse_map(t_map *map, int ac, char **av)
 {
 	ft_memset(map, 0, sizeof(t_map)); 
@@ -148,13 +84,13 @@ static int	parse_map(t_map *map, int ac, char **av)
 	if (check_rgbs(map) == 1)
 	{
 		free_map_struct(map);
-		return (handle_errors(3));
+		return (1);
 	}
 	if (check_map(map) == 0)
 	{
 		free_map_struct(map);
-		printf(RED "Map is incorrect \n" RESET);
-		return (handle_errors(4));
+		printf(RED "Error/Map is incorrect \n" RESET);
+		return (1);
 	}
 	return (0);
 }
@@ -166,32 +102,19 @@ int	main(int ac, char **av)
 	t_data	*data;
 
 	if (parse_map(&map, ac, av) != 0)
-	{
-		printf(RED "FAILED TO PARCE\n" RESET);
 		return (1);
-	}
 	cube = (t_cube *)malloc(sizeof(t_cube));
 	if (!cube)
-	{
-		perror("malloc");
-		return (-1);
-	}
+		return (perror("malloc"), -1);
 	cube->gc = init_garbage_collector();
 	if (!cube->gc)
-	{
-		free(cube);
-		return (-1);
-	}
+		return (free(cube) ,-1);
 	data = tracked_malloc(cube->gc, sizeof(t_data));
 	if (data == NULL)
-	{
-		free_all(cube->gc);
-		return (1);
-	}
+		return (free_all(cube->gc), 1);
 	cube->data = data;
 	cube->map = map;
 	init_cube(cube, data);
-	print_map_info(&cube->map);
 	init_mlx(cube, data);
 	free_map_struct(&cube->map);
 	free_all(cube->gc);
