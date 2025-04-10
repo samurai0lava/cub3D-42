@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:44:41 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/04/10 13:39:48 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/04/10 19:23:34 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@
 # define M_PI_2 1.57079632679489661923
 # define T_PI 6.28318530718
 # define RAY_STEP 0.1
-# define PLAYER_RADIUS 3
+# define PLAYER_RADIUS 8
 
 // game resolution
 
@@ -398,9 +398,6 @@ void						add_frame_ls(t_cube *cube);
 int							handle_mouse_move(int x, int y, t_cube *cube);
 void						draw_rectangle(t_data *data, int x, int y, int size,
 								int color);
-int							game_loop(t_cube *cube);
-int							game_loop_wrapper(void *param);
-void						draw_door(t_cube *cube);
 void						init_minimap_params(t_cube *cube);
 void						init_raycast(t_cube *cube, t_raycast *rc,
 								int ray_index);
@@ -419,5 +416,8 @@ int							key_loop(t_cube *cube);
 int							close_win(t_cube *cube);
 void						destroy_mlx(t_cube *cube);
 size_t						get_row_count(char **map);
-
+void						game_engine(t_cube *cube);
+void						mlx_hook_cube(t_cube *cube);
+void						init_colliding(t_cube *cube, double *px,
+								double *py);
 #endif

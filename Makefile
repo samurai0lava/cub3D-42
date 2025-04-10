@@ -79,17 +79,17 @@ $(NAME): $(OBJ) $(LIB)
 	@$(CC) -Wall -Wextra -Werror -g -I/usr/include -Imlx_linux -O3 -c $< -o $@
 
 clean :
-	@echo "$(RED)Cleaning libft objects...$(NC)"
+	@echo "$(WHITE)✔️ --Cleaning libft objects$(NC)"
 	@$(MAKE) clean -s -C libft/
-	@echo "$(RED)Cleaning project objects...$(NC)"
+	@echo "$(WHITE)✔️ --Cleaning project objects$(NC)"
 	@rm -f $(OBJ)
 
 fclean : clean
-	@echo "$(RED)Cleaning libft library...$(NC)"
+	@echo "$(WHITE)✔️ --Cleaning libft library$(NC)"
 	@$(MAKE) fclean -s -C libft/
-	@echo "$(RED)Cleaning project executable $(NAME)...$(NC)"
+	@echo "$(WHITE)✔️ --Cleaning project executable$(NAME)$(NC)"
 	@rm -rf $(NAME)
-	@echo "$(RED)Full clean complete.$(NC)"
+	@echo "$(RED)✔️ --Full clean complete$(NC)"
 
 re : fclean all
 

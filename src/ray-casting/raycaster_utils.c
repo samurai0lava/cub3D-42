@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 03:04:06 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/04/08 12:55:19 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/04/10 19:02:43 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,25 @@ void	draw_vertical_line(t_cube *cube, int x, int wall_height, int color)
 	}
 }
 
+static unsigned long	get_colors_hex(t_rgb color)
+{
+	int				red;
+	int				green;
+	int				blue;
+	unsigned long	hex_color;
+
+	red = color.r;
+	blue = color.b;
+	green = color.g;
+	hex_color = ((red & 0xff) << 16) + ((green & 0xff) << 8) + (blue & 0xff);
+	return (hex_color);
+}
+
 void	draw_floor(t_cube *cube, int y, int x)
 {
 	while (y < HEIGHT)
 	{
-		my_mlx_pixel_put(cube->data, x, y, 0x003E2723);
+		my_mlx_pixel_put(cube->data, x, y, get_colors_hex(cube->map.f_rgb));
 		y++;
 	}
 }
@@ -56,7 +70,7 @@ int	draw_sky(t_cube *cube, int x, int start_y)
 	y = 0;
 	while (y < start_y)
 	{
-		my_mlx_pixel_put(cube->data, x, y, 0X00000000);
+		my_mlx_pixel_put(cube->data, x, y, get_colors_hex(cube->map.c_rgb));
 		y++;
 	}
 	return (y);
@@ -68,7 +82,6 @@ void	init_raycast_angle_and_delta(t_cube *cube, t_raycast *rc, int ray_index)
 	rc->ray_angle = fmod(rc->ray_angle + 2.0 * PI, 2.0 * PI);
 	rc->rayDirX = cos(rc->ray_angle);
 	rc->rayDirY = sin(rc->ray_angle);
-
 	rc->mapX = (int)(cube->p_x / S_TEX);
 	rc->mapY = (int)(cube->p_y / S_TEX);
 	if (rc->rayDirX == 0)

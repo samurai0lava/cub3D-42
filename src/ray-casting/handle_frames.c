@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/16 14:39:37 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/04/09 16:36:58 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/04/10 19:22:34 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,10 +62,7 @@ void	add_frame_ls(t_cube *cube)
 	i = 0;
 	cube->frame = ft_lstnew(&cube->weapon.texture[i]);
 	if (!cube->frame)
-	{
-		perror("malloc");
-		return ;
-	}
+		return (perror("malloc"));
 	last = cube->frame;
 	i++;
 	while (i < 6)
@@ -89,6 +86,8 @@ void	update_frame(t_cube *cube)
 			cube->frame = cube->frame->next;
 	}
 }
+
+
 
 void	draw_weapon(t_cube *cube)
 {
