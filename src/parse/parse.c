@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 12:38:50 by moaregra          #+#    #+#             */
-/*   Updated: 2025/04/09 16:22:39 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/04/09 17:09:01 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,12 +93,10 @@ char *get_file_in_char(char *av)
             temp_join = ft_strjoin(map_content, line);
             if (!temp_join)
             {
-                free(map_content);
                 free(line);
                 close(fd);
                 return (NULL);
             }
-            free(map_content);
             map_content = temp_join;
         }
         free(line);
@@ -107,7 +105,7 @@ char *get_file_in_char(char *av)
     close(fd);
     if (map_content == NULL)
         map_content = ft_strdup("");
-    if (!map_content) // Check if the strdup failed for empty string
+    if (!map_content)
     {
         close(fd);
         return (NULL);
