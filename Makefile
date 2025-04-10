@@ -71,7 +71,7 @@ $(NAME): $(OBJ) $(LIB)
 	@echo ""
 	@echo "$(YELLOW)~~~~~~ Developed by ~~~~~   $(NC)"
 	@echo "$(WHITE)>> <iouhssei>$(NC)" #
-	@echo "$(WHITE)>> Your Name Here $(NC)"
+	@echo "$(RED)>> <mouadmatadorewinners19372005> $(NC)"
 	@echo "$(WHITE)   Ben Guerir, April 2025   $(NC)" #
 	@echo "$(YELLOW)~~~~~~~~~~~~~~~~~~~~~~~~~$(NC)" #
 
