@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:44:29 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/04/10 21:43:26 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/04/13 21:45:41 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,9 +73,9 @@ static int	parse_map(t_map *map, int ac, char **av)
 {
 	ft_memset(map, 0, sizeof(t_map)); 
 	if (ac != 2)
-		return (handle_errors(1));
+		return (1);
 	if (check_file_name(av[1]) == 0)
-		return (handle_errors(2));
+		return (1);
 	initiliase_struct(map, av[1]);
 	get_map_into2darray(map, av[1]);
 	get_x_y(map);
