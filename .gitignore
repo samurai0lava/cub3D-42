@@ -1,4 +1,4 @@
-TODO
+./TODO
 
 
 # Prerequisites
@@ -8,6 +8,14 @@ TODO
 src/*.o
 src/parcing/*.o
 src/ray_caster/*.o
+src_bonus/ray_caster_bonus/*.o
+libft/src/*.o
+libft/ft_printf/*o
+libft/gnl/*.o
+libft/libft_bonus/*.o
+./cub3d
+./cub3d_bonus
+
 # Linker output
 *.ilk
 *.map
