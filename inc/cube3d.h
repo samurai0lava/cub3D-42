@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:44:41 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/04/10 19:23:34 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/04/14 14:37:00 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -420,4 +420,5 @@ void						game_engine(t_cube *cube);
 void						mlx_hook_cube(t_cube *cube);
 void						init_colliding(t_cube *cube, double *px,
 								double *py);
+size_t						get_row_count(char **map);
 #endif

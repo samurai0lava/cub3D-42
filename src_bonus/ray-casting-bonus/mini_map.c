@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 15:02:54 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/04/05 15:37:05 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/04/13 22:07:32 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ void    draw_walls_mini_map(t_cube *cube)
                 if (map_x >= 0 && map_x < (int)col_count)
                 {
                     if (cube->map.map[map_y][map_x] == '1')
-                        draw_minimap_pixel(cube, local_x, local_y, 0x003F3733);
+                        draw_minimap_pixel(cube, local_x, local_y, 0x00FFFFFF);
                 }
             }
             local_x++;

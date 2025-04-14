@@ -6,11 +6,21 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 18:16:55 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/04/10 19:18:09 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/04/14 14:44:27 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/cube3d.h"
+
+size_t	get_row_count(char **map)
+{
+	size_t	count;
+
+	count = 0;
+	while (map[count] != NULL)
+		count++;
+	return (count);
+}
 
 int	close_win(t_cube *cube)
 {
@@ -26,8 +36,6 @@ int	close_win(t_cube *cube)
 static void	game_loop_keypress(t_cube *cube)
 {
 	cast_away(cube);
-	draw_weapon(cube);
-	draw_circular_minimap(cube);
 	mlx_put_image_to_window(cube->mlx, cube->mlx_window, cube->data->img, 0, 0);
 }
 static void	handle_esc(t_cube *cube)
@@ -55,8 +63,8 @@ void	init_colliding(t_cube *cube, double *px, double *py)
 
 static int	is_colliding(t_cube *cube, double px, double py)
 {
-	int		ty;
-	int		tx;
+	int	ty;
+	int	tx;
 
 	init_colliding(cube, &px, &py);
 	ty = cube->collid.top_tile;

@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:44:29 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/04/13 21:45:41 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/04/14 15:02:36 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	init_cube(t_cube *cube, t_data *data)
 	cube->keys.a = 0;
 	cube->keys.right = 0;
 	cube->keys.left = 0;
+	cube->frame = NULL;
 }
 
 void	free_map_textures(t_map *map)
@@ -71,7 +72,7 @@ void	free_map_struct(t_map *map)
 
 static int	parse_map(t_map *map, int ac, char **av)
 {
-	ft_memset(map, 0, sizeof(t_map)); 
+	ft_memset(map, 0, sizeof(t_map));
 	if (ac != 2)
 		return (1);
 	if (check_file_name(av[1]) == 0)
@@ -108,7 +109,7 @@ int	main(int ac, char **av)
 		return (perror("malloc"), -1);
 	cube->gc = init_garbage_collector();
 	if (!cube->gc)
-		return (free(cube) ,-1);
+		return (free(cube), -1);
 	data = tracked_malloc(cube->gc, sizeof(t_data));
 	if (data == NULL)
 		return (free_all(cube->gc), 1);

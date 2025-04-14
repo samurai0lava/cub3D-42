@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:44:33 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/04/09 14:42:38 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/04/14 15:03:01 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,67 +96,41 @@ void	*free_all(t_garbage_collector *gc)
 	return (NULL);
 }
 
-void destroy_mlx(t_cube *cube)
+void	destroy_mlx(t_cube *cube)
 {
-	int i;
+	int		i;
+	t_list	*start_node;
+	t_list	*current;
+	t_list	*next_node;
 
-	// Destroy MLX resources ONLY. Do not free pointers managed by GC (like cube->data)
 	if (cube && cube->mlx)
 	{
-		// Destroy main image buffer *image*
-		if (cube->data && cube->data->img) // Check cube->data is still valid
+		if (cube->data && cube->data->img)
 			mlx_destroy_image(cube->mlx, cube->data->img);
-
-		// Destroy wall texture *images*
 		i = 0;
-		while (i < 4) // Assuming 4 wall textures
+		while (i < 4)
 		{
 			if (cube->texture[i].img)
 				mlx_destroy_image(cube->mlx, cube->texture[i].img);
 			i++;
 		}
-
-		// Destroy weapon texture *images*
-		i = 0;
-		while (i < 6) // Assuming 6 weapon frames
-		{
-			// Check weapon texture array pointer itself if it could be NULL
-			if (cube->weapon.texture[i].img)
-				mlx_destroy_image(cube->mlx, cube->weapon.texture[i].img);
-			i++;
-		}
-
-		// Clear the circular frame list (Assuming list nodes are NOT GC managed)
 		if (cube->frame)
 		{
-			t_list *start_node = cube->frame;
-			t_list *current = start_node->next;
-			t_list *next_node;
-
-			start_node->next = NULL; // Break cycle
-
+			start_node = cube->frame;
+			current = start_node->next;
+			start_node->next = NULL;
 			while (current != NULL && current != start_node)
 			{
 				next_node = current->next;
-				// If node content needs freeing AND is NOT GC managed:
-				// ft_lstdelone(current, free);
-				// Else, just free the node structure:
 				free(current);
 				current = next_node;
 			}
-			// Free the starting node (check content freeing policy as above)
 			free(start_node);
 			cube->frame = NULL;
 		}
-
-		// Destroy window and display AFTER images
 		if (cube->mlx_window)
 			mlx_destroy_window(cube->mlx, cube->mlx_window);
-		// Add mlx_destroy_display if needed for your OS/MLX version
 		mlx_destroy_display(cube->mlx);
-		free(cube->mlx); 
-		// Do NOT free cube->mlx itself here if it's managed elsewhere or not needed
+		free(cube->mlx);
 	}
-	// DO NOT free(cube->data) here if it's tracked by GC.
-	// DO NOT free(cube) here.
 }

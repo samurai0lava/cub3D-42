@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:44:52 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/04/10 19:12:17 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/04/13 22:09:22 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,13 +60,8 @@ void	mlx_hook_cube(t_cube *cube)
 void	game_engine(t_cube *cube)
 {
 	init_textures(cube);
-	load_frames(cube);
-	add_frame_ls(cube);
 	mlx_hook_cube(cube);
-	init_minimap_params(cube);
 	cast_away(cube);
-	draw_weapon(cube);
-	draw_circular_minimap(cube);
 	mlx_put_image_to_window(cube->mlx, cube->mlx_window, cube->data->img, 0, 0);
 	mlx_loop_hook(cube->mlx, key_loop, cube);
 	mlx_loop(cube->mlx);
