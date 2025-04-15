@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:44:29 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/04/14 15:02:36 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/04/15 14:30:08 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,12 +85,13 @@ static int	parse_map(t_map *map, int ac, char **av)
 	if (check_rgbs(map) == 1)
 	{
 		free_map_struct(map);
+		printf(RED "Error/RGB values is incorrect\n" RESET);
 		return (1);
 	}
 	if (check_map(map) == 0)
 	{
 		free_map_struct(map);
-		printf(RED "Error/Map is incorrect \n" RESET);
+		printf(RED "Error/Map is incorrect\n" RESET);
 		return (1);
 	}
 	return (0);
