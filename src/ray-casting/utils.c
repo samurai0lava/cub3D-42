@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:44:33 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/04/14 15:03:01 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/04/15 14:27:52 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,24 +96,38 @@ void	*free_all(t_garbage_collector *gc)
 	return (NULL);
 }
 
+static void	destroy_text(t_cube *cube)
+{
+	int	i;
+
+	if (cube->data && cube->data->img)
+		mlx_destroy_image(cube->mlx, cube->data->img);
+	i = 0;
+	while (i < 4)
+	{
+		if (cube->texture[i].img)
+			mlx_destroy_image(cube->mlx, cube->texture[i].img);
+		i++;
+	}
+}
+
+static void	another_destory_img(t_cube *cube)
+{
+	if (cube->mlx_window)
+		mlx_destroy_window(cube->mlx, cube->mlx_window);
+	mlx_destroy_display(cube->mlx);
+	free(cube->mlx);
+}
+
 void	destroy_mlx(t_cube *cube)
 {
-	int		i;
 	t_list	*start_node;
 	t_list	*current;
 	t_list	*next_node;
 
 	if (cube && cube->mlx)
 	{
-		if (cube->data && cube->data->img)
-			mlx_destroy_image(cube->mlx, cube->data->img);
-		i = 0;
-		while (i < 4)
-		{
-			if (cube->texture[i].img)
-				mlx_destroy_image(cube->mlx, cube->texture[i].img);
-			i++;
-		}
+		destroy_text(cube);
 		if (cube->frame)
 		{
 			start_node = cube->frame;
@@ -128,9 +142,6 @@ void	destroy_mlx(t_cube *cube)
 			free(start_node);
 			cube->frame = NULL;
 		}
-		if (cube->mlx_window)
-			mlx_destroy_window(cube->mlx, cube->mlx_window);
-		mlx_destroy_display(cube->mlx);
-		free(cube->mlx);
+		another_destory_img(cube);
 	}
 }
