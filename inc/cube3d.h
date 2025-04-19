@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:44:41 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/04/14 14:37:00 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/04/17 22:00:38 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,7 +168,7 @@ typedef struct s_raycast
 	int						safety;
 	double					perpWallDist;
 	double					angle_diff;
-	int						wall_height;
+	double						wall_height;
 	t_data					*selected_tex;
 	double					wall_x;
 	int						tex_x;

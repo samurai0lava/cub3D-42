@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 12:44:24 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/04/08 10:09:00 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/04/17 22:11:33 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,13 +51,11 @@ void	compute_wall_distance(t_cube *cube, t_raycast *rc)
 	rc->perpWallDist *= (double)S_TEX;
 	rc->angle_diff = eye_fish_correction(rc->ray_angle, cube);
 	rc->perpWallDist *= cos(rc->angle_diff);
-	if (rc->perpWallDist < 0.5)
-		rc->perpWallDist = 0.5;
 }
 
 void	select_textures(t_cube *cube, t_raycast *rc)
 {
-	rc->wall_height = (int)((HEIGHT * S_TEX) / rc->perpWallDist);
+	rc->wall_height = ((HEIGHT * S_TEX) / rc->perpWallDist);
 	rc->hitX = cube->p_x + rc->rayDirX * rc->perpWallDist;
 	rc->hitY = cube->p_y + rc->rayDirY * rc->perpWallDist;
 	if (rc->side == 0)
