@@ -6,7 +6,7 @@
 /*   By: samurai0lava <samurai0lava@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 15:38:42 by moaregra          #+#    #+#             */
-/*   Updated: 2025/05/03 15:53:08 by samurai0lav      ###   ########.fr       */
+/*   Updated: 2025/05/03 23:14:24 by samurai0lav      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,11 +60,12 @@ void	fill_struct(t_map *map, char *av)
 	if(validate_textures(file) != 1)
 	{
 		while (file[i])
-			{
-				free(file[i]);
-				i++;
-			}
-		printf("double arguments \n");
+		{
+			free(file[i]);
+			i++;
+		}
+		free(file);
+		free(s);
 		exit(1);
 	}
 	fill_struct_helper(map, file);
