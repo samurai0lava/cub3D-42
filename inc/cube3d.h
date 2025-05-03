@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube3d.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: samurai0lava <samurai0lava@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:44:41 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/04/17 22:00:38 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/05/03 15:49:08 by samurai0lav      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -320,6 +320,7 @@ void						fill_struct(t_map *map, char *av);
 void						initiliase_struct(t_map *map, char *av);
 
 /* parse_map1.c */
+int							check_map_last(t_map *map, char **all_file);
 int							check_map_line(char *s);
 void						count_map_lines(char **all_file, int *lines,
 								int *map_started);
@@ -349,6 +350,7 @@ int							get_bigger_mapline(char **s);
 int							get_line_of_biggervalue(char **s);
 int							check_map_content(t_map *map, int size);
 void						check_direction(t_map *map);
+int							validate_textures(char **lines);
 // FUNCTIONS :
 
 //----INITIALIZATION-==---------------//

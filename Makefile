@@ -18,6 +18,7 @@ SRCS =  src/main.c\
         src/parse/parse_mapv3.c \
         src/parse/parse.c\
         src/parse/parse_outils.c\
+		src/parse/check_double_texture.c\
         src/ray-casting/draw_walls.c\
 
 BONS =  src/parse/parse_helpers.c \
@@ -28,6 +29,7 @@ BONS =  src/parse/parse_helpers.c \
         src/parse/parse_mapv3.c \
         src/parse/parse.c\
         src/parse/parse_outils.c\
+		src/parse/check_double_texture.c\
         src_bonus/ray-casting-bonus/mini_map.c\
         src_bonus/ray-casting-bonus/raycaster.c\
         src_bonus/ray-casting-bonus/mlx_init.c\

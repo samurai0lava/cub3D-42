@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_helpers3.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: samurai0lava <samurai0lava@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 15:38:42 by moaregra          #+#    #+#             */
-/*   Updated: 2025/04/10 21:44:48 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/05/03 15:53:08 by samurai0lav      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	parse_texture(t_map *map, char *line, char *identifier, char **dest)
 {
 	char	*tmp;
 
-	(void)map; //<---why
+	(void)map;
 	if (ft_strnstr(line, identifier, ft_strlen(line)))
 	{
 		tmp = ft_strdup(line);
@@ -54,9 +54,19 @@ void	fill_struct(t_map *map, char *av)
 	if(s == NULL)
 		return ;
 	file = split_file(s);
-	i = 0;
 	if (!s || !file || !map)
-		return ;
+		return;
+	i = 0;
+	if(validate_textures(file) != 1)
+	{
+		while (file[i])
+			{
+				free(file[i]);
+				i++;
+			}
+		printf("double arguments \n");
+		exit(1);
+	}
 	fill_struct_helper(map, file);
 	i = 0;
 	while (file[i])

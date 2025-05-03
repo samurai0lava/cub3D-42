@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_helpers2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: samurai0lava <samurai0lava@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 15:41:26 by moaregra          #+#    #+#             */
-/*   Updated: 2025/04/10 21:44:08 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/05/03 15:47:06 by samurai0lav      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,37 @@ void	free_rgb_arrays(char **floor_rgb, char **celling_rgb)
 	free(celling_rgb);
 }
 
+int	is_valid_rgb_string(const char *rgb)
+{
+	int	i;
+	int	num_count;
+	int	comma_count;
+
+	if (!rgb)
+		return (0);
+	i = 0;
+	num_count = 0;
+	comma_count = 0;
+	while (rgb[i])
+	{
+		if (rgb[i] >= '0' && rgb[i] <= '9')
+		{
+			if (i == 0 || rgb[i - 1] == ',')
+				num_count++;
+		}
+		else if (rgb[i] == ',')
+		{
+			comma_count++;
+			if (i == 0 || rgb[i + 1] == ',' || rgb[i + 1] == '\0')
+				return (0);
+		}
+		else
+			return (0);
+		i++;
+	}
+	return (num_count == 3 && comma_count == 2);
+}
+
 void	fill_rgb(t_map *map)
 {
 	char	**floor_rgb;
@@ -65,9 +96,18 @@ void	fill_rgb(t_map *map)
 	if (check_virgul(map->celling_color) == 0
 		&& check_virgul(map->floor_color) == 0)
 	{
+		// Validate RGB strings before splitting
+		if (!is_valid_rgb_string(map->floor_color)
+			|| !is_valid_rgb_string(map->celling_color))
+		{
+			// write(2, "Error\nInvalid RGB format\n", 26);
+			print_error("Error: Invalid RGB format\n");
+			free(map->floor_color);
+			free(map->celling_color);
+			exit(EXIT_FAILURE);
+		}
 		floor_rgb = ft_split(map->floor_color, ',');
 		celling_rgb = ft_split(map->celling_color, ',');
-		////- check for null :(
 		map->f_rgb.r = ft_atoi(floor_rgb[0]);
 		map->f_rgb.g = ft_atoi(floor_rgb[1]);
 		map->f_rgb.b = ft_atoi(floor_rgb[2]);
