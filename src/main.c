@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: samurai0lava <samurai0lava@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:44:29 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/04/15 14:30:08 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/05/03 22:55:04 by samurai0lav      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,10 @@ static int	parse_map(t_map *map, int ac, char **av)
 	if (ac != 2)
 		return (1);
 	if (check_file_name(av[1]) == 0)
+	{
+		print_error("Error/Invalid file name\n");
 		return (1);
+	}
 	initiliase_struct(map, av[1]);
 	get_map_into2darray(map, av[1]);
 	get_x_y(map);
@@ -85,13 +88,13 @@ static int	parse_map(t_map *map, int ac, char **av)
 	if (check_rgbs(map) == 1)
 	{
 		free_map_struct(map);
-		printf(RED "Error/RGB values is incorrect\n" RESET);
+		print_error("Error/Invalid RGB\n");
 		return (1);
 	}
 	if (check_map(map) == 0)
 	{
 		free_map_struct(map);
-		printf(RED "Error/Map is incorrect\n" RESET);
+		print_error("Error/Map is invalid\n");
 		return (1);
 	}
 	return (0);
