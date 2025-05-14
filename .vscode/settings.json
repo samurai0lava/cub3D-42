@@ -4,7 +4,8 @@
         "array": "c",
         "string": "c",
         "string_view": "c",
-        "cmath": "c"
+        "cmath": "c",
+        "functional": "c"
     },
     "C_Cpp.dimInactiveRegions": false
 }
