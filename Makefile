@@ -120,6 +120,6 @@ re : fclean all
 
 re_bonus : fclean bonus
 
-.PHONY: all clean fclean re bonus re_bonus $(LIB)
+.PHONY: all clean fclean re bonus re_bonus
 
 .SECONDARY: $(OBJ) $(OBJ_BONUS)
