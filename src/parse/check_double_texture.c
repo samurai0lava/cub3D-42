@@ -36,8 +36,7 @@ int	validate_textures(char **lines)
         if (count != 1)
         {
                     // printf(" the string to look for %s\n",required_textures[i]);
-            // write(2,"error :",8);
-            print_error("Error\n");
+            write(2,"error :",8);
             return (0);
         }
         // printf("string found : %s",required_textures[i]);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_helpers3.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: samurai0lava <samurai0lava@student.42.f    +#+  +:+       +#+        */
+/*   By: moaregra <moaregra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 15:38:42 by moaregra          #+#    #+#             */
-/*   Updated: 2025/05/03 23:14:24 by samurai0lav      ###   ########.fr       */
+/*   Updated: 2025/05/02 23:41:02 by moaregra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,16 +57,19 @@ void	fill_struct(t_map *map, char *av)
 	if (!s || !file || !map)
 		return;
 	i = 0;
-	if(validate_textures(file) != 1)
+	if(validate_textures(file) == 1)
+	printf("valid arguments\n");
+	else
 	{
 		while (file[i])
-		{
-			free(file[i]);
-			i++;
-		}
-		free(file);
-		free(s);
-		exit(1);
+			{
+				free(file[i]);
+				i++;
+			}
+			free(file);
+			free(s);
+			printf("double arguments \n");
+			exit(1);
 	}
 	fill_struct_helper(map, file);
 	i = 0;
