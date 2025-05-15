@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:44:41 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/05/14 22:17:46 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/05/15 15:15:56 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,7 +168,7 @@ typedef struct s_raycast
 	int						safety;
 	double					perpWallDist;
 	double					angle_diff;
-	double						wall_height;
+	double					wall_height;
 	t_data					*selected_tex;
 	double					wall_x;
 	int						tex_x;
@@ -351,6 +351,7 @@ int							get_line_of_biggervalue(char **s);
 int							check_map_content(t_map *map, int size);
 void						check_direction(t_map *map);
 int							validate_textures(char **lines);
+int							count_double_char(char **s);
 // FUNCTIONS :
 
 //----INITIALIZATION-==---------------//
