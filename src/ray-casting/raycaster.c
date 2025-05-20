@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 12:44:24 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/04/17 22:11:33 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/05/15 21:21:20 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,8 @@ void	compute_wall_distance(t_cube *cube, t_raycast *rc)
 void	select_textures(t_cube *cube, t_raycast *rc)
 {
 	rc->wall_height = ((HEIGHT * S_TEX) / rc->perpWallDist);
-	rc->hitX = cube->p_x + rc->rayDirX * rc->perpWallDist;
 	rc->hitY = cube->p_y + rc->rayDirY * rc->perpWallDist;
+	rc->hitX = cube->p_x + rc->rayDirX * rc->perpWallDist;
 	if (rc->side == 0)
 	{
 		if (rc->rayDirX > 0)
