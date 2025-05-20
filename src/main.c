@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: samurai0lava <samurai0lava@student.42.f    +#+  +:+       +#+        */
+/*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:44:29 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/05/03 22:55:04 by samurai0lav      ###   ########.fr       */
+/*   Updated: 2025/05/20 14:47:33 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ static int	parse_map(t_map *map, int ac, char **av)
 		return (1);
 	if (check_file_name(av[1]) == 0)
 	{
-		print_error("Error/Invalid file name\n");
+		print_error("Error\nInvalid file name\n");
 		return (1);
 	}
 	initiliase_struct(map, av[1]);
@@ -88,13 +88,13 @@ static int	parse_map(t_map *map, int ac, char **av)
 	if (check_rgbs(map) == 1)
 	{
 		free_map_struct(map);
-		print_error("Error/Invalid RGB\n");
+		print_error("Error\nInvalid RGB\n");
 		return (1);
 	}
 	if (check_map(map) == 0)
 	{
 		free_map_struct(map);
-		print_error("Error/Map is invalid\n");
+		print_error("Error\nMap is invalid\n");
 		return (1);
 	}
 	return (0);

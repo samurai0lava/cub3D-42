@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:44:41 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/05/15 15:15:56 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/05/20 14:32:14 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,6 +177,7 @@ typedef struct s_raycast
 	double					hitX;
 	double					hitY;
 	int						x;
+	double                  uncorrectedDist;
 }							t_raycast;
 
 typedef struct s_handle_keys

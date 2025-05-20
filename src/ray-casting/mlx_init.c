@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:44:52 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/04/13 22:09:22 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/05/20 14:46:06 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	init_textures(t_cube *cube)
 				&cube->texture[i].width, &cube->texture[i].height);
 		if (!cube->texture[i].img)
 		{
-			print_error(RED "failed to load textures\n" RESET);
+			print_error(RED "Error\nfailed to load textures." RESET);
 			return ;
 		}
 		cube->texture[i].addr = mlx_get_data_addr(cube->texture[i].img,
@@ -71,14 +71,14 @@ void	init_mlx(t_cube *cube, t_data *data)
 	cube->mlx = mlx_init();
 	if (cube->mlx == NULL)
 	{
-		print_error(RED "mlx_init failed\n" RESET);
+		print_error(RED "Error\nmlx_init failed" RESET);
 		free_all(cube->gc);
 		return ;
 	}
 	cube->mlx_window = mlx_new_window(cube->mlx, WIDTH, HEIGHT, "Cub3D");
 	if (cube->mlx_window == NULL)
 	{
-		print_error(RED "mlx_window failed\n" RESET);
+		print_error(RED "Error\nmlx_window failed" RESET);
 		return ;
 	}
 	data->img = mlx_new_image(cube->mlx, WIDTH, HEIGHT);

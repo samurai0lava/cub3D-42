@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_helpers2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: samurai0lava <samurai0lava@student.42.f    +#+  +:+       +#+        */
+/*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 15:41:26 by moaregra          #+#    #+#             */
-/*   Updated: 2025/05/19 20:01:25 by samurai0lav      ###   ########.fr       */
+/*   Updated: 2025/05/20 14:42:11 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,11 +96,9 @@ void	fill_rgb(t_map *map)
 	if (check_virgul(map->celling_color) == 0
 		&& check_virgul(map->floor_color) == 0)
 	{
-		// Validate RGB strings before splitting
 		if (!is_valid_rgb_string(map->floor_color)
 			|| !is_valid_rgb_string(map->celling_color))
 		{
-			// write(2, "Error\nInvalid RGB format\n", 26);
 			print_error("Error\nInvalid RGB format\n");
 			free(map->floor_color);
 			free(map->celling_color);

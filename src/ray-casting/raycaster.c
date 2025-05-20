@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycaster.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: samurai0lava <samurai0lava@student.42.f    +#+  +:+       +#+        */
+/*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 12:44:24 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/05/20 13:59:54 by samurai0lav      ###   ########.fr       */
+/*   Updated: 2025/05/20 14:33:51 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,24 +42,13 @@ void	run_dda(t_cube *cube, t_raycast *rc)
 	}
 }
 
-// void	compute_wall_distance(t_cube *cube, t_raycast *rc)
-// {
-// 	(void)cube;
-// 	if (rc->side == 0)
-// 		rc->perpWallDist = rc->sideDistX - rc->deltaDistX;
-// 	else
-// 		rc->perpWallDist = rc->sideDistY - rc->deltaDistY;
-// 	rc->perpWallDist *= (double)S_TEX;
-// 	// rc->angle_diff = eye_fish_correction(rc->ray_angle, cube);
-// 	rc->perpWallDist *= cos(rc->angle_diff);
-// }
-
 void	compute_wall_distance(t_cube *cube, t_raycast *rc)
 {
 	if (rc->side == 0)
 		rc->perpWallDist = rc->sideDistX - rc->deltaDistX;
 	else
 		rc->perpWallDist = rc->sideDistY - rc->deltaDistY;
+	rc->uncorrectedDist = rc->perpWallDist * S_TEX;
 	rc->angle_diff = eye_fish_correction(rc->ray_angle, cube);
 	rc->perpWallDist *= cos(rc->angle_diff) * S_TEX;
 }
@@ -67,8 +56,8 @@ void	compute_wall_distance(t_cube *cube, t_raycast *rc)
 void	select_textures(t_cube *cube, t_raycast *rc)
 {
 	rc->wall_height = ((HEIGHT * S_TEX) / rc->perpWallDist);
-	rc->hitY = cube->p_y + rc->rayDirY * rc->perpWallDist;
-	rc->hitX = cube->p_x + rc->rayDirX * rc->perpWallDist;
+	rc->hitY = cube->p_y + rc->rayDirY * rc->uncorrectedDist;
+	rc->hitX = cube->p_x + rc->rayDirX * rc->uncorrectedDist;
 	if (rc->side == 0)
 	{
 		if (rc->rayDirX > 0)

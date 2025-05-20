@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   check_double_texture.c                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/20 14:41:45 by iouhssei          #+#    #+#             */
+/*   Updated: 2025/05/20 14:41:46 by iouhssei         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../inc/cube3d.h"
 
 int	count_occurrences(char **lines, const char *target)
@@ -34,7 +46,7 @@ int	validate_textures(char **lines)
         count = count_occurrences(lines, required_textures[i]);
         if (count != 1)
         {
-            print_error("Error: Duplicate or missing texture\n");
+            print_error("Error\nDuplicate or missing texture");
             return (0);
         }
         i++;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_helpers3.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moaregra <moaregra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 15:38:42 by moaregra          #+#    #+#             */
-/*   Updated: 2025/05/16 16:55:01 by moaregra         ###   ########.fr       */
+/*   Updated: 2025/05/20 14:40:51 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,33 +51,27 @@ void	fill_struct(t_map *map, char *av)
 	int		i;
 
 	s = get_file_in_char(av);
-	if(s == NULL)
+	if (s == NULL)
 		return ;
 	file = split_file(s);
 	if (!s || !file || !map)
-		return;
+		return ;
 	i = 0;
-	if(validate_textures(file) == 1)
-	printf("valid arguments\n");
+	if (validate_textures(file) == 1)
+		printf(GREEN "ENJOY! THE GAME\n" RESET);
 	else
 	{
 		while (file[i])
-			{
-				free(file[i]);
-				i++;
-			}
-			free(file);
-			free(s);
-			printf("double arguments \n");
-			exit(1);
+			free(file[i++]);
+		free(file);
+		free(s);
+		print_error("Error\ninvalid\n");
+		exit(1);
 	}
 	fill_struct_helper(map, file);
 	i = 0;
 	while (file[i])
-	{
-		free(file[i]);
-		i++;
-	}
+		free(file[i++]);
 	free(file);
 	free(s);
 }
@@ -85,10 +79,10 @@ void	fill_struct(t_map *map, char *av)
 void	initiliase_struct(t_map *map, char *av)
 {
 	fill_struct(map, av);
-	if(check_texture(map) == 0)
+	if (check_texture(map) == 0)
 	{
 		free_map_struct(map);
-		printf("non valid texture\n");
+		print_error(RED "Error\nnon valid textures\n" RESET);
 		exit(1);
 	}
 	fill_rgb(map);

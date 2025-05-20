@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: samurai0lava <samurai0lava@student.42.f    +#+  +:+       +#+        */
+/*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 13:42:06 by moaregra          #+#    #+#             */
-/*   Updated: 2025/05/19 20:01:48 by samurai0lav      ###   ########.fr       */
+/*   Updated: 2025/05/20 14:42:45 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,7 +133,6 @@ int	check_map_last(t_map *map, char **all_file)
 	
 	if(map->map[0] == NULL)
 		return 0;
-    // char	*last_map_line = map->map[count_double_char(map->map)];
 
     found_last_map_line = 0;
     i = 0;
@@ -146,16 +145,14 @@ int	check_map_last(t_map *map, char **all_file)
 		}
         else if (found_last_map_line && all_file[i][0] != '\0')
         {
-            // write(2, "Error: Content found after map\n", 31);
-			print_error("Error: Content found after map\n");
+			print_error("Error\nContent found after map\n");
             return (0);
         }
         i++;
     }
     if (!found_last_map_line)
     {
-        // write(2, "Error: Last map line not found in file\n", 39);
-		print_error("Error: Last map line not found in file\n");
+		print_error("Error\nLast map line not found in file\n");
         return (0);
     }
     return (1);
