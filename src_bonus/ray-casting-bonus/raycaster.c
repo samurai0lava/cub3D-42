@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 12:44:24 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/04/08 10:09:00 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/05/20 15:22:16 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,18 +48,16 @@ void	compute_wall_distance(t_cube *cube, t_raycast *rc)
 		rc->perpWallDist = rc->sideDistX - rc->deltaDistX;
 	else
 		rc->perpWallDist = rc->sideDistY - rc->deltaDistY;
-	rc->perpWallDist *= (double)S_TEX;
+	rc->uncorrectedDist = rc->perpWallDist * S_TEX;
 	rc->angle_diff = eye_fish_correction(rc->ray_angle, cube);
-	rc->perpWallDist *= cos(rc->angle_diff);
-	if (rc->perpWallDist < 0.5)
-		rc->perpWallDist = 0.5;
+	rc->perpWallDist *= cos(rc->angle_diff) * S_TEX;
 }
 
 void	select_textures(t_cube *cube, t_raycast *rc)
 {
-	rc->wall_height = (int)((HEIGHT * S_TEX) / rc->perpWallDist);
-	rc->hitX = cube->p_x + rc->rayDirX * rc->perpWallDist;
-	rc->hitY = cube->p_y + rc->rayDirY * rc->perpWallDist;
+	rc->wall_height = ((HEIGHT * S_TEX) / rc->perpWallDist);
+	rc->hitY = cube->p_y + rc->rayDirY * rc->uncorrectedDist;
+	rc->hitX = cube->p_x + rc->rayDirX * rc->uncorrectedDist;
 	if (rc->side == 0)
 	{
 		if (rc->rayDirX > 0)

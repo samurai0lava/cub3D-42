@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:44:41 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/05/20 14:32:14 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/05/20 15:24:58 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@
 
 # define FRAME_DELAY 30
 # define MVM_SPEED 2
-# define RT_SPEED 0.02
+# define RT_SPEED 0.01
 # define MOUSE_SENSITIVITY 0.001
 
 // Structs
