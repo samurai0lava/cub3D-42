@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycaster.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: samurai0lava <samurai0lava@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 12:44:24 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/04/17 22:11:33 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/05/19 21:39:07 by samurai0lav      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,15 +42,26 @@ void	run_dda(t_cube *cube, t_raycast *rc)
 	}
 }
 
+// void	compute_wall_distance(t_cube *cube, t_raycast *rc)
+// {
+// 	(void)cube;
+// 	if (rc->side == 0)
+// 		rc->perpWallDist = rc->sideDistX - rc->deltaDistX;
+// 	else
+// 		rc->perpWallDist = rc->sideDistY - rc->deltaDistY;
+// 	rc->perpWallDist *= (double)S_TEX;
+// 	// rc->angle_diff = eye_fish_correction(rc->ray_angle, cube);
+// 	rc->perpWallDist *= cos(rc->angle_diff);
+// }
+
 void	compute_wall_distance(t_cube *cube, t_raycast *rc)
 {
 	if (rc->side == 0)
 		rc->perpWallDist = rc->sideDistX - rc->deltaDistX;
 	else
 		rc->perpWallDist = rc->sideDistY - rc->deltaDistY;
-	rc->perpWallDist *= (double)S_TEX;
 	rc->angle_diff = eye_fish_correction(rc->ray_angle, cube);
-	rc->perpWallDist *= cos(rc->angle_diff);
+	rc->perpWallDist *= cos(rc->angle_diff) * S_TEX;
 }
 
 void	select_textures(t_cube *cube, t_raycast *rc)
