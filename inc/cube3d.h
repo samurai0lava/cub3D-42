@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:44:41 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/05/21 17:38:24 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/05/21 22:48:15 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,13 @@
 # define RT_SPEED 0.01
 # define MOUSE_SENSITIVITY 0.001
 
+
+//error messsages 
+
+# define NO_ARGS "Error\nUsage :./cub3D maps/choose_your_map.cub\n"
+# define INV_FILE "Error\nInvalid file name\n"
+# define INV_RGB "Error\nInvalid RGB\n"
+# define MAP_INV "Error\nMap is invalid\n"
 // Structs
 
 typedef struct s_garbage_node
