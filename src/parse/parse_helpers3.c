@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_helpers3.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moaregra <moaregra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 15:38:42 by moaregra          #+#    #+#             */
-/*   Updated: 2025/05/16 16:55:01 by moaregra         ###   ########.fr       */
+/*   Updated: 2025/05/21 17:15:12 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	fill_struct(t_map *map, char *av)
 		return;
 	i = 0;
 	if(validate_textures(file) == 1)
-	printf("valid arguments\n");
+		printf(GREEN "ENJOY THE GAME :)\n" RESET);
 	else
 	{
 		while (file[i])
