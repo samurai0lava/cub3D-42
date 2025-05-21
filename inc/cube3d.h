@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:44:41 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/05/21 22:48:15 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/05/21 23:32:57 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,13 +86,15 @@
 # define RT_SPEED 0.01
 # define MOUSE_SENSITIVITY 0.001
 
-
-//error messsages 
+// error messsages
 
 # define NO_ARGS "Error\nUsage :./cub3D maps/choose_your_map.cub\n"
 # define INV_FILE "Error\nInvalid file name\n"
 # define INV_RGB "Error\nInvalid RGB\n"
+# define INVF_RGB "Error\nInvalid RGB format\n"
 # define MAP_INV "Error\nMap is invalid\n"
+# define MEM_RGB "Error\nMemory allocation or RGB split error\n"
+# define RGB_VALUES "Error\nRGB values must be between 0 and 255\n"
 // Structs
 
 typedef struct s_garbage_node
@@ -319,6 +321,8 @@ void						free_rgb_arrays(char **floor_rgb,
 void						fill_rgb(t_map *map);
 int							is_valid_rgb(int r, int g, int b);
 int							check_rgbs(t_map *map);
+void						free_rgb_arrays(char **floor_rgb,
+								char **celling_rgb);
 
 /* parse_helpers3.c */
 void						parse_texture(t_map *map, char *line,

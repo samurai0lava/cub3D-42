@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 15:38:42 by moaregra          #+#    #+#             */
-/*   Updated: 2025/05/21 23:21:12 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/05/21 23:34:11 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,6 @@ void	fill_struct(t_map *map, char *av)
 			}
 			free(file);
 			free(s);
-			printf("double arguments \n");
 			exit(1);
 	}
 	fill_struct_helper(map, file);

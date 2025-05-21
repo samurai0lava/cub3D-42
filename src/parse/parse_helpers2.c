@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 15:41:26 by moaregra          #+#    #+#             */
-/*   Updated: 2025/05/21 23:19:56 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/05/21 23:33:21 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,14 +57,14 @@ int	is_valid_rgb_string(const char *rgb)
 	num_count = 0;
 	comma_count = 0;
 	digit_count = 0;
-	has_digit_after_comma = 1; // Start as valid
+	has_digit_after_comma = 1;
 	while (rgb[i])
 	{
 		if (rgb[i] >= '0' && rgb[i] <= '9')
 		{
 			digit_count++;
 			has_digit_after_comma = 1;
-			if (digit_count > 3) // More than 3 digits for a value (> 255)
+			if (digit_count > 3)
 				return (0);
 			if (i == 0 || rgb[i - 1] == ',')
 			{
@@ -87,7 +87,6 @@ int	is_valid_rgb_string(const char *rgb)
 	return (num_count == 3 && comma_count == 2 && has_digit_after_comma);
 }
 
-// Validates that the RGB values are between 0 and 255
 int	is_valid_rgb(int r, int g, int b)
 {
 	return (r >= 0 && r <= 255 && g >= 0 && g <= 255 && b >= 0 && b <= 255);
@@ -117,7 +116,6 @@ int	check_virgul(const char *str)
 	return (count != 2);
 }
 
-// Frees the arrays created by ft_split
 void	free_rgb_arrays(char **floor_rgb, char **celling_rgb)
 {
 	int	i;
@@ -143,9 +141,8 @@ void	fill_rgb(t_map *map)
 		if (!is_valid_rgb_string(map->floor_color)
 			|| !is_valid_rgb_string(map->celling_color))
 		{
-			print_error(RED "Error\nInvalid RGB format\n" RESET);
-			free(map->floor_color);
-			free(map->celling_color);
+			print_error(RED INVF_RGB RESET);
+			free_map_struct(map);
 			exit(EXIT_FAILURE);
 		}
 		floor_rgb = ft_split(map->floor_color, ',');
@@ -155,9 +152,8 @@ void	fill_rgb(t_map *map)
 			|| !celling_rgb[2])
 		{
 			free_rgb_arrays(floor_rgb, celling_rgb);
-			print_error(RED "Error\nMemory allocation or RGB split error\n" RESET);
-			free(map->floor_color);
-			free(map->celling_color);
+			print_error(RED MEM_RGB RESET);
+			free_map_struct(map);
 			exit(EXIT_FAILURE);
 		}
 		map->f_rgb.r = ft_atoi(floor_rgb[0]);
@@ -169,18 +165,16 @@ void	fill_rgb(t_map *map)
 		if (check_rgbs(map))
 		{
 			free_rgb_arrays(floor_rgb, celling_rgb);
-			print_error(RED "Error\nRGB values must be between 0 and 255\n" RESET);
-			free(map->floor_color);
-			free(map->celling_color);
+			print_error(RED RGB_VALUES RESET);
+			free_map_struct(map);
 			exit(EXIT_FAILURE);
 		}
 		free_rgb_arrays(floor_rgb, celling_rgb);
 	}
 	else
 	{
-		print_error(RED "Error\nFalse RGB\n" RESET);
-		free(map->floor_color);
-		free(map->celling_color);
+		print_error(RED INV_RGB RESET);
+		free_map_struct(map);
 		exit(EXIT_FAILURE);
 	}
 }
