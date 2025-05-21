@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   check_double_texture.c                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/20 14:41:45 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/05/20 14:41:46 by iouhssei         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "../../inc/cube3d.h"
 
 int	count_occurrences(char **lines, const char *target)
@@ -43,12 +31,15 @@ int	validate_textures(char **lines)
     i = 0;
     while (i < num_textures)
     {
+        // printf(" the string to look for %s\n",required_textures[i]);
         count = count_occurrences(lines, required_textures[i]);
         if (count != 1)
         {
-            print_error("Error\nDuplicate or missing texture");
+                    // printf(" the string to look for %s\n",required_textures[i]);
+            write(2,"error :",8);
             return (0);
         }
+        // printf("string found : %s",required_textures[i]);
         i++;
     }
     return (1);
