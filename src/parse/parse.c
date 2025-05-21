@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moaregra <moaregra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 12:38:50 by moaregra          #+#    #+#             */
-/*   Updated: 2025/05/16 16:32:26 by moaregra         ###   ########.fr       */
+/*   Updated: 2025/05/21 17:32:50 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,26 +54,6 @@ size_t	ft_strlenewline(char *s)
 	while (s[i] && s[i] != '\n')
 		i++;
 	return (i);
-}
-
-int	check_virgul(char *av)
-{
-	int	i;
-	int	count;
-
-	i = 0;
-	count = 0;
-	if (!av)
-		return (0);
-	while (av[i])
-	{
-		if (av[i] == ',')
-			count++;
-		i++;
-	}
-	if (count == 2)
-		return (0);
-	return (1);
 }
 
 char	*get_file_in_char(char *av)

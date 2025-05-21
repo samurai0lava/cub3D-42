@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: samurai0lava <samurai0lava@student.42.f    +#+  +:+       +#+        */
+/*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 13:42:06 by moaregra          #+#    #+#             */
-/*   Updated: 2025/05/21 17:06:15 by samurai0lav      ###   ########.fr       */
+/*   Updated: 2025/05/21 17:39:24 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,6 @@ void	get_map_into2darray(t_map *map, char *av)
 	fill_map_array(map, all_file, lines);
 	if(check_map_last(map,all_file) == 0)
 	{
-		// printf("alo \n"); segfault instantly after this
 		free_map_struct(map);
 			while (all_file[i])
 				{
@@ -133,8 +132,6 @@ int	check_map_last(t_map *map, char **all_file)
 	
 	if(map->map[0] == NULL)
 		return 0;
-    // char	*last_map_line = map->map[count_double_char(map->map)];
-
     found_last_map_line = 0;
     i = 0;
 	int biggest_index = find_last_line_occurance(map,all_file);
@@ -153,7 +150,6 @@ int	check_map_last(t_map *map, char **all_file)
     }
     if (!found_last_map_line)
     {
-        // write(2, "Error: Last map line not found in file\n", 39);
 		print_error(RED "Error\nLast map line not found in file\n" RESET);
         return (0);
     }

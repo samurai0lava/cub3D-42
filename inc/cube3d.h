@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:44:41 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/05/20 15:24:58 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/05/21 17:38:24 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,7 +177,7 @@ typedef struct s_raycast
 	double					hitX;
 	double					hitY;
 	int						x;
-	double                  uncorrectedDist;
+	double					uncorrectedDist;
 }							t_raycast;
 
 typedef struct s_handle_keys
@@ -293,7 +293,7 @@ int							handle_errors(int err_code);
 int							check_file_name(char *s);
 int							check_texture(t_map *map);
 size_t						ft_strlenewline(char *s);
-int							check_virgul(char *av);
+int							check_virgul(const char *str);
 char						*get_file_in_char(char *av);
 
 /* parse_helpers1.c */
