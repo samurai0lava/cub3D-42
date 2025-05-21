@@ -4,7 +4,6 @@ SRCS =  src/main.c\
         src/ray-casting/mlx_init.c\
         src/ray-casting/utils.c\
         src/ray-casting/weapon.c\
-        src/ray-casting/health_bar.c\
         src/ray-casting/handle_frames.c\
         src/ray-casting/handle_keypress.c\
         src/ray-casting/draw.c\
@@ -35,7 +34,6 @@ BONS =  src/parse/parse_helpers.c \
         src_bonus/ray-casting-bonus/mlx_init.c\
         src_bonus/ray-casting-bonus/utils.c\
         src_bonus/ray-casting-bonus/weapon.c\
-        src_bonus/ray-casting-bonus/health_bar.c\
         src_bonus/ray-casting-bonus/handle_frames.c\
         src_bonus/ray-casting-bonus/mouse_handling.c\
         src_bonus/ray-casting-bonus/handle_keypress.c\

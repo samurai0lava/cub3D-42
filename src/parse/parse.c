@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moaregra <moaregra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 12:38:50 by moaregra          #+#    #+#             */
-/*   Updated: 2025/04/17 16:40:31 by moaregra         ###   ########.fr       */
+/*   Updated: 2025/05/20 14:43:40 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ char	*get_file_in_char(char *av)
 	fd = open(av, O_RDONLY);
 	if (fd == -1)
 	{
-		perror("Error opening file");
+		print_error("Error\n Failed to open file.");
 		return (NULL);
 	}
 	line = get_next_line(fd);

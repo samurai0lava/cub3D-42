@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:44:33 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/04/15 14:27:52 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/05/20 14:46:54 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,6 @@ void	print_error(char *str)
 	}
 }
 
-// garbage collector for every malloc that i used
-
-// INIT THE GARBAGE COLLECTOR
 t_garbage_collector	*init_garbage_collector(void)
 {
 	t_garbage_collector	*gc;
@@ -60,7 +57,6 @@ void	add_garbage(t_garbage_collector *gc, void *ptr)
 	gc->head = new_node;
 }
 
-// the tracked malloc
 void	*tracked_malloc(t_garbage_collector *gc, size_t size)
 {
 	void	*ptr;
@@ -74,7 +70,6 @@ void	*tracked_malloc(t_garbage_collector *gc, size_t size)
 	add_garbage(gc, ptr);
 	return (ptr);
 }
-// free all the nodes
 
 void	*free_all(t_garbage_collector *gc)
 {

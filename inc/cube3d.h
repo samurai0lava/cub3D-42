@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube3d.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: samurai0lava <samurai0lava@student.42.f    +#+  +:+       +#+        */
+/*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:44:41 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/05/03 15:49:08 by samurai0lav      ###   ########.fr       */
+/*   Updated: 2025/05/20 15:24:58 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@
 
 # define FRAME_DELAY 30
 # define MVM_SPEED 2
-# define RT_SPEED 0.02
+# define RT_SPEED 0.01
 # define MOUSE_SENSITIVITY 0.001
 
 // Structs
@@ -168,7 +168,7 @@ typedef struct s_raycast
 	int						safety;
 	double					perpWallDist;
 	double					angle_diff;
-	double						wall_height;
+	double					wall_height;
 	t_data					*selected_tex;
 	double					wall_x;
 	int						tex_x;
@@ -177,6 +177,7 @@ typedef struct s_raycast
 	double					hitX;
 	double					hitY;
 	int						x;
+	double                  uncorrectedDist;
 }							t_raycast;
 
 typedef struct s_handle_keys
@@ -351,6 +352,7 @@ int							get_line_of_biggervalue(char **s);
 int							check_map_content(t_map *map, int size);
 void						check_direction(t_map *map);
 int							validate_textures(char **lines);
+int							count_double_char(char **s);
 // FUNCTIONS :
 
 //----INITIALIZATION-==---------------//
