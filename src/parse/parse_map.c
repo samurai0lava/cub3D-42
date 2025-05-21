@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moaregra <moaregra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: samurai0lava <samurai0lava@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 13:42:06 by moaregra          #+#    #+#             */
-/*   Updated: 2025/05/16 16:18:45 by moaregra         ###   ########.fr       */
+/*   Updated: 2025/05/21 17:06:15 by samurai0lav      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,14 +146,15 @@ int	check_map_last(t_map *map, char **all_file)
 		}
         else if (found_last_map_line && all_file[i][0] != '\0')
         {
-            write(2, "Error: Content found after map\n", 31);
+			print_error(RED "Error\nContent found after map\n" RESET);
             return (0);
         }
         i++;
     }
     if (!found_last_map_line)
     {
-        write(2, "Error: Last map line not found in file\n", 39);
+        // write(2, "Error: Last map line not found in file\n", 39);
+		print_error(RED "Error\nLast map line not found in file\n" RESET);
         return (0);
     }
     return (1);

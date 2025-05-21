@@ -35,8 +35,7 @@ int	validate_textures(char **lines)
         count = count_occurrences(lines, required_textures[i]);
         if (count != 1)
         {
-                    // printf(" the string to look for %s\n",required_textures[i]);
-            write(2,"error :",8);
+            print_error(RED "Error\nInvalid texture count\n" RESET);
             return (0);
         }
         // printf("string found : %s",required_textures[i]);
