@@ -6,11 +6,11 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:44:29 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/05/21 22:48:38 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/05/22 13:42:49 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/cube3d.h"
+#include "inc/cube3d.h"
 
 void	init_cube(t_cube *cube, t_data *data)
 {

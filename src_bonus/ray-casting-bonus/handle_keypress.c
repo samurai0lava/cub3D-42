@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 18:16:55 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/04/13 21:57:24 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/05/22 13:53:03 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ int	close_win(t_cube *cube)
 	if (!cube)
 		exit(1);
 	destroy_mlx(cube);
+	free_map_struct(&cube->map);
 	free_all(cube->gc);
 	free(cube);
 	exit(0);
@@ -34,6 +35,7 @@ static void	handle_esc(t_cube *cube)
 	if (!cube)
 		exit(1);
 	destroy_mlx(cube);
+	free_map_struct(&cube->map);
 	free_all(cube->gc);
 	free(cube);
 	exit(0);
@@ -53,8 +55,8 @@ void	init_colliding(t_cube *cube, double *px, double *py)
 
 static int	is_colliding(t_cube *cube, double px, double py)
 {
-	int		ty;
-	int		tx;
+	int	ty;
+	int	tx;
 
 	init_colliding(cube, &px, &py);
 	ty = cube->collid.top_tile;

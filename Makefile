@@ -1,6 +1,6 @@
 CC = cc
-SRCS =  src/main.c\
-        src/ray-casting/raycaster.c\
+SRCS = 	main.c\
+		src/ray-casting/raycaster.c\
         src/ray-casting/mlx_init.c\
         src/ray-casting/utils.c\
         src/ray-casting/weapon.c\
@@ -41,7 +41,7 @@ BONS =  src/parse/parse_helpers.c \
         src_bonus/ray-casting-bonus/raycaster_utils1.c\
         src_bonus/ray-casting-bonus/draw_walls.c\
         src_bonus/ray-casting-bonus/raycaster_utils.c \
-        src_bonus/main.c
+		main.c
 
 LIB = libft/libft.a
 NAME = cub3D
