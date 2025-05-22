@@ -11,7 +11,7 @@ int	count_occurrences(char **lines, const char *target)
 	{
 		if (ft_strncmp(lines[i], target, strlen(target)) == 0
 			&& (lines[i][strlen(target)] == ' '
-				|| lines[i][strlen(target)] == '\t'))
+			|| lines[i][strlen(target)] == '\t'))
 		{
 			count++;
 		}
@@ -22,10 +22,10 @@ int	count_occurrences(char **lines, const char *target)
 
 int	validate_textures(char **lines)
 {
-	const char *required_textures[] = {"NO", "SO", "WE", "EA", "F", "C"};
-	int num_textures;
-	int i;
-	int count;
+	const char	*required_textures[] = {"NO", "SO", "WE", "EA", "F", "C"};
+	int			num_textures;
+	int			i;
+	int			count;
 
 	num_textures = 6;
 	i = 0;

@@ -3,49 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parse_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: moaregra <moaregra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 13:42:06 by moaregra          #+#    #+#             */
-/*   Updated: 2025/05/21 17:39:24 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/05/22 18:34:31 by moaregra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/cube3d.h"
-
-int	check_map_line(char *s)
-{
-	int	i;
-
-	i = 0;
-	while (s[i] != '\0')
-	{
-		if (s[i] != '1' && s[i] != '0' && s[i] != 'N' && s[i] != 'S'
-			&& s[i] != 'E' && s[i] != 'W' && s[i] != '\t' && s[i] != ' ')
-			return (1);
-		i++;
-	}
-	return (0);
-}
-
-void	count_map_lines(char **all_file, int *lines, int *map_started)
-{
-	int	i;
-
-	i = 0;
-	*lines = 0;
-	*map_started = 0;
-	while (all_file[i])
-	{
-		if (check_map_line(all_file[i]) == 0)
-		{
-			*map_started = 1;
-			(*lines)++;
-		}
-		else if (*map_started)
-			break ;
-		i++;
-	}
-}
 
 void	fill_map_array(t_map *map, char **all_file, int lines)
 {
@@ -80,80 +45,77 @@ void	get_map_into2darray(t_map *map, char *av)
 	char	**all_file;
 	int		i;
 
-		i = 0;
+	i = 0;
 	s = get_file_in_char(av);
-	if(s == NULL)
+	if (s == NULL)
 		return ;
 	all_file = split_file(s);
-	if(all_file == NULL)
+	if (all_file == NULL)
 		return ;
 	count_map_lines(all_file, &lines, &map_started);
 	fill_map_array(map, all_file, lines);
-	if(check_map_last(map,all_file) == 0)
+	if (check_map_last(map, all_file) == 0)
 	{
 		free_map_struct(map);
-			while (all_file[i])
-				{
-					free(all_file[i]);
-					i++;
-				}
-			free(all_file);
-			free(s);
-			exit(1);
+		while (all_file[i])
+			free(all_file[i++]);
+		free(all_file);
+		free(s);
+		exit(1);
 	}
 	while (all_file[i])
-	{
-		free(all_file[i]);
-		i++;
-	}
+		free(all_file[i++]);
 	free(all_file);
 	free(s);
 }
-int find_last_line_occurance(t_map *map,char **av)
+
+int	find_last_line_occurance(t_map *map, char **av)
 {
-	char	*last_map_line = map->map[count_double_char(map->map)];
+	char	*last_map_line;
 	int		i;
+	int		biggest_index;
+
+	last_map_line = map->map[count_double_char(map->map)];
 	i = 0;
-	int biggest_index = 0;
-	while(av[i])
+	biggest_index = 0;
+	while (av[i])
 	{
-		if (ft_strncmp(av[i], last_map_line,ft_strlen(av[i])) == 0)
+		if (ft_strncmp(av[i], last_map_line, ft_strlen(av[i])) == 0)
 		{
 			biggest_index = i;
 		}
 		i++;
 	}
-	return biggest_index;
+	return (biggest_index);
 }
+
 int	check_map_last(t_map *map, char **all_file)
 {
-    int		i;
-    int		found_last_map_line;
-	
-	if(map->map[0] == NULL)
-		return 0;
-    found_last_map_line = 0;
-    i = 0;
-	int biggest_index = find_last_line_occurance(map,all_file);
-    while (all_file[i])
-    {
-        if (biggest_index == i)
+	int	i;
+	int	found_last_map_line;
+	int	biggest_index;
+
+	if (map->map[0] == NULL)
+		return (0);
+	found_last_map_line = 0;
+	i = 0;
+	biggest_index = find_last_line_occurance(map, all_file);
+	while (all_file[i])
+	{
+		if (biggest_index == i)
 		{
-            found_last_map_line = 1;	
+			found_last_map_line = 1;
 		}
-        else if (found_last_map_line && all_file[i][0] != '\0')
-        {
-			print_error(RED "Error\nContent found after map\n" RESET);
-            return (0);
-        }
-        i++;
-    }
-    if (!found_last_map_line)
-    {
-		print_error(RED "Error\nLast map line not found in file\n" RESET);
-        return (0);
-    }
-    return (1);
+		else if (found_last_map_line && all_file[i][0] != '\0')
+			return (print_error(RED "Error\nContent found after map\n" RESET)
+				, 0);
+		i++;
+	}
+	if (!found_last_map_line)
+		return (print_error(
+				RED "Error\nLast map line not found in file\n" RESET)
+			, 0);
+	return (1);
 }
 
 int	count_double_char(char **s)

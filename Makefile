@@ -11,6 +11,7 @@ SRCS = 	main.c\
         src/ray-casting/draw.c\
         src/ray-casting/raycaster_utils1.c\
         src/ray-casting/raycaster_utils.c \
+		src/parse/parse_helper_2_complete.c\
         src/parse/parse_helpers.c \
         src/parse/parse_helpers2.c \
         src/parse/parse_helpers3.c \
@@ -22,7 +23,9 @@ SRCS = 	main.c\
 		src/parse/check_double_texture.c\
         src/ray-casting/draw_walls.c\
 		src/ray-casting/utils2.c\
-		src/ray-casting/raycaster_utils2.c
+		src/ray-casting/raycaster_utils2.c\
+		src/parse/parse_map_complete.c
+		
 
 
 BONS =  src/parse/parse_helpers.c \

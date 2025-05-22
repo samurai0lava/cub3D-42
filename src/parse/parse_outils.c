@@ -41,39 +41,38 @@ void	count_w_h(t_map *map)
 	map->map_width = biggest_line;
 }
 
-void    get_x_y(t_map *map)
+void	get_x_y(t_map *map)
 {
-    int i;
-    int j;
+	int	i;
+	int	j;
 
-    i = 0;
-    if (!map || !map->map)
-        return ;
-    while (map->map[i] != NULL)
-    {
-        j = 0;
-        while (map->map[i][j] != '\0')
-        {
-            if (map->map[i][j] == 'N' || map->map[i][j] == 'S'
-                || map->map[i][j] == 'E' || map->map[i][j] == 'W')
-            {
-                map->x = j;
-                map->y = i;
-                return ;
-            }
-            j++;
-        }
-        i++;
-    }
+	i = 0;
+	if (!map || !map->map)
+		return ;
+	while (map->map[i] != NULL)
+	{
+		j = 0;
+		while (map->map[i][j] != '\0')
+		{
+			if (map->map[i][j] == 'N' || map->map[i][j] == 'S'
+				|| map->map[i][j] == 'E' || map->map[i][j] == 'W')
+			{
+				map->x = j;
+				map->y = i;
+				return ;
+			}
+			j++;
+		}
+		i++;
+	}
 }
 
 void	check_direction(t_map *map)
 {
-	get_x_y(map);
-	
-	int x;
-	int y;
+	int	x;
+	int	y;
 
+	get_x_y(map);
 	y = (int)map->x;
 	x = (int)map->y;
 	if (map->map[x][y] == 'E')

@@ -6,7 +6,7 @@
 /*   By: moaregra <moaregra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 12:38:48 by moaregra          #+#    #+#             */
-/*   Updated: 2025/04/30 18:56:47 by moaregra         ###   ########.fr       */
+/*   Updated: 2025/05/22 18:19:11 by moaregra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,37 +66,3 @@ int	handle_errors(int err_code)
 		return (write(2, "invalid map\n", 13), 1);
 	return (1);
 }
-
-// int	main(int ac, char **av)
-// {
-// 	t_map	map;
-
-// 	ft_memset(&map, 0, sizeof(t_map));
-// 	if (ac != 2)
-// 		return (handle_errors(1));
-// 	if (check_file_name(av[1]) == 0)
-// 		return (handle_errors(2));
-// 	initiliase_struct(&map, av[1]);
-// 	get_map_into2darray(&map, av[1]);
-// 	count_w_h(&map);
-// 	get_x_y(&map);
-// 	printf("width :%d, height :%d, X position: %d,Y position %d\n" , map.map_width , map.map_height,map.x,map.y);
-// 	if (check_rgbs(&map) == 1)
-// 	{
-// 		free_map_struct(&map);
-// 		return (handle_errors(3));
-// 	}
-// 	else
-// 		write(1, "valid rgbs\n", 12);
-// 	if (check_map(&map) == 0)
-// 	{
-// 		free_map_struct(&map);
-// 		return (handle_errors(4));
-// 	}
-// 	else
-// 		write(2, "valid map\n", 11);
-// 	print_2d(map.map);
-// 	free_map_struct(&map);
-// 	return (0);
-// }
-

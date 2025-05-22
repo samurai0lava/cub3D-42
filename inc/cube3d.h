@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube3d.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: moaregra <moaregra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:44:41 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/05/22 15:28:10 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/05/22 18:59:12 by moaregra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -333,6 +333,7 @@ char						*parse_line(char *s, char *to_trim);
 void						free_rgb_arrays(char **floor_rgb,
 								char **celling_rgb);
 void						fill_rgb(t_map *map);
+int							is_valid_rgb_string(const char *rgb);
 int							is_valid_rgb(int r, int g, int b);
 int							check_rgbs(t_map *map);
 void						free_rgb_arrays(char **floor_rgb,

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_mapv3.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: samurai0lava <samurai0lava@student.42.f    +#+  +:+       +#+        */
+/*   By: moaregra <moaregra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 15:39:38 by moaregra          #+#    #+#             */
-/*   Updated: 2025/05/21 17:06:33 by samurai0lav      ###   ########.fr       */
+/*   Updated: 2025/05/22 18:48:43 by moaregra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ int	check_map(t_map *map)
 	size = count_double_char(map->map);
 	if (!check_map_steps(map))
 		return (0);
-		// printf("test1\n");
 	if (check_top_and_bottom(map->map[0]) == 1
 		|| check_top_and_bottom(map->map[size]) == 1)
 		return (0);
