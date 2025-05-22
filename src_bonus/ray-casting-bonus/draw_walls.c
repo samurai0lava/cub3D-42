@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 10:40:03 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/04/08 10:57:59 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/05/22 14:11:26 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,15 +54,15 @@ static void	draw_textured_wall_segment(t_cube *cube, t_raycast *rc,
 
 void	draw_vertical_line_with_texture(t_cube *cube, int x, t_raycast *rc)
 {
-	t_wall params;
-	int start_y;
+	t_wall	params;
+	int		start_y;
 
-    rc->x = x;
+	rc->x = x;
 	if (rc->wall_height <= 0 || !rc->selected_tex || rc->tex_x < 0
 		|| rc->tex_x >= rc->selected_tex->width)
 	{
 		start_y = draw_sky(cube, x, 0);
-		draw_floor(cube, start_y, x);  
+		draw_floor(cube, start_y, x);
 		return ;
 	}
 	params = calculate_wall_draw_params(rc);

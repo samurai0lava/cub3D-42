@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:44:33 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/05/20 14:46:54 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/05/22 14:31:03 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ t_garbage_collector	*init_garbage_collector(void)
 	return (gc);
 }
 
-// add the a new node each malloc
 void	add_garbage(t_garbage_collector *gc, void *ptr)
 {
 	t_garbage_node	*new_node;

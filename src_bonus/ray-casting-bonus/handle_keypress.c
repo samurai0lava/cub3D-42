@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 18:16:55 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/05/22 13:53:03 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/05/22 14:12:02 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,6 +137,7 @@ static void	mvm_keys(t_cube *cube)
 		cube->hc.new_y += sin(cube->angle - M_PI_2) * MVM_SPEED;
 	}
 }
+
 int	key_loop(t_cube *cube)
 {
 	mvm_keys(cube);

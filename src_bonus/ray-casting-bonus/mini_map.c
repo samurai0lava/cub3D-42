@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 15:02:54 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/04/13 22:07:32 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/05/22 14:26:44 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,31 +48,25 @@ void	draw_minimap_pixel(t_cube *cube, int local_x, int local_y, int color)
 
 void	draw_minimap_line(t_cube *cube, double angle, int length, int color)
 {
-	double	x;
-	double	y;
-	double	x_inc;
-	double	y_inc;
-	int		map_x;
-	int		map_y;
-	int		i;
+	int			map_x;
+	int			map_y;
+	int			i;
+	t_mini_map	m;
 
 	i = 0;
-	x = 0.0;
-	y = 0.0;
-	x_inc = cos(angle);
-	y_inc = sin(angle);
+	m.x = 0.0;
+	m.y = 0.0;
+	m.x_inc = cos(angle);
+	m.y_inc = sin(angle);
 	while (i < length)
 	{
-		map_x = (int)((cube->p_x + (x / cube->minimap_scale)) / S_TEX);
-		map_y = (int)((cube->p_y + (y / cube->minimap_scale)) / S_TEX);
-		if (map_x < 0 || map_x >= cube->map.map_width || map_y < 0
-			|| map_y >= cube->map.map_height)
-			break ;
+		map_x = (int)((cube->p_x + (m.x / cube->minimap_scale)) / S_TEX);
+		map_y = (int)((cube->p_y + (m.y / cube->minimap_scale)) / S_TEX);
 		if (cube->map.map[map_y][map_x] == '1')
 			break ;
-		draw_minimap_pixel(cube, (int)x, (int)y, color);
-		x += x_inc;
-		y += y_inc;
+		draw_minimap_pixel(cube, (int)m.x, (int)m.y, color);
+		m.x += m.x_inc;
+		m.y += m.y_inc;
 		i++;
 	}
 }
@@ -87,41 +81,39 @@ size_t	get_row_count(char **map)
 	return (count);
 }
 
-void    draw_walls_mini_map(t_cube *cube)
+static void	draw_mp(t_cube *cube, t_mini_map m)
 {
-    int     local_x;
-    int     local_y;
-    int     row_count;
-    double  world_x;
-    double  world_y;
-    size_t  col_count;
-    int     map_x;
-    int     map_y;
+	if (m.map_x >= 0 && m.map_x < (int)m.col_count)
+	{
+		if (cube->map.map[m.map_y][m.map_x] == '1')
+			draw_minimap_pixel(cube, m.local_x, m.local_y, 0x00FFFFFF);
+	}
+}
 
-    row_count = get_row_count(cube->map.map);
-    local_y = -cube->minimap_radius;
-    while (local_y <= cube->minimap_radius)
-    {
-        local_x = -cube->minimap_radius;
-        while (local_x <= cube->minimap_radius)
-        {
-            world_x = cube->p_x + (local_x / cube->minimap_scale);
-            world_y = cube->p_y + (local_y / cube->minimap_scale);
-            map_x = (int)(world_x / S_TEX);
-            map_y = (int)(world_y / S_TEX);
-            if (map_y >= 0 && map_y < row_count)
-            {
-                col_count = ft_strlen(cube->map.map[map_y]);
-                if (map_x >= 0 && map_x < (int)col_count)
-                {
-                    if (cube->map.map[map_y][map_x] == '1')
-                        draw_minimap_pixel(cube, local_x, local_y, 0x00FFFFFF);
-                }
-            }
-            local_x++;
-        }
-        local_y++;
-    }
+void	draw_walls_mini_map(t_cube *cube)
+{
+	t_mini_map	m;
+
+	m.row_count = get_row_count(cube->map.map);
+	m.local_y = -cube->minimap_radius;
+	while (m.local_y <= cube->minimap_radius)
+	{
+		m.local_x = -cube->minimap_radius;
+		while (m.local_x <= cube->minimap_radius)
+		{
+			m.world_x = cube->p_x + (m.local_x / cube->minimap_scale);
+			m.world_y = cube->p_y + (m.local_y / cube->minimap_scale);
+			m.map_x = (int)(m.world_x / S_TEX);
+			m.map_y = (int)(m.world_y / S_TEX);
+			if (m.map_y >= 0 && m.map_y < m.row_count)
+			{
+				m.col_count = ft_strlen(cube->map.map[m.map_y]);
+				draw_mp(cube, m);
+			}
+			m.local_x++;
+		}
+		m.local_y++;
+	}
 }
 
 void	draw_circular_minimap(t_cube *cube)

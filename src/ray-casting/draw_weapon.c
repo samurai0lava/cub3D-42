@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 13:57:54 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/05/22 13:58:17 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/05/22 14:02:23 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@ void	draw_weapon_pixel(t_cube *cube, int x, int y)
 
 void	draw_weapon(t_cube *cube)
 {
-	int	x;
-	int	y;
+	int x;
+	int y;
 
 	calculate_weapon_ratios(cube);
 	y = 0;

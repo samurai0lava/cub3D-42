@@ -6,11 +6,27 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 12:44:24 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/05/21 17:20:32 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/05/22 14:04:15 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/cube3d.h"
+
+static void	update_sides(t_raycast *rc)
+{
+	if (rc->sideDistX < rc->sideDistY)
+	{
+		rc->sideDistX += rc->deltaDistX;
+		rc->mapX += rc->stepX;
+		rc->side = 0;
+	}
+	else
+	{
+		rc->sideDistY += rc->deltaDistY;
+		rc->mapY += rc->stepY;
+		rc->side = 1;
+	}
+}
 
 void	run_dda(t_cube *cube, t_raycast *rc)
 {
@@ -20,18 +36,7 @@ void	run_dda(t_cube *cube, t_raycast *rc)
 	row_count = get_row_count(cube->map.map);
 	while (!rc->hit_wall)
 	{
-		if (rc->sideDistX < rc->sideDistY)
-		{
-			rc->sideDistX += rc->deltaDistX;
-			rc->mapX += rc->stepX;
-			rc->side = 0;
-		}
-		else
-		{
-			rc->sideDistY += rc->deltaDistY;
-			rc->mapY += rc->stepY;
-			rc->side = 1;
-		}
+		update_sides(rc);
 		if (rc->mapY > row_count)
 			break ;
 		col_count = ft_strlen(cube->map.map[rc->mapY]);

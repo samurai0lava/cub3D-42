@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:44:41 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/05/22 13:57:31 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/05/22 14:20:56 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -258,6 +258,23 @@ typedef struct s_wall
 	double					tex_step;
 }							t_wall;
 
+typedef struct s_mini_map
+{
+	int						local_x;
+	int						local_y;
+	int						row_count;
+	double					world_x;
+	double					world_y;
+	size_t					col_count;
+	int						map_x;
+	int						map_y;
+	double					x;
+	double					y;
+	double					x_inc;
+	double					y_inc;
+
+}							t_mini_map;
+
 typedef struct s_cube
 {
 	void					*mlx;
@@ -447,4 +464,5 @@ void						calculate_screen_position(t_cube *cube, int x,
 int							is_pixel_in_bounds(t_cube *cube);
 int							is_pixel_visible(t_cube *cube);
 void						draw_weapon_pixel(t_cube *cube, int x, int y);
+
 #endif
