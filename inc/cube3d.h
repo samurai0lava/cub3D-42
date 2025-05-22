@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:44:41 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/05/21 23:32:57 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/05/22 13:57:31 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -436,4 +436,15 @@ void						mlx_hook_cube(t_cube *cube);
 void						init_colliding(t_cube *cube, double *px,
 								double *py);
 size_t						get_row_count(char **map);
+char						*build_texture_path(int frame_num, t_cube *cube);
+int							load_single_texture(t_cube *cube, int index,
+								char *path);
+void						set_texture_prop(t_cube *cube, int index);
+void						calculate_weapon_ratios(t_cube *cube);
+void						get_texture_coordinates(t_cube *cube, int x, int y);
+void						calculate_screen_position(t_cube *cube, int x,
+								int y);
+int							is_pixel_in_bounds(t_cube *cube);
+int							is_pixel_visible(t_cube *cube);
+void						draw_weapon_pixel(t_cube *cube, int x, int y);
 #endif

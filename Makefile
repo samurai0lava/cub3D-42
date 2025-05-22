@@ -5,6 +5,8 @@ SRCS = 	main.c\
         src/ray-casting/utils.c\
         src/ray-casting/weapon.c\
         src/ray-casting/handle_frames.c\
+		src/ray-casting/draw_weapon2.c\
+		src/ray-casting/draw_weapon.c\
         src/ray-casting/handle_keypress.c\
         src/ray-casting/draw.c\
         src/ray-casting/raycaster_utils1.c\
@@ -41,7 +43,9 @@ BONS =  src/parse/parse_helpers.c \
         src_bonus/ray-casting-bonus/raycaster_utils1.c\
         src_bonus/ray-casting-bonus/draw_walls.c\
         src_bonus/ray-casting-bonus/raycaster_utils.c \
-		main.c
+		main.c\
+		src_bonus/ray-casting-bonus/draw_weapon2.c\
+		src_bonus/ray-casting-bonus/draw_weapon.c
 
 LIB = libft/libft.a
 NAME = cub3D
