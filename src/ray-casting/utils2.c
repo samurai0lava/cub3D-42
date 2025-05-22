@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 14:37:16 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/05/22 14:37:33 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/05/22 15:07:44 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,8 @@ void	*tracked_malloc(t_garbage_collector *gc, size_t size)
 
 void	*free_all(t_garbage_collector *gc)
 {
-	t_garbage_node *current;
-	t_garbage_node *temp;
+	t_garbage_node	*current;
+	t_garbage_node	*temp;
 
 	if (!gc)
 		return (NULL);

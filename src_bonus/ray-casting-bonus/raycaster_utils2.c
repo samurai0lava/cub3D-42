@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 14:41:29 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/05/22 14:41:48 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/05/22 14:52:38 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,4 +57,40 @@ void	draw_slice(t_cube *cube, t_raycast *rc, int screen_x)
 		draw_vertical_line(cube, screen_x, rc->wall_height,
 			color_shading(rc->color, rc->perpWallDist));
 	}
+}
+
+static void	small_update(t_raycast *rc)
+{
+	rc->hit_wall = 0;
+	rc->side = 0;
+	rc->safety = 10000;
+}
+
+void	init_raycast_steps(t_cube *cube, t_raycast *rc)
+{
+	if (rc->rayDirX < 0)
+	{
+		rc->stepX = -1;
+		rc->sideDistX = ((cube->p_x / (double)S_TEX) - rc->mapX)
+			* rc->deltaDistX;
+	}
+	else
+	{
+		rc->stepX = 1;
+		rc->sideDistX = ((rc->mapX + 1.0) - (cube->p_x / (double)S_TEX))
+			* rc->deltaDistX;
+	}
+	if (rc->rayDirY < 0)
+	{
+		rc->stepY = -1;
+		rc->sideDistY = ((cube->p_y / (double)S_TEX) - rc->mapY)
+			* rc->deltaDistY;
+	}
+	else
+	{
+		rc->stepY = 1;
+		rc->sideDistY = ((rc->mapY + 1.0) - (cube->p_y / (double)S_TEX))
+			* rc->deltaDistY;
+	}
+	small_update(rc);
 }

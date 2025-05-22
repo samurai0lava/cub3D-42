@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:44:33 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/05/22 14:43:36 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/05/22 15:05:55 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,4 +60,15 @@ void	destroy_mlx(t_cube *cube)
 		}
 		another_destory_img(cube);
 	}
+}
+
+void	handle_esc(t_cube *cube)
+{
+	if (!cube)
+		exit(1);
+	destroy_mlx(cube);
+	free_map_struct(&cube->map);
+	free_all(cube->gc);
+	free(cube);
+	exit(0);
 }

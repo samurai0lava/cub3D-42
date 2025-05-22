@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 03:04:06 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/05/22 14:10:06 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/05/22 14:53:12 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,40 +92,4 @@ void	init_raycast_angle_and_delta(t_cube *cube, t_raycast *rc, int ray_index)
 		rc->deltaDistY = 1e30;
 	else
 		rc->deltaDistY = fabs(1.0 / rc->rayDirY);
-}
-
-static void	small_update(t_raycast *rc)
-{
-	rc->hit_wall = 0;
-	rc->side = 0;
-	rc->safety = 10000;
-}
-
-void	init_raycast_steps(t_cube *cube, t_raycast *rc)
-{
-	if (rc->rayDirX < 0)
-	{
-		rc->stepX = -1;
-		rc->sideDistX = ((cube->p_x / (double)S_TEX) - rc->mapX)
-			* rc->deltaDistX;
-	}
-	else
-	{
-		rc->stepX = 1;
-		rc->sideDistX = ((rc->mapX + 1.0) - (cube->p_x / (double)S_TEX))
-			* rc->deltaDistX;
-	}
-	if (rc->rayDirY < 0)
-	{
-		rc->stepY = -1;
-		rc->sideDistY = ((cube->p_y / (double)S_TEX) - rc->mapY)
-			* rc->deltaDistY;
-	}
-	else
-	{
-		rc->stepY = 1;
-		rc->sideDistY = ((rc->mapY + 1.0) - (cube->p_y / (double)S_TEX))
-			* rc->deltaDistY;
-	}
-	small_update(rc);
 }

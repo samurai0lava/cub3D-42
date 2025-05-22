@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:44:41 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/05/22 14:20:56 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/05/22 15:01:56 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -403,8 +403,8 @@ void						*tracked_malloc(t_garbage_collector *gc,
 void						my_mlx_pixel_put(t_data *data, int x, int y,
 								int color);
 int							handle_keypress(int keycode, t_cube *cube);
+void						handle_esc(t_cube *cube);
 void						cast_away(t_cube *cube);
-void						draw_map(t_data *data, t_cube *cube);
 void						clean_screen(t_data *data, t_cube *cube);
 void						init_textures(t_cube *cube);
 int							color_shading(int color, double distance);
@@ -428,8 +428,6 @@ void						update_frame(t_cube *cube);
 int							load_frames(t_cube *cube);
 void						add_frame_ls(t_cube *cube);
 int							handle_mouse_move(int x, int y, t_cube *cube);
-void						draw_rectangle(t_data *data, int x, int y, int size,
-								int color);
 void						init_minimap_params(t_cube *cube);
 void						init_raycast(t_cube *cube, t_raycast *rc,
 								int ray_index);
