@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 14:40:05 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/05/22 14:52:10 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/05/22 15:28:10 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,24 +14,24 @@
 
 void	select_textures(t_cube *cube, t_raycast *rc)
 {
-	rc->wall_height = ((HEIGHT * S_TEX) / rc->perpWallDist);
-	rc->hitY = cube->p_y + rc->rayDirY * rc->uncorrectedDist;
-	rc->hitX = cube->p_x + rc->rayDirX * rc->uncorrectedDist;
+	rc->wall_height = ((HEIGHT * S_TEX) / rc->perpwalldist);
+	rc->hity = cube->p_y + rc->raydiry * rc->uncorrecteddist;
+	rc->hitx = cube->p_x + rc->raydirx * rc->uncorrecteddist;
 	if (rc->side == 0)
 	{
-		if (rc->rayDirX > 0)
+		if (rc->raydirx > 0)
 			rc->selected_tex = &cube->texture[0];
 		else
 			rc->selected_tex = &cube->texture[1];
-		rc->wall_x = fmod(rc->hitY, (double)S_TEX);
+		rc->wall_x = fmod(rc->hity, (double)S_TEX);
 	}
 	else
 	{
-		if (rc->rayDirY > 0)
+		if (rc->raydiry > 0)
 			rc->selected_tex = &cube->texture[2];
 		else
 			rc->selected_tex = &cube->texture[3];
-		rc->wall_x = fmod(rc->hitX, (double)S_TEX);
+		rc->wall_x = fmod(rc->hitx, (double)S_TEX);
 	}
 	rc->wall_x /= (double)S_TEX;
 	if (rc->wall_x < 0)
@@ -55,7 +55,7 @@ void	draw_slice(t_cube *cube, t_raycast *rc, int screen_x)
 		else if (rc->tile_val == 4)
 			rc->color = 0x00FF00FF;
 		draw_vertical_line(cube, screen_x, rc->wall_height,
-			color_shading(rc->color, rc->perpWallDist));
+			color_shading(rc->color, rc->perpwalldist));
 	}
 }
 
@@ -68,29 +68,29 @@ static void	small_update(t_raycast *rc)
 
 void	init_raycast_steps(t_cube *cube, t_raycast *rc)
 {
-	if (rc->rayDirX < 0)
+	if (rc->raydirx < 0)
 	{
-		rc->stepX = -1;
-		rc->sideDistX = ((cube->p_x / (double)S_TEX) - rc->mapX)
-			* rc->deltaDistX;
+		rc->stepx = -1;
+		rc->sidedistx = ((cube->p_x / (double)S_TEX) - rc->mapx)
+			* rc->deltadistx;
 	}
 	else
 	{
-		rc->stepX = 1;
-		rc->sideDistX = ((rc->mapX + 1.0) - (cube->p_x / (double)S_TEX))
-			* rc->deltaDistX;
+		rc->stepx = 1;
+		rc->sidedistx = ((rc->mapx + 1.0) - (cube->p_x / (double)S_TEX))
+			* rc->deltadistx;
 	}
-	if (rc->rayDirY < 0)
+	if (rc->raydiry < 0)
 	{
-		rc->stepY = -1;
-		rc->sideDistY = ((cube->p_y / (double)S_TEX) - rc->mapY)
-			* rc->deltaDistY;
+		rc->stepy = -1;
+		rc->sidedisty = ((cube->p_y / (double)S_TEX) - rc->mapy)
+			* rc->deltadisty;
 	}
 	else
 	{
-		rc->stepY = 1;
-		rc->sideDistY = ((rc->mapY + 1.0) - (cube->p_y / (double)S_TEX))
-			* rc->deltaDistY;
+		rc->stepy = 1;
+		rc->sidedisty = ((rc->mapy + 1.0) - (cube->p_y / (double)S_TEX))
+			* rc->deltadisty;
 	}
 	small_update(rc);
 }

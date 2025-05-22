@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 12:44:24 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/05/22 14:42:06 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/05/22 15:28:10 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,16 @@
 
 static void	update_sides(t_raycast *rc)
 {
-	if (rc->sideDistX < rc->sideDistY)
+	if (rc->sidedistx < rc->sidedisty)
 	{
-		rc->sideDistX += rc->deltaDistX;
-		rc->mapX += rc->stepX;
+		rc->sidedistx += rc->deltadistx;
+		rc->mapx += rc->stepx;
 		rc->side = 0;
 	}
 	else
 	{
-		rc->sideDistY += rc->deltaDistY;
-		rc->mapY += rc->stepY;
+		rc->sidedisty += rc->deltadisty;
+		rc->mapy += rc->stepy;
 		rc->side = 1;
 	}
 }
@@ -37,12 +37,12 @@ void	run_dda(t_cube *cube, t_raycast *rc)
 	while (!rc->hit_wall)
 	{
 		update_sides(rc);
-		if (rc->mapY > row_count)
+		if (rc->mapy > row_count)
 			break ;
-		col_count = ft_strlen(cube->map.map[rc->mapY]);
-		if (rc->mapX > col_count)
+		col_count = ft_strlen(cube->map.map[rc->mapy]);
+		if (rc->mapx > col_count)
 			break ;
-		if (cube->map.map[rc->mapY][rc->mapX] == '1')
+		if (cube->map.map[rc->mapy][rc->mapx] == '1')
 			rc->hit_wall = 1;
 	}
 }
@@ -50,12 +50,12 @@ void	run_dda(t_cube *cube, t_raycast *rc)
 void	compute_wall_distance(t_cube *cube, t_raycast *rc)
 {
 	if (rc->side == 0)
-		rc->perpWallDist = rc->sideDistX - rc->deltaDistX;
+		rc->perpwalldist = rc->sidedistx - rc->deltadistx;
 	else
-		rc->perpWallDist = rc->sideDistY - rc->deltaDistY;
-	rc->uncorrectedDist = rc->perpWallDist * S_TEX;
+		rc->perpwalldist = rc->sidedisty - rc->deltadisty;
+	rc->uncorrecteddist = rc->perpwalldist * S_TEX;
 	rc->angle_diff = eye_fish_correction(rc->ray_angle, cube);
-	rc->perpWallDist *= cos(rc->angle_diff) * S_TEX;
+	rc->perpwalldist *= cos(rc->angle_diff) * S_TEX;
 }
 
 void	cast_away(t_cube *cube)

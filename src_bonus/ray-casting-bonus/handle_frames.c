@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/16 14:39:37 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/05/22 14:11:51 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/05/22 15:17:29 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,8 @@ int	load_single_texture(t_cube *cube, int index, char *path)
 			&cube->weapon.orig_width, &cube->weapon.orig_height);
 	if (!cube->weapon.texture[index].img)
 		return (perror("mlx_xpm_file_to_image"), 1);
-	cube->weapon.texture[index].addr = mlx_get_data_addr(cube->weapon.texture[index].img,
+	cube->weapon.texture[index].addr = mlx_get_data_addr(cube->weapon.\
+			texture[index].img, \
 			&cube->weapon.texture[index].bits_per_pixel,
 			&cube->weapon.texture[index].line_length,
 			&cube->weapon.texture[index].endian);

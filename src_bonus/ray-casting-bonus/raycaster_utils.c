@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 03:04:06 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/05/22 14:52:56 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/05/22 15:25:53 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,16 +80,16 @@ void	init_raycast_angle_and_delta(t_cube *cube, t_raycast *rc, int ray_index)
 {
 	rc->ray_angle = cube->start_angle + ray_index * cube->angle_step;
 	rc->ray_angle = fmod(rc->ray_angle + 2.0 * PI, 2.0 * PI);
-	rc->rayDirX = cos(rc->ray_angle);
-	rc->rayDirY = sin(rc->ray_angle);
-	rc->mapX = (int)(cube->p_x / S_TEX);
-	rc->mapY = (int)(cube->p_y / S_TEX);
-	if (rc->rayDirX == 0)
-		rc->deltaDistX = 1e30;
+	rc->raydirx = cos(rc->ray_angle);
+	rc->raydiry = sin(rc->ray_angle);
+	rc->mapx = (int)(cube->p_x / S_TEX);
+	rc->mapy = (int)(cube->p_y / S_TEX);
+	if (rc->raydirx == 0)
+		rc->deltadistx = 1e30;
 	else
-		rc->deltaDistX = fabs(1.0 / rc->rayDirX);
-	if (rc->rayDirY == 0)
-		rc->deltaDistY = 1e30;
+		rc->deltadistx = fabs(1.0 / rc->raydirx);
+	if (rc->raydiry == 0)
+		rc->deltadisty = 1e30;
 	else
-		rc->deltaDistY = fabs(1.0 / rc->rayDirY);
+		rc->deltadisty = fabs(1.0 / rc->raydiry);
 }

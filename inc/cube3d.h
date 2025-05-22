@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:44:41 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/05/22 15:01:56 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/05/22 15:28:10 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,14 +66,11 @@
 # define HEIGHT 1000
 # define S_TEX 64
 # define MAP_SCALE 0.5
-# define TILE_SIZE (S_TEX * MAP_SCALE)
-# define FOV PI / 3
+# define FOV 1.0471975512
 
 // minimap
 
 # define MINIMAP_RADIUS 80
-# define MINIMAP_X (MINIMAP_RADIUS + 10)
-# define MINIMAP_Y (MINIMAP_RADIUS + HEIGHT - 180)
 # define PLAYER_DOT_SIZE 3
 # define MINIMAP_SCALE 3
 # define MIN_DISTANCE 0.5
@@ -162,20 +159,20 @@ typedef struct s_enemie
 typedef struct s_raycast
 {
 	double					ray_angle;
-	double					rayDirX;
-	double					rayDirY;
-	size_t					mapX;
-	size_t					mapY;
-	double					deltaDistX;
-	double					deltaDistY;
-	int						stepX;
-	int						stepY;
-	double					sideDistX;
-	double					sideDistY;
+	double					raydirx;
+	double					raydiry;
+	size_t					mapx;
+	size_t					mapy;
+	double					deltadistx;
+	double					deltadisty;
+	int						stepx;
+	int						stepy;
+	double					sidedistx;
+	double					sidedisty;
 	int						hit_wall;
 	int						side;
 	int						safety;
-	double					perpWallDist;
+	double					perpwalldist;
 	double					angle_diff;
 	double					wall_height;
 	t_data					*selected_tex;
@@ -183,10 +180,10 @@ typedef struct s_raycast
 	int						tex_x;
 	int						color;
 	int						tile_val;
-	double					hitX;
-	double					hitY;
+	double					hitx;
+	double					hity;
 	int						x;
-	double					uncorrectedDist;
+	double					uncorrecteddist;
 }							t_raycast;
 
 typedef struct s_handle_keys

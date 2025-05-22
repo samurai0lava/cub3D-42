@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:44:29 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/05/22 13:42:49 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/05/22 15:20:45 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,9 +74,9 @@ static int	parse_map(t_map *map, int ac, char **av)
 {
 	ft_memset(map, 0, sizeof(t_map));
 	if (ac != 2)
-		return (print_error(BLUE NO_ARGS RESET) ,1);
+		return (print_error(BLUE NO_ARGS RESET), 1);
 	if (check_file_name(av[1]) == 0)
-		return (print_error(RED INV_FILE RESET) ,1);
+		return (print_error(RED INV_FILE RESET), 1);
 	initiliase_struct(map, av[1]);
 	get_map_into2darray(map, av[1]);
 	get_x_y(map);
@@ -85,7 +85,7 @@ static int	parse_map(t_map *map, int ac, char **av)
 	if (check_rgbs(map) == 1)
 	{
 		free_map_struct(map);
-		print_error( RED INV_RGB RESET);
+		print_error(RED INV_RGB RESET);
 		return (1);
 	}
 	if (check_map(map) == 0)

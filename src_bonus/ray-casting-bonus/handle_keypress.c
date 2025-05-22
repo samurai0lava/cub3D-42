@@ -6,22 +6,11 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 18:16:55 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/05/22 14:12:02 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/05/22 15:11:54 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/cube3d.h"
-
-int	close_win(t_cube *cube)
-{
-	if (!cube)
-		exit(1);
-	destroy_mlx(cube);
-	free_map_struct(&cube->map);
-	free_all(cube->gc);
-	free(cube);
-	exit(0);
-}
 
 static void	game_loop_keypress(t_cube *cube)
 {
@@ -29,16 +18,6 @@ static void	game_loop_keypress(t_cube *cube)
 	draw_weapon(cube);
 	draw_circular_minimap(cube);
 	mlx_put_image_to_window(cube->mlx, cube->mlx_window, cube->data->img, 0, 0);
-}
-static void	handle_esc(t_cube *cube)
-{
-	if (!cube)
-		exit(1);
-	destroy_mlx(cube);
-	free_map_struct(&cube->map);
-	free_all(cube->gc);
-	free(cube);
-	exit(0);
 }
 
 void	init_colliding(t_cube *cube, double *px, double *py)
@@ -73,42 +52,6 @@ static int	is_colliding(t_cube *cube, double px, double py)
 		}
 		ty++;
 	}
-	return (0);
-}
-
-int	on_key_press(int keycode, t_cube *cube)
-{
-	if (keycode == ESC)
-		handle_esc(cube);
-	if (keycode == W_KEY)
-		cube->keys.w = 1;
-	if (keycode == A_KEY)
-		cube->keys.a = 1;
-	if (keycode == S_KEY)
-		cube->keys.s = 1;
-	if (keycode == D_KEY)
-		cube->keys.d = 1;
-	if (keycode == LEFT_KEY)
-		cube->keys.left = 1;
-	if (keycode == RIGHT_KEY)
-		cube->keys.right = 1;
-	return (0);
-}
-
-int	on_key_release(int keycode, t_cube *cube)
-{
-	if (keycode == W_KEY)
-		cube->keys.w = 0;
-	if (keycode == A_KEY)
-		cube->keys.a = 0;
-	if (keycode == S_KEY)
-		cube->keys.s = 0;
-	if (keycode == D_KEY)
-		cube->keys.d = 0;
-	if (keycode == LEFT_KEY)
-		cube->keys.left = 0;
-	if (keycode == RIGHT_KEY)
-		cube->keys.right = 0;
 	return (0);
 }
 

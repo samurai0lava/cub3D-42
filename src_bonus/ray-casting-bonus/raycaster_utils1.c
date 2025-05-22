@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 03:05:38 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/04/08 10:40:58 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/05/22 15:16:57 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,9 @@
 
 void	clean_display(t_cube *cube)
 {
-	int x, y;
+	int	x;
+	int	y;
+
 	if (!cube->data || !cube->data->addr)
 		return ;
 	y = 0;
@@ -33,8 +35,10 @@ void	clean_display(t_cube *cube)
 int	color_shading(int color, double distance)
 {
 	int	shade;
+	int	r;
+	int	g;
+	int	b;
 
-	int r, g, b;
 	shade = 0xFF - (int)(0xFF * (distance / 1000));
 	if (shade < 0)
 		shade = 0;

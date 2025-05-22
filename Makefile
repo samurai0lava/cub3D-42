@@ -50,7 +50,8 @@ BONS =  src/parse/parse_helpers.c \
 		src_bonus/ray-casting-bonus/draw_weapon2.c\
 		src_bonus/ray-casting-bonus/draw_weapon.c\
 		src_bonus/ray-casting-bonus/utils2.c\
-		src_bonus/ray-casting-bonus/raycaster_utils2.c
+		src_bonus/ray-casting-bonus/raycaster_utils2.c\
+		src_bonus/ray-casting-bonus/mini_map_helper.c
 
 LIB = libft/libft.a
 NAME = cub3D

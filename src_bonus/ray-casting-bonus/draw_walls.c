@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 10:40:03 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/05/22 14:11:26 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/05/22 15:28:10 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static void	draw_textured_wall_segment(t_cube *cube, t_raycast *rc,
 			tex_y = rc->selected_tex->height - 1;
 		color = get_texture_pixel(rc->selected_tex, rc->tex_x, tex_y);
 		my_mlx_pixel_put(cube->data, rc->x, y, color_shading(color,
-				rc->perpWallDist));
+				rc->perpwalldist));
 		tex_pos += params.tex_step;
 		y++;
 	}

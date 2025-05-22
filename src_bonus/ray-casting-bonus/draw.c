@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 18:37:49 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/05/22 14:57:54 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/05/22 15:09:10 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,4 +38,3 @@ void	clean_screen(t_data *data, t_cube *cube)
 		x++;
 	}
 }
-

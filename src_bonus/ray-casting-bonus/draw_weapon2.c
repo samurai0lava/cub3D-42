@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 13:58:55 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/05/22 13:59:10 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/05/22 15:09:51 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,4 +59,15 @@ void	get_texture_coordinates(t_cube *cube, int x, int y)
 	cube->weapon.tex_y = y * cube->weapon.y_ratio;
 	cube->weapon.color = get_texture_pixel((t_data *)cube->frame->content,
 			cube->weapon.tex_x, cube->weapon.tex_y);
+}
+
+int	close_win(t_cube *cube)
+{
+	if (!cube)
+		exit(1);
+	destroy_mlx(cube);
+	free_map_struct(&cube->map);
+	free_all(cube->gc);
+	free(cube);
+	exit(0);
 }

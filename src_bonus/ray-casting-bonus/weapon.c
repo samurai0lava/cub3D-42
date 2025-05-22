@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 19:13:34 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/05/22 14:29:27 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/05/22 15:17:14 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,8 @@ void	init_weapon(t_cube *cube)
 		print_error(RED "Failed to load weapon\n" RESET);
 		return ;
 	}
-	cube->weapon.texture[0].addr = mlx_get_data_addr(cube->weapon.texture[0].img,
+	cube->weapon.texture[0].addr = mlx_get_data_addr(cube->weapon.\
+			texture[0].img, \
 			&bpp, &line_length, &endian);
 	cube->weapon.texture[0].bits_per_pixel = bpp;
 	cube->weapon.texture[0].line_length = line_length;
