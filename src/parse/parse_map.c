@@ -6,7 +6,7 @@
 /*   By: moaregra <moaregra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 13:42:06 by moaregra          #+#    #+#             */
-/*   Updated: 2025/05/25 18:38:57 by moaregra         ###   ########.fr       */
+/*   Updated: 2025/05/25 18:53:21 by moaregra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,16 +57,10 @@ void	get_map_into2darray(t_map *map, char *av)
 	if (check_map_last(map, all_file) == 0)
 	{
 		free_map_struct(map);
-		while (all_file[i])
-			free(all_file[i++]);
-		free(all_file);
-		free(s);
+		free_file_resources(s, all_file);
 		exit(1);
 	}
-	while (all_file[i])
-		free(all_file[i++]);
-	free(all_file);
-	free(s);
+	free_file_resources(s, all_file);
 }
 
 int	find_last_line_occurance(t_map *map, char **av)
