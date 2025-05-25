@@ -3,31 +3,36 @@
 /*                                                        :::      ::::::::   */
 /*   parse_helper_3_complete.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moaregra <moaregra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/25 18:33:45 by moaregra          #+#    #+#             */
-/*   Updated: 2025/05/25 18:36:19 by moaregra         ###   ########.fr       */
+/*   Updated: 2025/05/25 22:02:05 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/cube3d.h"
 
-void	free_rgb_arrays(char **floor_rgb, char **celling_rgb)
+void	free_rgb_arrays(char **floor_rgb, char **ceiling_rgb)
 {
 	int	i;
 
-	i = 0;
-	while (floor_rgb[i])
-		free(floor_rgb[i++]);
-	free(floor_rgb);
-	i = 0;
-	while (celling_rgb[i])
-		free(celling_rgb[i++]);
-	free(celling_rgb);
+	if (floor_rgb)
+	{
+		i = 0;
+		while (floor_rgb[i])
+			free(floor_rgb[i++]);
+		free(floor_rgb);
+	}
+	if (ceiling_rgb)
+	{
+		i = 0;
+		while (ceiling_rgb[i])
+			free(ceiling_rgb[i++]);
+		free(ceiling_rgb);
+	}
 }
 
-void	handle_error_and_exit(t_map *map, char *msg, char **f_rgb,
-		char **c_rgb)
+void	handle_error_and_exit(t_map *map, char *msg, char **f_rgb, char **c_rgb)
 {
 	free_rgb_arrays(f_rgb, c_rgb);
 	print_error(msg);

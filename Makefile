@@ -39,6 +39,10 @@ BONS =  src/parse/parse_helpers.c \
         src/parse/parse.c\
         src/parse/parse_outils.c\
 		src/parse/check_double_texture.c\
+		src/parse/parse_helpers4.c\
+		src/parse/parse_helper_3_complete.c\
+		src/parse/parse_helper_2_complete.c\
+		src/parse/parse_map_complete.c\
         src_bonus/ray-casting-bonus/mini_map.c\
         src_bonus/ray-casting-bonus/raycaster.c\
         src_bonus/ray-casting-bonus/mlx_init.c\
@@ -56,7 +60,7 @@ BONS =  src/parse/parse_helpers.c \
 		src_bonus/ray-casting-bonus/draw_weapon.c\
 		src_bonus/ray-casting-bonus/utils2.c\
 		src_bonus/ray-casting-bonus/raycaster_utils2.c\
-		src_bonus/ray-casting-bonus/mini_map_helper.c
+		src_bonus/ray-casting-bonus/mini_map_helper.c\
 
 LIB = libft/libft.a
 NAME = cub3D

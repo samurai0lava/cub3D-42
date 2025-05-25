@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:44:41 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/05/25 21:21:19 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/05/25 21:56:25 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -399,6 +399,7 @@ int							check_map_content(t_map *map, int size);
 void						check_direction(t_map *map);
 int							validate_textures(char **lines);
 int							count_double_char(char **s);
+void						initiliase_struct(t_map *map, char *av);
 // FUNCTIONS :
 
 //----INITIALIZATION-==---------------//

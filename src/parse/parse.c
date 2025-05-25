@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 12:38:50 by moaregra          #+#    #+#             */
-/*   Updated: 2025/05/25 20:01:09 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/05/25 21:48:23 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,17 +56,13 @@ size_t	ft_strlenewline(char *s)
 	return (i);
 }
 
-char	*get_file_in_char(char *av)
+static char	*utils_gnl(int fd)
 {
-	char	*line;
-	int		fd;
-	char	*temp_join;
 	char	*map_content;
+	char	*temp_join;
+	char	*line;
 
 	map_content = NULL;
-	fd = open(av, O_RDONLY);
-	if (fd == -1)
-		return (perror(EROF), NULL);
 	line = get_next_line(fd);
 	while (line != NULL)
 	{
@@ -86,7 +82,19 @@ char	*get_file_in_char(char *av)
 		free(line);
 		line = get_next_line(fd);
 	}
-	close(fd);
+	return (close(fd), map_content);
+}
+
+char	*get_file_in_char(char *av)
+{
+	int		fd;
+	char	*map_content;
+
+	map_content = NULL;
+	fd = open(av, O_RDONLY);
+	if (fd == -1)
+		return (perror("Error opening file"), NULL);
+	map_content = utils_gnl(fd);
 	if (map_content == NULL)
 		map_content = ft_strdup("");
 	if (!map_content)
