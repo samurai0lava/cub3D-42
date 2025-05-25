@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:44:41 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/05/25 21:56:25 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/05/25 22:41:26 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,9 @@
 # define MEM_RGB "Error\nMemory allocation or RGB split error\n"
 # define RGB_VALUES "Error\nRGB values must be between 0 and 255\n"
 # define EROF "Error\nOpening file\n"
+# define MAPEM "Error\nMap is empty\n"
+# define LMLFF "Error\nLast map line not found in file\n"
+# define CFAM "Error\nContent found after map\n"
 // Structs
 
 typedef struct s_garbage_node
