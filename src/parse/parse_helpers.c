@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_helpers.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moaregra <moaregra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 12:38:53 by moaregra          #+#    #+#             */
-/*   Updated: 2025/05/25 18:32:44 by moaregra         ###   ########.fr       */
+/*   Updated: 2025/05/25 19:47:09 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,29 +60,28 @@ static char	**allocate_clean_array(char **all_line, int count)
 
 char	**split_file(char *s)
 {
-	char	**all_line;
-	char	**clean_line;
-	int		i;
-	int		j;
-	int		count;
+	t_split	spl;
 
-	if (!s || !(all_line = ft_split(s, '\n')))
+	spl.all_line = ft_split(s, '\n');
+	if (!s || !spl.all_line)
 		return (NULL);
-	count = count_valid_lines(all_line);
-	if (!(clean_line = allocate_clean_array(all_line, count)))
+	spl.count = count_valid_lines(spl.all_line);
+	spl.clean_line = allocate_clean_array(spl.all_line, spl.count);
+	if (!(spl.clean_line))
 		return (NULL);
-	i = 0;
-	j = 0;
-	while (all_line[i])
+	spl.i = 0;
+	spl.j = 0;
+	while (spl.all_line[spl.i])
 	{
-		if (all_line[i][0] != '\n')
+		if (spl.all_line[spl.i][0] != '\n')
 		{
-			clean_line[j] = ft_strdup(all_line[i]);
-			if (!clean_line[j++])
-				return (free_clean_lines(clean_line, j), free_all_lines(all_line), NULL);
+			spl.clean_line[spl.j] = ft_strdup(spl.all_line[spl.i]);
+			if (!spl.clean_line[spl.j++])
+				return (free_clean_lines(spl.clean_line, spl.j),
+					free_all_lines(spl.all_line), NULL);
 		}
-		free(all_line[i++]);
+		free(spl.all_line[spl.i++]);
 	}
-	clean_line[j] = NULL;
-	return (free(all_line), clean_line);
+	spl.clean_line[spl.j] = NULL;
+	return (free(spl.all_line), spl.clean_line);
 }

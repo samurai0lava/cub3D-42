@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube3d.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moaregra <moaregra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:44:41 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/05/25 18:48:44 by moaregra         ###   ########.fr       */
+/*   Updated: 2025/05/25 19:50:21 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,7 @@
 # define MAP_INV "Error\nMap is invalid\n"
 # define MEM_RGB "Error\nMemory allocation or RGB split error\n"
 # define RGB_VALUES "Error\nRGB values must be between 0 and 255\n"
+# define EROF "Error\nOpening file\n"
 // Structs
 
 typedef struct s_garbage_node
@@ -271,6 +272,14 @@ typedef struct s_mini_map
 	double					y_inc;
 
 }							t_mini_map;
+typedef struct s_split
+{
+	char					**all_line;
+	char					**clean_line;
+	int						i;
+	int						j;
+	int						count;
+}							t_split;
 
 typedef struct s_cube
 {
