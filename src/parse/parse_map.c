@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: samurai0lava <samurai0lava@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 13:42:06 by moaregra          #+#    #+#             */
-/*   Updated: 2025/05/25 22:39:16 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/05/25 23:51:57 by samurai0lav      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,7 @@ void	get_map_into2darray(t_map *map, char *av)
 	int		map_started;
 	char	*s;
 	char	**all_file;
-	int		i;
 
-	i = 0;
 	s = get_file_in_char(av);
 	if (s == NULL)
 		return ;

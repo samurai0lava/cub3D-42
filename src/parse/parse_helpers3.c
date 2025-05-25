@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_helpers3.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: samurai0lava <samurai0lava@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 15:38:42 by moaregra          #+#    #+#             */
-/*   Updated: 2025/05/25 22:34:08 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/05/25 23:51:25 by samurai0lav      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	fill_struct(t_map *map, char *av)
 	if (!validate_inputs(s, file, map))
 		return ;
 	if (validate_textures(file) == 1)
-		printf("");
+		printf("Allo");
 	else
 		handle_validation_error(s, file);
 	fill_struct_helper(map, file);
