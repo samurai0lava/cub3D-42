@@ -6,7 +6,7 @@
 /*   By: moaregra <moaregra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 15:39:38 by moaregra          #+#    #+#             */
-/*   Updated: 2025/05/22 18:48:43 by moaregra         ###   ########.fr       */
+/*   Updated: 2025/05/25 18:20:52 by moaregra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,7 @@ int	check_map_content(t_map *map, int size)
 		}
 		i++;
 	}
-	if (players != 1)
-		return (0);
-	return (1);
+	return (players == 1);
 }
 
 int	check_map(t_map *map)

@@ -6,7 +6,7 @@
 /*   By: moaregra <moaregra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 15:38:42 by moaregra          #+#    #+#             */
-/*   Updated: 2025/05/22 18:47:12 by moaregra         ###   ########.fr       */
+/*   Updated: 2025/05/25 18:45:54 by moaregra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,41 +44,27 @@ void	fill_struct_helper(t_map *map, char **file)
 	}
 }
 
+static void	handle_validation_error(char *s, char **file)
+{
+	free_file_resources(s, file);
+	exit(1);
+}
+
 void	fill_struct(t_map *map, char *av)
 {
 	char	*s;
 	char	**file;
-	int		i;
 
 	s = get_file_in_char(av);
-	if (s == NULL)
-		return ;
 	file = split_file(s);
-	if (!s || !file || !map)
+	if (!validate_inputs(s, file, map))
 		return ;
-	i = 0;
 	if (validate_textures(file) == 1)
 		printf(GREEN "ENJOY THE GAME :)\n" RESET);
 	else
-	{
-		while (file[i])
-		{
-			free(file[i]);
-			i++;
-		}
-		free(file);
-		free(s);
-		exit(1);
-	}
+		handle_validation_error(s, file);
 	fill_struct_helper(map, file);
-	i = 0;
-	while (file[i])
-	{
-		free(file[i]);
-		i++;
-	}
-	free(file);
-	free(s);
+	free_file_resources(s, file);
 }
 
 void	initiliase_struct(t_map *map, char *av)

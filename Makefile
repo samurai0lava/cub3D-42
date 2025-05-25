@@ -24,7 +24,9 @@ SRCS = 	main.c\
         src/ray-casting/draw_walls.c\
 		src/ray-casting/utils2.c\
 		src/ray-casting/raycaster_utils2.c\
-		src/parse/parse_map_complete.c
+		src/parse/parse_map_complete.c\
+		src/parse/parse_helper_3_complete.c\
+		src/parse/parse_helpers4.c
 		
 
 

@@ -6,7 +6,7 @@
 /*   By: moaregra <moaregra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:44:41 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/05/22 18:59:12 by moaregra         ###   ########.fr       */
+/*   Updated: 2025/05/25 18:48:44 by moaregra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -311,6 +311,15 @@ void						print_2d(char **s);
 void						free_map_textures(t_map *map);
 void						free_map_struct(t_map *map);
 int							handle_errors(int err_code);
+void						free_rgb_arrays(char **floor_rgb,
+								char **celling_rgb);
+void						handle_error_and_exit(t_map *map, char *msg,
+								char **f_rgb, char **c_rgb);
+int							validate_rgb_strings(t_map *map);
+char						*parse_line(char *s, char *to_trim);
+int							is_digit(char c);
+int							validate_char(char c, char next, int *digit_cnt,
+								int *num_cnt);
 
 /* parse.c */
 int							check_file_name(char *s);
@@ -327,6 +336,8 @@ char						**count_and_alloc_lines(char **all_line,
 								int *count);
 char						**split_file(char *s);
 void						*free_clean_lines(char **clean_line, int j);
+void						free_file_resources(char *s, char **file);
+int							validate_inputs(char *s, char **file, t_map *map);
 
 /* parse_helpers2.c */
 char						*parse_line(char *s, char *to_trim);

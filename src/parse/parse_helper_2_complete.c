@@ -1,17 +1,36 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse_helper_2_complete.c                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: moaregra <moaregra@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/25 18:22:36 by moaregra          #+#    #+#             */
+/*   Updated: 2025/05/25 18:34:23 by moaregra         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../inc/cube3d.h"
 
-void	free_rgb_arrays(char **floor_rgb, char **celling_rgb)
+static int	validate_split_arrays(char **floor_rgb, char **celling_rgb)
 {
-	int	i;
+	if (!floor_rgb || !celling_rgb)
+		return (0);
+	if (!floor_rgb[0] || !floor_rgb[1] || !floor_rgb[2])
+		return (0);
+	if (!celling_rgb[0] || !celling_rgb[1] || !celling_rgb[2])
+		return (0);
+	return (1);
+}
 
-	i = 0;
-	while (floor_rgb[i])
-		free(floor_rgb[i++]);
-	free(floor_rgb);
-	i = 0;
-	while (celling_rgb[i])
-		free(celling_rgb[i++]);
-	free(celling_rgb);
+static void	assign_rgb_values(t_map *map, char **f_rgb, char **c_rgb)
+{
+	map->f_rgb.r = ft_atoi(f_rgb[0]);
+	map->f_rgb.g = ft_atoi(f_rgb[1]);
+	map->f_rgb.b = ft_atoi(f_rgb[2]);
+	map->c_rgb.r = ft_atoi(c_rgb[0]);
+	map->c_rgb.g = ft_atoi(c_rgb[1]);
+	map->c_rgb.b = ft_atoi(c_rgb[2]);
 }
 
 void	fill_rgb(t_map *map)
@@ -19,48 +38,17 @@ void	fill_rgb(t_map *map)
 	char	**floor_rgb;
 	char	**celling_rgb;
 
-	if (check_virgul(map->floor_color) == 0
-		&& check_virgul(map->celling_color) == 0)
-	{
-		if (!is_valid_rgb_string(map->floor_color)
-			|| !is_valid_rgb_string(map->celling_color))
-		{
-			print_error(RED INVF_RGB RESET);
-			free_map_struct(map);
-			exit(EXIT_FAILURE);
-		}
-		floor_rgb = ft_split(map->floor_color, ',');
-		celling_rgb = ft_split(map->celling_color, ',');
-		if (!floor_rgb || !celling_rgb || !floor_rgb[0] || !floor_rgb[1]
-			|| !floor_rgb[2] || !celling_rgb[0] || !celling_rgb[1]
-			|| !celling_rgb[2])
-		{
-			free_rgb_arrays(floor_rgb, celling_rgb);
-			print_error(RED MEM_RGB RESET);
-			free_map_struct(map);
-			exit(EXIT_FAILURE);
-		}
-		map->f_rgb.r = ft_atoi(floor_rgb[0]);
-		map->f_rgb.g = ft_atoi(floor_rgb[1]);
-		map->f_rgb.b = ft_atoi(floor_rgb[2]);
-		map->c_rgb.r = ft_atoi(celling_rgb[0]);
-		map->c_rgb.g = ft_atoi(celling_rgb[1]);
-		map->c_rgb.b = ft_atoi(celling_rgb[2]);
-		if (check_rgbs(map))
-		{
-			free_rgb_arrays(floor_rgb, celling_rgb);
-			print_error(RED RGB_VALUES RESET);
-			free_map_struct(map);
-			exit(EXIT_FAILURE);
-		}
-		free_rgb_arrays(floor_rgb, celling_rgb);
-	}
-	else
-	{
-		print_error(RED INV_RGB RESET);
-		free_map_struct(map);
-		exit(EXIT_FAILURE);
-	}
+	if (!validate_rgb_strings(map))
+		handle_error_and_exit(map, RED INV_RGB RESET, NULL, NULL);
+	floor_rgb = ft_split(map->floor_color, ',');
+	celling_rgb = ft_split(map->celling_color, ',');
+	if (!validate_split_arrays(floor_rgb, celling_rgb))
+		handle_error_and_exit(map, RED MEM_RGB RESET, floor_rgb, celling_rgb);
+	assign_rgb_values(map, floor_rgb, celling_rgb);
+	if (check_rgbs(map))
+		handle_error_and_exit(map, RED RGB_VALUES RESET, floor_rgb,
+			celling_rgb);
+	free_rgb_arrays(floor_rgb, celling_rgb);
 }
 
 int	check_rgbs(t_map *map)

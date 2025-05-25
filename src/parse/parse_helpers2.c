@@ -6,81 +6,34 @@
 /*   By: moaregra <moaregra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 15:41:26 by moaregra          #+#    #+#             */
-/*   Updated: 2025/05/22 18:40:18 by moaregra         ###   ########.fr       */
+/*   Updated: 2025/05/25 18:43:41 by moaregra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/cube3d.h"
 
-char	*parse_line(char *s, char *to_trim)
-{
-	char	*new;
-	char	*result;
-	int		len;
-	int		i;
-	int		j;
-
-	new = ft_strtrim(s, to_trim);
-	i = 0;
-	j = 0;
-	if (!new)
-		return (NULL);
-	len = ft_strlen(new);
-	result = malloc(sizeof(char) * (len + 1));
-	if (!result)
-		return (free(new), NULL);
-	while (new[i])
-	{
-		if (new[i] != ' ')
-			result[j++] = new[i];
-		i++;
-	}
-	result[j] = '\0';
-	return (free(new), result);
-}
-
 int	is_valid_rgb_string(const char *rgb)
 {
 	int	i;
-	int	num_count;
-	int	comma_count;
-	int	digit_count;
-	int	has_digit_after_comma;
+	int	digit_cnt;
+	int	num_cnt;
+	int	comma_cnt;
 
-	if (!rgb)
+	if (!rgb || !rgb[0])
 		return (0);
 	i = 0;
-	num_count = 0;
-	comma_count = 0;
-	digit_count = 0;
-	has_digit_after_comma = 1;
+	digit_cnt = 0;
+	num_cnt = 0;
+	comma_cnt = 0;
 	while (rgb[i])
 	{
-		if (rgb[i] >= '0' && rgb[i] <= '9')
-		{
-			digit_count++;
-			has_digit_after_comma = 1;
-			if (digit_count > 3)
-				return (0);
-			if (i == 0 || rgb[i - 1] == ',')
-			{
-				num_count++;
-				digit_count = 1;
-			}
-		}
-		else if (rgb[i] == ',')
-		{
-			comma_count++;
-			digit_count = 0;
-			has_digit_after_comma = 0;
-			if (i == 0 || rgb[i + 1] == '\0')
-				return (0);
-		}
-		else
+		if (rgb[i] == ',')
+			comma_cnt++;
+		if (!validate_char(rgb[i], rgb[i + 1], &digit_cnt, &num_cnt))
 			return (0);
 		i++;
 	}
-	return (num_count == 3 && comma_count == 2 && has_digit_after_comma);
+	return (num_cnt == 3 && comma_cnt == 2 && digit_cnt > 0);
 }
 
 int	is_valid_rgb(int r, int g, int b)
