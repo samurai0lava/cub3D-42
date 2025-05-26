@@ -1,0 +1,12 @@
+NO NO./textures/gnawa/textured_wall.xpm
+
+F F154,140,152
+
+-- empty line in map content
+
+NO ./textures/gnawa/ textured_wall.xpm
+
+switch textture placement
+
+parse file name extension
+

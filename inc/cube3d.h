@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:44:41 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/05/25 22:41:26 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/05/26 16:16:02 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,7 @@
 # define MAPEM "Error\nMap is empty\n"
 # define LMLFF "Error\nLast map line not found in file\n"
 # define CFAM "Error\nContent found after map\n"
+# define IVT "Error\nInvalid textures\n"
 // Structs
 
 typedef struct s_garbage_node

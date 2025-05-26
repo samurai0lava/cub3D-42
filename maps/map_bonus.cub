@@ -1,10 +1,11 @@
-NO ./textures/gnawa/textured_wall.xpm
-EA ./textures/gnawa/textured_wall.xpm
+NO ./textures/gnawa/wall1_pixel.xpm
+SO ./textures/gnawa/wall2_pixel.xpm
 WE ./textures/gnawa/textured_wall.xpm
-SO ./textures/gnawa/textured_wall.xpm
+EA ./textures/gnawa/zelijv2.xpm
 
-F 154,140,152
-C 34,34,59
+
+F 60,60,60
+C 255,255,255
 
                 1111111111111111111111111
                 1N00000000000001000000001

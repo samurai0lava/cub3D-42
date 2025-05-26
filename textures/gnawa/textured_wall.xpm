@@ -34,7 +34,7 @@ static char * textured_wall_xpm[] = {
 "2 	c #D58C40",
 "3 	c #D38C41",
 "4 	c #F3BC5D",
-"5 	c #F8B853",
+"5 	c #F8B853", 
 "6 	c #F7B551",
 "7 	c #F3AC4A",
 "8 	c #F3AC4B",

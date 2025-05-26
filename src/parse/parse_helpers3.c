@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 15:38:42 by moaregra          #+#    #+#             */
-/*   Updated: 2025/05/26 08:56:13 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/05/26 16:16:24 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,7 @@ void	fill_struct(t_map *map, char *av)
 	file = split_file(s);
 	if (!validate_inputs(s, file, map))
 		return ;
-	if (validate_textures(file) == 1)
-		printf(GREEN "Valid Textures\n" RESET);
-	else
+	if (!validate_textures(file))
 		handle_validation_error(s, file);
 	fill_struct_helper(map, file);
 	free_file_resources(s, file);
@@ -73,7 +71,7 @@ void	initiliase_struct(t_map *map, char *av)
 	if (check_texture(map) == 0)
 	{
 		free_map_struct(map);
-		printf("non valid texture\n");
+		print_error(RED IVT RESET);
 		exit(1);
 	}
 	fill_rgb(map);
