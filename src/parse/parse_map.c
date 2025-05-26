@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: samurai0lava <samurai0lava@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 13:42:06 by moaregra          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2025/05/05 18:31:11 by iouhssei         ###   ########.fr       */
-=======
-/*   Updated: 2025/05/20 14:42:45 by iouhssei         ###   ########.fr       */
->>>>>>> main
+/*   Updated: 2025/05/26 16:42:33 by samurai0lav      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +96,6 @@ void	get_map_into2darray(t_map *map, char *av)
 	fill_map_array(map, all_file, lines);
 	if (check_map_last(map, all_file) == 0)
 	{
-<<<<<<< HEAD
 		free_map_struct(map);
 		while (all_file[i])
 		{
@@ -110,18 +105,6 @@ void	get_map_into2darray(t_map *map, char *av)
 		free(all_file);
 		free(s);
 		exit(1);
-=======
-		// printf("alo \n"); segfault instantly after this
-		free_map_struct(map);
-			while (all_file[i])
-				{
-					free(all_file[i]);
-					i++;
-				}
-			free(all_file);
-			free(s);
-			exit(1);
->>>>>>> main
 	}
 	while (all_file[i])
 	{

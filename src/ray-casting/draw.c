@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 18:37:49 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/03/22 23:54:02 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/05/22 15:01:00 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,68 +20,59 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 	*(unsigned int *)dst = color;
 }
 
-void	draw_rectangle(t_data *data, int x, int y, int size, int color)
+size_t	get_row_count(char **map)
 {
-	int	i;
-	int	j;
+	size_t	count;
 
-	i = x;
-	while (i < x + size)
-	{
-		j = y;
-		while (j < y + size)
-		{
-			if (i >= 0 && i < WIDTH && j >= 0 && j < HEIGHT)
-			{
-				my_mlx_pixel_put(data, i, j, color);
-			}
-			j++;
-		}
-		i++;
-	}
+	count = 0;
+	while (map[count] != NULL)
+		count++;
+	return (count);
 }
 
-void	clean_screen(t_data *data, t_cube *cube)
+int	close_win(t_cube *cube)
 {
-	int	x;
-	int	y;
-
-	(void)cube;
-	x = 0;
-	while (x < HEIGHT)
-	{
-		y = 0;
-		while (y < WIDTH)
-		{
-			my_mlx_pixel_put(data, x, y, 0x00000000);
-			y++;
-		}
-		x++;
-	}
+	if (!cube)
+		exit(1);
+	destroy_mlx(cube);
+	free_map_struct(&cube->map);
+	free_all(cube->gc);
+	free(cube);
+	exit(0);
 }
 
-void	draw_map(t_data *data, t_cube *cube)
+int	on_key_press(int keycode, t_cube *cube)
 {
-	int	x;
-	int	y;
-	int	scaled_tex;
+	if (keycode == ESC)
+		handle_esc(cube);
+	if (keycode == W_KEY)
+		cube->keys.w = 1;
+	if (keycode == A_KEY)
+		cube->keys.a = 1;
+	if (keycode == S_KEY)
+		cube->keys.s = 1;
+	if (keycode == D_KEY)
+		cube->keys.d = 1;
+	if (keycode == LEFT_KEY)
+		cube->keys.left = 1;
+	if (keycode == RIGHT_KEY)
+		cube->keys.right = 1;
+	return (0);
+}
 
-	scaled_tex = S_TEX * MAP_SCALE;
-	clean_screen(data, cube);
-	y = 0;
-	while (y < cube->map.map_height)
-	{
-		x = 0;
-		while (x < cube->map.map_width)
-		{
-			if (cube->map.map[x][y] != 0)
-				draw_rectangle(data, x * scaled_tex, y * scaled_tex, scaled_tex,
-					0x00FFEEFF);
-			else
-				draw_rectangle(data, x * scaled_tex, y * scaled_tex, scaled_tex,
-					0x00000000);
-			x++;
-		}
-		y++;
-	}
+int	on_key_release(int keycode, t_cube *cube)
+{
+	if (keycode == W_KEY)
+		cube->keys.w = 0;
+	if (keycode == A_KEY)
+		cube->keys.a = 0;
+	if (keycode == S_KEY)
+		cube->keys.s = 0;
+	if (keycode == D_KEY)
+		cube->keys.d = 0;
+	if (keycode == LEFT_KEY)
+		cube->keys.left = 0;
+	if (keycode == RIGHT_KEY)
+		cube->keys.right = 0;
+	return (0);
 }

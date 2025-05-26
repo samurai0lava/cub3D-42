@@ -1,14 +1,17 @@
 CC = cc
-SRCS =  src/main.c\
-        src/ray-casting/raycaster.c\
+SRCS = 	main.c\
+		src/ray-casting/raycaster.c\
         src/ray-casting/mlx_init.c\
         src/ray-casting/utils.c\
         src/ray-casting/weapon.c\
         src/ray-casting/handle_frames.c\
+		src/ray-casting/draw_weapon2.c\
+		src/ray-casting/draw_weapon.c\
         src/ray-casting/handle_keypress.c\
         src/ray-casting/draw.c\
         src/ray-casting/raycaster_utils1.c\
         src/ray-casting/raycaster_utils.c \
+		src/parse/parse_helper_2_complete.c\
         src/parse/parse_helpers.c \
         src/parse/parse_helpers2.c \
         src/parse/parse_helpers3.c \
@@ -19,6 +22,13 @@ SRCS =  src/main.c\
         src/parse/parse_outils.c\
 		src/parse/check_double_texture.c\
         src/ray-casting/draw_walls.c\
+		src/ray-casting/utils2.c\
+		src/ray-casting/raycaster_utils2.c\
+		src/parse/parse_map_complete.c\
+		src/parse/parse_helper_3_complete.c\
+		src/parse/parse_helpers4.c
+		
+
 
 BONS =  src/parse/parse_helpers.c \
         src/parse/parse_helpers2.c \
@@ -29,6 +39,10 @@ BONS =  src/parse/parse_helpers.c \
         src/parse/parse.c\
         src/parse/parse_outils.c\
 		src/parse/check_double_texture.c\
+		src/parse/parse_helpers4.c\
+		src/parse/parse_helper_3_complete.c\
+		src/parse/parse_helper_2_complete.c\
+		src/parse/parse_map_complete.c\
         src_bonus/ray-casting-bonus/mini_map.c\
         src_bonus/ray-casting-bonus/raycaster.c\
         src_bonus/ray-casting-bonus/mlx_init.c\
@@ -41,7 +55,12 @@ BONS =  src/parse/parse_helpers.c \
         src_bonus/ray-casting-bonus/raycaster_utils1.c\
         src_bonus/ray-casting-bonus/draw_walls.c\
         src_bonus/ray-casting-bonus/raycaster_utils.c \
-        src_bonus/main.c
+		main.c\
+		src_bonus/ray-casting-bonus/draw_weapon2.c\
+		src_bonus/ray-casting-bonus/draw_weapon.c\
+		src_bonus/ray-casting-bonus/utils2.c\
+		src_bonus/ray-casting-bonus/raycaster_utils2.c\
+		src_bonus/ray-casting-bonus/mini_map_helper.c\
 
 LIB = libft/libft.a
 NAME = cub3D

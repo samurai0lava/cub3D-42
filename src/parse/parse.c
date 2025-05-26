@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 12:38:50 by moaregra          #+#    #+#             */
-/*   Updated: 2025/05/20 14:43:40 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/05/25 21:48:23 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,40 +56,13 @@ size_t	ft_strlenewline(char *s)
 	return (i);
 }
 
-int	check_virgul(char *av)
+static char	*utils_gnl(int fd)
 {
-	int	i;
-	int	count;
-
-	i = 0;
-	count = 0;
-	if (!av)
-		return (0);
-	while (av[i])
-	{
-		if (av[i] == ',')
-			count++;
-		i++;
-	}
-	if (count == 2)
-		return (0);
-	return (1);
-}
-
-char	*get_file_in_char(char *av)
-{
-	char	*line;
-	int		fd;
-	char	*temp_join;
 	char	*map_content;
+	char	*temp_join;
+	char	*line;
 
 	map_content = NULL;
-	fd = open(av, O_RDONLY);
-	if (fd == -1)
-	{
-		print_error("Error\n Failed to open file.");
-		return (NULL);
-	}
 	line = get_next_line(fd);
 	while (line != NULL)
 	{
@@ -97,33 +70,34 @@ char	*get_file_in_char(char *av)
 		{
 			map_content = ft_strdup(line);
 			if (!map_content)
-			{
-				free(line);
-				close(fd);
-				return (NULL);
-			}
+				return (free(line), close(fd), NULL);
 		}
 		else
 		{
 			temp_join = ft_strjoin(map_content, line);
 			if (!temp_join)
-			{
-				free(line);
-				close(fd);
-				return (NULL);
-			}
+				return (free(line), close(fd), NULL);
 			map_content = temp_join;
 		}
 		free(line);
 		line = get_next_line(fd);
 	}
-	close(fd);
+	return (close(fd), map_content);
+}
+
+char	*get_file_in_char(char *av)
+{
+	int		fd;
+	char	*map_content;
+
+	map_content = NULL;
+	fd = open(av, O_RDONLY);
+	if (fd == -1)
+		return (perror("Error opening file"), NULL);
+	map_content = utils_gnl(fd);
 	if (map_content == NULL)
 		map_content = ft_strdup("");
 	if (!map_content)
-	{
-		close(fd);
-		return (NULL);
-	}
+		return (close(fd), NULL);
 	return (map_content);
 }

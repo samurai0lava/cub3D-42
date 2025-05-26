@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 17:25:25 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/03/12 00:47:26 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/05/22 15:16:17 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,12 @@ static void	game_loop_mouse(t_cube *cube)
 
 int	handle_mouse_move(int x, int y, t_cube *cube)
 {
-	static int	inRecenter;
+	static int	inrecenter;
 	int			dx;
 
-	if (inRecenter)
+	if (inrecenter)
 	{
-		inRecenter = 0;
+		inrecenter = 0;
 		cube->mouse_x = x;
 		return (0);
 	}
@@ -40,7 +40,7 @@ int	handle_mouse_move(int x, int y, t_cube *cube)
 	}
 	if (x != WIDTH / 2)
 	{
-		inRecenter = 1;
+		inrecenter = 1;
 		mlx_mouse_move(cube->mlx, cube->mlx_window, WIDTH / 2, HEIGHT / 2);
 	}
 	game_loop_mouse(cube);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_helpers.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moaregra <moaregra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 12:38:53 by moaregra          #+#    #+#             */
-/*   Updated: 2025/03/17 15:40:21 by moaregra         ###   ########.fr       */
+/*   Updated: 2025/05/25 19:47:09 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,70 +16,12 @@ void	free_all_lines(char **lines)
 {
 	int	i;
 
+	if (!lines)
+		return ;
 	i = 0;
 	while (lines[i])
 		free(lines[i++]);
 	free(lines);
-}
-
-void	alloc_clean_lines(char **all_line, char ***clean_line, int count)
-{
-	*clean_line = malloc(sizeof(char *) * (count + 1));
-	if (!(*clean_line))
-	{
-		free_all_lines(all_line);
-		return ;
-	}
-}
-
-char	**count_and_alloc_lines(char **all_line, int *count)
-{
-	int		i;
-	char	**clean_line;
-
-	*count = 0;
-	i = 0;
-	while (all_line[i])
-	{
-		if (all_line[i][0] != '\n')
-			(*count)++;
-		i++;
-	}
-	alloc_clean_lines(all_line, &clean_line, *count);
-	return (clean_line);
-}
-
-char	**split_file(char *s)
-{
-	char	**all_line;
-	char	**clean_line;
-	int		i;
-	int		j;
-	int		count;
-
-	if (!s)
-		return (NULL);
-	all_line = ft_split(s, '\n');
-	if (!all_line)
-		return (NULL);
-	clean_line = count_and_alloc_lines(all_line, &count);
-	if (!clean_line)
-		return (NULL);
-	i = 0;
-	j = 0;
-	while (all_line[i])
-	{
-		if (all_line[i][0] != '\n')
-		{
-			clean_line[j] = ft_strdup(all_line[i]);
-			if (!clean_line[j++])
-				return (free_clean_lines(clean_line, j), NULL);
-		}
-		free(all_line[i++]);
-	}
-	clean_line[j] = NULL;
-	free(all_line);
-	return (clean_line);
 }
 
 void	*free_clean_lines(char **clean_line, int j)
@@ -88,4 +30,58 @@ void	*free_clean_lines(char **clean_line, int j)
 		free(clean_line[--j]);
 	free(clean_line);
 	return (NULL);
+}
+
+static int	count_valid_lines(char **all_line)
+{
+	int	i;
+	int	count;
+
+	i = 0;
+	count = 0;
+	while (all_line[i])
+	{
+		if (all_line[i][0] != '\n')
+			count++;
+		i++;
+	}
+	return (count);
+}
+
+static char	**allocate_clean_array(char **all_line, int count)
+{
+	char	**clean_line;
+
+	clean_line = malloc(sizeof(char *) * (count + 1));
+	if (!clean_line)
+		free_all_lines(all_line);
+	return (clean_line);
+}
+
+char	**split_file(char *s)
+{
+	t_split	spl;
+
+	spl.all_line = ft_split(s, '\n');
+	if (!s || !spl.all_line)
+		return (NULL);
+	spl.count = count_valid_lines(spl.all_line);
+	spl.clean_line = allocate_clean_array(spl.all_line, spl.count);
+	if (!(spl.clean_line))
+		return (NULL);
+	spl.i = 0;
+	spl.j = 0;
+	while (spl.all_line[spl.i])
+	{
+		if (spl.all_line[spl.i][0] != '\n')
+		{
+			spl.clean_line[spl.j] = ft_strdup(spl.all_line[spl.i]);
+			if (!spl.clean_line[spl.j++])
+				return (free_clean_lines(spl.clean_line, spl.j),
+					free_all_lines(spl.all_line), NULL);
+		}
+		free(spl.all_line[spl.i++]);
+	}
+	spl.clean_line[spl.j] = NULL;
+	return (free(spl.all_line), spl.clean_line);
 }

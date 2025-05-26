@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:44:52 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/05/20 14:46:06 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/05/22 15:02:32 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ void	init_textures(t_cube *cube)
 		i++;
 	}
 }
+
 void	mlx_hook_cube(t_cube *cube)
 {
 	mlx_hook(cube->mlx_window, 17, 1L << 17, close_win, cube);
@@ -66,6 +67,7 @@ void	game_engine(t_cube *cube)
 	mlx_loop_hook(cube->mlx, key_loop, cube);
 	mlx_loop(cube->mlx);
 }
+
 void	init_mlx(t_cube *cube, t_data *data)
 {
 	cube->mlx = mlx_init();

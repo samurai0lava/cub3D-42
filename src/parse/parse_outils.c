@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse_outils.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: moaregra <moaregra@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/25 18:22:06 by moaregra          #+#    #+#             */
+/*   Updated: 2025/05/25 18:22:07 by moaregra         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../inc/cube3d.h"
 
 int	ft_isspace(char c)
@@ -41,47 +53,46 @@ void	count_w_h(t_map *map)
 	map->map_width = biggest_line;
 }
 
-void    get_x_y(t_map *map)
+void	get_x_y(t_map *map)
 {
-    int i;
-    int j;
+	int	i;
+	int	j;
 
-    i = 0;
-    if (!map || !map->map)
-        return ;
-    while (map->map[i] != NULL)
-    {
-        j = 0;
-        while (map->map[i][j] != '\0')
-        {
-            if (map->map[i][j] == 'N' || map->map[i][j] == 'S'
-                || map->map[i][j] == 'E' || map->map[i][j] == 'W')
-            {
-                map->x = j;
-                map->y = i;
-                return ;
-            }
-            j++;
-        }
-        i++;
-    }
+	i = 0;
+	if (!map || !map->map)
+		return ;
+	while (map->map[i] != NULL)
+	{
+		j = 0;
+		while (map->map[i][j] != '\0')
+		{
+			if (map->map[i][j] == 'N' || map->map[i][j] == 'S'
+				|| map->map[i][j] == 'E' || map->map[i][j] == 'W')
+			{
+				map->x = j;
+				map->y = i;
+				return ;
+			}
+			j++;
+		}
+		i++;
+	}
 }
 
 void	check_direction(t_map *map)
 {
-	get_x_y(map);
-	
-	int x;
-	int y;
+	int	x;
+	int	y;
 
+	get_x_y(map);
 	y = (int)map->x;
 	x = (int)map->y;
-	if (map->map[x][y] == 'N')
-		map->start_angle = 0;
-	if (map->map[x][y] == 'S')
-		map->start_angle = PI;
 	if (map->map[x][y] == 'E')
-		map->start_angle = 3 * PI / 2;
+		map->start_angle = 0;
 	if (map->map[x][y] == 'W')
+		map->start_angle = PI;
+	if (map->map[x][y] == 'N')
+		map->start_angle = 3 * PI / 2;
+	if (map->map[x][y] == 'S')
 		map->start_angle = PI / 2;
 }

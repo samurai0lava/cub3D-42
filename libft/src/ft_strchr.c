@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/04 18:53:17 by iouhssei          #+#    #+#             */
-/*   Updated: 2023/11/12 17:42:28 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/05/22 15:21:07 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ char	*ft_strchr(const char *s, int c)
 	size_t			i;
 	unsigned char	ch;
 
-	if(!s)
+	if (!s)
 		return (NULL);
 	ch = (unsigned char)c;
 	i = 0;

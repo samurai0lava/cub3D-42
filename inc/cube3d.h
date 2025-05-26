@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:44:41 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/05/20 15:24:58 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/05/26 16:16:02 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,14 +66,11 @@
 # define HEIGHT 1000
 # define S_TEX 64
 # define MAP_SCALE 0.5
-# define TILE_SIZE (S_TEX * MAP_SCALE)
-# define FOV PI / 3
+# define FOV 1.0471975512
 
 // minimap
 
 # define MINIMAP_RADIUS 80
-# define MINIMAP_X (MINIMAP_RADIUS + 10)
-# define MINIMAP_Y (MINIMAP_RADIUS + HEIGHT - 180)
 # define PLAYER_DOT_SIZE 3
 # define MINIMAP_SCALE 3
 # define MIN_DISTANCE 0.5
@@ -83,9 +80,23 @@
 
 # define FRAME_DELAY 30
 # define MVM_SPEED 2
-# define RT_SPEED 0.01
+# define RT_SPEED 0.02
 # define MOUSE_SENSITIVITY 0.001
 
+// error messsages
+
+# define NO_ARGS "Error\nUsage :./cub3D maps/choose_your_map.cub\n"
+# define INV_FILE "Error\nInvalid file name\n"
+# define INV_RGB "Error\nInvalid RGB\n"
+# define INVF_RGB "Error\nInvalid RGB format\n"
+# define MAP_INV "Error\nMap is invalid\n"
+# define MEM_RGB "Error\nMemory allocation or RGB split error\n"
+# define RGB_VALUES "Error\nRGB values must be between 0 and 255\n"
+# define EROF "Error\nOpening file\n"
+# define MAPEM "Error\nMap is empty\n"
+# define LMLFF "Error\nLast map line not found in file\n"
+# define CFAM "Error\nContent found after map\n"
+# define IVT "Error\nInvalid textures\n"
 // Structs
 
 typedef struct s_garbage_node
@@ -153,20 +164,20 @@ typedef struct s_enemie
 typedef struct s_raycast
 {
 	double					ray_angle;
-	double					rayDirX;
-	double					rayDirY;
-	size_t					mapX;
-	size_t					mapY;
-	double					deltaDistX;
-	double					deltaDistY;
-	int						stepX;
-	int						stepY;
-	double					sideDistX;
-	double					sideDistY;
+	double					raydirx;
+	double					raydiry;
+	size_t					mapx;
+	size_t					mapy;
+	double					deltadistx;
+	double					deltadisty;
+	int						stepx;
+	int						stepy;
+	double					sidedistx;
+	double					sidedisty;
 	int						hit_wall;
 	int						side;
 	int						safety;
-	double					perpWallDist;
+	double					perpwalldist;
 	double					angle_diff;
 	double					wall_height;
 	t_data					*selected_tex;
@@ -174,10 +185,10 @@ typedef struct s_raycast
 	int						tex_x;
 	int						color;
 	int						tile_val;
-	double					hitX;
-	double					hitY;
+	double					hitx;
+	double					hity;
 	int						x;
-	double                  uncorrectedDist;
+	double					uncorrecteddist;
 }							t_raycast;
 
 typedef struct s_handle_keys
@@ -249,6 +260,31 @@ typedef struct s_wall
 	double					tex_step;
 }							t_wall;
 
+typedef struct s_mini_map
+{
+	int						local_x;
+	int						local_y;
+	int						row_count;
+	double					world_x;
+	double					world_y;
+	size_t					col_count;
+	int						map_x;
+	int						map_y;
+	double					x;
+	double					y;
+	double					x_inc;
+	double					y_inc;
+
+}							t_mini_map;
+typedef struct s_split
+{
+	char					**all_line;
+	char					**clean_line;
+	int						i;
+	int						j;
+	int						count;
+}							t_split;
+
 typedef struct s_cube
 {
 	void					*mlx;
@@ -288,12 +324,21 @@ void						print_2d(char **s);
 void						free_map_textures(t_map *map);
 void						free_map_struct(t_map *map);
 int							handle_errors(int err_code);
+void						free_rgb_arrays(char **floor_rgb,
+								char **celling_rgb);
+void						handle_error_and_exit(t_map *map, char *msg,
+								char **f_rgb, char **c_rgb);
+int							validate_rgb_strings(t_map *map);
+char						*parse_line(char *s, char *to_trim);
+int							is_digit(char c);
+int							validate_char(char c, char next, int *digit_cnt,
+								int *num_cnt);
 
 /* parse.c */
 int							check_file_name(char *s);
 int							check_texture(t_map *map);
 size_t						ft_strlenewline(char *s);
-int							check_virgul(char *av);
+int							check_virgul(const char *str);
 char						*get_file_in_char(char *av);
 
 /* parse_helpers1.c */
@@ -304,14 +349,19 @@ char						**count_and_alloc_lines(char **all_line,
 								int *count);
 char						**split_file(char *s);
 void						*free_clean_lines(char **clean_line, int j);
+void						free_file_resources(char *s, char **file);
+int							validate_inputs(char *s, char **file, t_map *map);
 
 /* parse_helpers2.c */
 char						*parse_line(char *s, char *to_trim);
 void						free_rgb_arrays(char **floor_rgb,
 								char **celling_rgb);
 void						fill_rgb(t_map *map);
+int							is_valid_rgb_string(const char *rgb);
 int							is_valid_rgb(int r, int g, int b);
 int							check_rgbs(t_map *map);
+void						free_rgb_arrays(char **floor_rgb,
+								char **celling_rgb);
 
 /* parse_helpers3.c */
 void						parse_texture(t_map *map, char *line,
@@ -353,6 +403,7 @@ int							check_map_content(t_map *map, int size);
 void						check_direction(t_map *map);
 int							validate_textures(char **lines);
 int							count_double_char(char **s);
+void						initiliase_struct(t_map *map, char *av);
 // FUNCTIONS :
 
 //----INITIALIZATION-==---------------//
@@ -375,8 +426,8 @@ void						*tracked_malloc(t_garbage_collector *gc,
 void						my_mlx_pixel_put(t_data *data, int x, int y,
 								int color);
 int							handle_keypress(int keycode, t_cube *cube);
+void						handle_esc(t_cube *cube);
 void						cast_away(t_cube *cube);
-void						draw_map(t_data *data, t_cube *cube);
 void						clean_screen(t_data *data, t_cube *cube);
 void						init_textures(t_cube *cube);
 int							color_shading(int color, double distance);
@@ -400,8 +451,6 @@ void						update_frame(t_cube *cube);
 int							load_frames(t_cube *cube);
 void						add_frame_ls(t_cube *cube);
 int							handle_mouse_move(int x, int y, t_cube *cube);
-void						draw_rectangle(t_data *data, int x, int y, int size,
-								int color);
 void						init_minimap_params(t_cube *cube);
 void						init_raycast(t_cube *cube, t_raycast *rc,
 								int ray_index);
@@ -425,4 +474,16 @@ void						mlx_hook_cube(t_cube *cube);
 void						init_colliding(t_cube *cube, double *px,
 								double *py);
 size_t						get_row_count(char **map);
+char						*build_texture_path(int frame_num, t_cube *cube);
+int							load_single_texture(t_cube *cube, int index,
+								char *path);
+void						set_texture_prop(t_cube *cube, int index);
+void						calculate_weapon_ratios(t_cube *cube);
+void						get_texture_coordinates(t_cube *cube, int x, int y);
+void						calculate_screen_position(t_cube *cube, int x,
+								int y);
+int							is_pixel_in_bounds(t_cube *cube);
+int							is_pixel_visible(t_cube *cube);
+void						draw_weapon_pixel(t_cube *cube, int x, int y);
+
 #endif
