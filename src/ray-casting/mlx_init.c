@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:44:52 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/05/22 15:02:32 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/05/27 15:25:58 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ void	init_textures(t_cube *cube)
 	int		i;
 
 	i = 0;
-	path[1] = cube->map.ea;
-	path[0] = cube->map.no;
+	path[0] = cube->map.ea;
+	path[1] = cube->map.no;
 	path[2] = cube->map.se;
 	path[3] = cube->map.we;
 	while (i < 4)
