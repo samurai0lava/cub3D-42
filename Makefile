@@ -26,7 +26,8 @@ SRCS = 	main.c\
 		src/ray-casting/raycaster_utils2.c\
 		src/parse/parse_map_complete.c\
 		src/parse/parse_helper_3_complete.c\
-		src/parse/parse_helpers4.c
+		src/parse/parse_helpers4.c\
+		src/parse/helpers.c
 		
 
 
@@ -85,7 +86,7 @@ $(LIB):
 	@echo "$(GREEN)✅ Libft compiled successfully.$(NC)"
 
 $(NAME): $(OBJ) $(LIB)
-	$(CC) $(OBJ) -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o $(NAME) $(LIB)
+	$(CC) $(OBJ) -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o $(NAME) $(LIB) -fsanitize=address
 	@echo "$(GREEN)✅ $(NAME) built successfully! You can now run ./$(NAME) <map_file>.cub$(NC)"
 	@echo "$(GREEN) ________  ___  ___  ________  ________  ________ $(NC)"
 	@echo "$(GREEN)|\   ____\|\  \|\  \|\   __  \|\_____  \|\   ___ \ $(NC)"

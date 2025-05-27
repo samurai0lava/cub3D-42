@@ -333,6 +333,7 @@ char						*parse_line(char *s, char *to_trim);
 int							is_digit(char c);
 int							validate_char(char c, char next, int *digit_cnt,
 								int *num_cnt);
+								int	is_valid_cub_path(char *path);
 
 /* parse.c */
 int							check_file_name(char *s);
@@ -342,12 +343,16 @@ int							check_virgul(const char *str);
 char						*get_file_in_char(char *av);
 
 /* parse_helpers1.c */
+int check_empty_line(char *s);
+int	is_valid_xpm_path(const char *path);
 void						free_all_lines(char **lines);
 void						alloc_clean_lines(char **all_line,
 								char ***clean_line, int count);
 char						**count_and_alloc_lines(char **all_line,
 								int *count);
 char						**split_file(char *s);
+int check_all_double(char *s);
+int							check_double(char *s,char *to_find);
 void						*free_clean_lines(char **clean_line, int j);
 void						free_file_resources(char *s, char **file);
 int							validate_inputs(char *s, char **file, t_map *map);

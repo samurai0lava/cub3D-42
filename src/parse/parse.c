@@ -14,13 +14,15 @@
 
 int	check_file_name(char *s)
 {
-	int	fd;
+    int	fd;
 
-	fd = open(s, O_RDONLY);
-	if (fd == -1)
-		return (0);
-	close(fd);
-	return (1);
+    if (is_valid_cub_path(s) == 0)
+        return (0);
+    fd = open(s, O_RDONLY);
+    if (fd == -1)
+        return (0);
+    close(fd);
+    return (1);
 }
 
 int	check_texture(t_map *map)
