@@ -6,7 +6,7 @@
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 12:38:50 by moaregra          #+#    #+#             */
-/*   Updated: 2025/05/28 14:28:15 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/05/28 14:46:54 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ char	*get_file_in_char(char *av)
 	map_content = NULL;
 	fd = open(av, O_RDONLY);
 	if (fd == -1)
-		return (perror("Error opening file"), NULL);
+		return (print_error(RED EROF RESET), NULL);
 	map_content = utils_gnl(fd);
 	if (map_content == NULL)
 		map_content = ft_strdup("");
