@@ -34,6 +34,7 @@ SRCS = 	main.c\
 BONS =  src/parse/parse_helpers.c \
         src/parse/parse_helpers2.c \
         src/parse/parse_helpers3.c \
+		src/parse/helpers.c\
         src/parse/parse_map.c \
         src/parse/parse_mapv2.c \
         src/parse/parse_mapv3.c \
