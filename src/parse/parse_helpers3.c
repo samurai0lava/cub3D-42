@@ -50,6 +50,7 @@ static void	handle_validation_error(char *s, char **file)
 	exit(1);
 }
 
+
 void	fill_struct(t_map *map, char *av)
 {
 	char	*s;
@@ -59,6 +60,11 @@ void	fill_struct(t_map *map, char *av)
 	file = split_file(s);
 	if (!validate_inputs(s, file, map))
 		return ;
+	if(check_newline_in_map(s) == 1)
+	{
+		free_file_resources(s,file);
+		exit(1);
+	}
 	if(check_all_double(s) == 0)
 	{
 		free_file_resources(s, file);

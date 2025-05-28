@@ -320,6 +320,7 @@ typedef struct s_cube
 	t_map					map;
 }							t_cube;
 
+int	check_newline_in_map(char *s);
 void						print_2d(char **s);
 void						free_map_textures(t_map *map);
 void						free_map_struct(t_map *map);

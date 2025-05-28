@@ -53,3 +53,54 @@ int	validate_textures(char **lines)
 	}
 	return (1);
 }
+int	is_map_char(char c)
+{
+    return (c == '0' || c == '1' || c == 'N' || c == 'S' || 
+            c == 'E' || c == 'W' || c == ' ');
+}
+
+int	is_texture_line(char *line)
+{
+    if (ft_strncmp(line, "NO ", 3) == 0 || ft_strncmp(line, "SO ", 3) == 0 ||
+        ft_strncmp(line, "WE ", 3) == 0 || ft_strncmp(line, "EA ", 3) == 0 ||
+        ft_strncmp(line, "F ", 2) == 0 || ft_strncmp(line, "C ", 2) == 0)
+        return (1);
+    return (0);
+}
+
+int	check_map_after_newline(char *s, int start, int len)
+{
+	int	j;
+
+	j = start;
+	while (j < len && (s[j] == ' ' || s[j] == '\t' || s[j] == '\n'))
+		j++;
+	if (j < len && is_map_char(s[j]) && s[j] != ' ')
+		return (1);
+	return (0);
+}
+int	check_newline_in_map(char *s)
+{
+    int	i;
+    int	map_started;
+    int	len;
+
+    i = -1;
+    map_started = 0;
+    len = ft_strlen(s);
+    while (++i < len)
+    {
+        if (is_texture_line(&s[i]))
+        {
+            while (i < len && s[i] != '\n')
+                i++;
+            continue;
+        }
+        if (is_map_char(s[i]) && s[i] != ' ')
+            map_started = 1;
+        if (map_started && s[i] == '\n' && i + 1 < len && s[i + 1] == '\n'
+            && check_map_after_newline(s, i + 2, len))
+            return (1);
+    }
+    return (0);
+}
