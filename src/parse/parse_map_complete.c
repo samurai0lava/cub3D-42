@@ -6,7 +6,7 @@
 /*   By: moaregra <moaregra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/25 18:22:15 by moaregra          #+#    #+#             */
-/*   Updated: 2025/05/25 18:22:16 by moaregra         ###   ########.fr       */
+/*   Updated: 2025/05/28 20:02:22 by moaregra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,3 +46,10 @@ void	count_map_lines(char **all_file, int *lines, int *map_started)
 		i++;
 	}
 }
+
+int	is_map_char(char c)
+{
+	return (c == '0' || c == '1' || c == 'N' || c == 'S' || c == 'E' || c == 'W'
+		|| c == ' ');
+}
+

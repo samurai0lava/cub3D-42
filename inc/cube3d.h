@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube3d.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: moaregra <moaregra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:44:41 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/05/28 14:49:06 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/05/28 20:00:56 by moaregra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,7 @@
 # define LMLFF "Error\nLast map line not found in file\n"
 # define CFAM "Error\nContent found after map\n"
 # define IVT "Error\nInvalid textures\n"
+# define EMLM "Error\nEmpty line in Map\n"
 // Structs
 
 typedef struct s_garbage_node
@@ -320,7 +321,7 @@ typedef struct s_cube
 	t_map					map;
 }							t_cube;
 
-int	check_newline_in_map(char *s);
+int							check_newline_in_map(char *s);
 void						print_2d(char **s);
 void						free_map_textures(t_map *map);
 void						free_map_struct(t_map *map);
@@ -369,6 +370,7 @@ void						free_rgb_arrays(char **floor_rgb,
 								char **celling_rgb);
 
 /* parse_helpers3.c */
+int							is_map_char(char c);
 void						parse_texture(t_map *map, char *line,
 								char *identifier, char **dest);
 void						fill_struct_helper(t_map *map, char **file);
@@ -409,6 +411,8 @@ void						check_direction(t_map *map);
 int							validate_textures(char **lines);
 int							count_double_char(char **s);
 void						initiliase_struct(t_map *map, char *av);
+int							check_map_after_newline(char *s, int start,
+								int len);
 // FUNCTIONS :
 
 //----INITIALIZATION-==---------------//

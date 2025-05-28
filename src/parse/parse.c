@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: moaregra <moaregra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 12:38:50 by moaregra          #+#    #+#             */
-/*   Updated: 2025/05/28 14:46:54 by iouhssei         ###   ########.fr       */
+/*   Updated: 2025/05/28 19:52:19 by moaregra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,15 @@
 
 int	check_file_name(char *s)
 {
-    int	fd;
+	int	fd;
 
-    if (is_valid_cub_path(s) == 0)
-        return (0);
-    fd = open(s, O_RDONLY);
-    if (fd == -1)
-        return (0);
-    close(fd);
-    return (1);
+	if (is_valid_cub_path(s) == 0)
+		return (0);
+	fd = open(s, O_RDONLY);
+	if (fd == -1)
+		return (0);
+	close(fd);
+	return (1);
 }
 
 int	check_texture(t_map *map)
