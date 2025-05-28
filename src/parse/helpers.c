@@ -10,8 +10,8 @@ int	check_double(char *s, char *to_find)
 		return (0);
 	if (tmp != NULL)
 	{
-		if (tmp + 1 == NULL)
-			return (0);
+		// if (tmp + 1 == NULL)
+		// 	return (0);
 		tmp2 = ft_strnstr(tmp + 1, to_find, ft_strlen(s));
 		if (tmp2 != NULL)
 			return (0);
@@ -33,5 +33,3 @@ int	check_all_double(char *s)
 	}
 	return (1);
 }
-
-///////////////////////////////////////////////

@@ -4,9 +4,12 @@ F F154,140,152 // fixed
 
 -- empty line in map content
 
-NO ./textures/gnawa/ textured_wall.xpm 
+NO ./textures/gnawa/ textured_wall.xpm /fixed
 
 switch textture placement //fixed
 
-parse file name extension
+parse file name extension //fixed
 
+tmp + 1 ?? src/parse/helpers.c:13:29 
+
+return 1 for empty line in map (should print an error message)
