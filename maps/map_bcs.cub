@@ -1,7 +1,7 @@
 
-NO ./textures/bcs/ad2.xpm       
+NO ./textures/bcs/jimiiii.xpm       
 SO ./textures/breaking_bad/walter.xpm
-WE ./textures/bcs/jimiiii.xpm
+WE ./textures/bcs/ad2.xpm
 EA ./textures/bcs/mikiii.xpm
 
 F 154,140,152
@@ -10,7 +10,7 @@ C 32,6,45
 
 
 111111111111111111111
-1111111111E0000000001
+1111111111N0000000001
 10000000000000000000111111111111111111
 10000000000000000000111111111111111111
 10000000000000000000111111111111111111
