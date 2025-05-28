@@ -6,7 +6,7 @@
 /*   By: moaregra <moaregra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 12:38:48 by moaregra          #+#    #+#             */
-/*   Updated: 2025/05/28 20:02:11 by moaregra         ###   ########.fr       */
+/*   Updated: 2025/05/28 20:05:27 by moaregra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,4 +66,3 @@ int	handle_errors(int err_code)
 		return (write(2, "invalid map\n", 13), 1);
 	return (1);
 }
-
