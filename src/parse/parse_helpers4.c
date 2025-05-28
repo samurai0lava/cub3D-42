@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_helpers4.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moaregra <moaregra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/25 18:39:54 by moaregra          #+#    #+#             */
-/*   Updated: 2025/05/25 18:47:12 by moaregra         ###   ########.fr       */
+/*   Updated: 2025/05/28 14:26:49 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,7 @@ char	*parse_line(char *s, char *to_trim)
 		return (free(new), NULL);
 	while (new[i])
 	{
-		if (new[i] != ' ')
-			result[j++] = new[i];
+		result[j++] = new[i];
 		i++;
 	}
 	result[j] = '\0';
